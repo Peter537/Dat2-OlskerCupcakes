@@ -17,10 +17,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserMapperTest
 {
     // TODO: Change mysql login credentials if needed below
+    //       - Add getPassword() method to a local /data/dbPassword.txt file
 
     private final static String USER = "root";
-    private final static String PASSWORD = "root";
-    private final static String URL = "jdbc:mysql://localhost:3306/startcode_test?serverTimezone=CET&allowPublicKeyRetrieval=true&useSSL=false";
+    private final static String PASSWORD = "123";
+    private final static String URL = "jdbc:mysql://localhost:3306/olskerCupcakes_test?serverTimezone=CET&allowPublicKeyRetrieval=true&useSSL=false";
 
     private static ConnectionPool connectionPool;
 

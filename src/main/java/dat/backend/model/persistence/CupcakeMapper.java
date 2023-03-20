@@ -4,6 +4,8 @@ import dat.backend.model.entities.*;
 
 import javax.xml.transform.Result;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,6 +102,34 @@ class CupcakeMapper {
         }
         return null;
     }
+
+
+    public static List<Order> getAllOrders(ConnectionPool connectionPool) {
+        try {
+            String statement = "SELECT * FROM order";
+            PreparedStatement pstmt = connectionPool.getConnection().prepareStatement(statement);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            ArrayList<Order> orders = new ArrayList<>();
+
+            while (rs.next()) {
+                int order_id = rs.getInt("order_id");
+                String email = rs.getString("fk_user_email");
+                LocalDateTime time = rs.getDate("readytime").toLocalDate().atStartOfDay();
+                float totalprice = rs.getFloat("totalprice");
+                int cupcakecount = rs.getInt("cupcakecount");
+                String status = rs.getString("status");
+                Order order = new Order(order_id, null, time, null);
+//TODO: Add more to order constructor, and then fix above line (123) so it uses the correct values.
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public static void createOrder(Order order, ConnectionPool connectionPool) {
 

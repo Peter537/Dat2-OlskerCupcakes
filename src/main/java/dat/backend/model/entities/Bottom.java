@@ -4,14 +4,14 @@ public class Bottom {
 
     private int id;
     private String name;
-    private int price;
+    private float price;
 
-    public Bottom(String name, int price) {
+    public Bottom(String name, float price) {
         this.name = name;
         this.price = price;
     }
 
-    public Bottom(int id, String name, int price) {
+    public Bottom(int id, String name, float price) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -33,11 +33,11 @@ public class Bottom {
         this.name = name;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return this.price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

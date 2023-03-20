@@ -52,7 +52,7 @@ public class Cupcake {
         this.quantity = quantity;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return this.bottom.getPrice() + this.top.getPrice();
     }
 

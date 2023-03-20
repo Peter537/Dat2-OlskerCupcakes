@@ -56,6 +56,26 @@ class UserMapper {
     }
 
     static List<User> getAllUsers(Connection connection) throws DatabaseException {
-        return new ArrayList<>();
+        List<User> users = new ArrayList<>();
+        try {
+            Logger.getLogger("web").log(Level.INFO, "");
+
+
+            String sql = "SELECT * FROM user";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String role = rs.getString("role");
+                users.add(new User(email, password, Role.valueOf(role.toUpperCase())));
+            }
+
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Could not get all users from database");
+        }
+
+        return users;
     }
 }

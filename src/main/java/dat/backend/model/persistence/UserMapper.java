@@ -1,5 +1,6 @@
 package dat.backend.model.persistence;
 
+import dat.backend.model.entities.Role;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 
@@ -23,7 +24,7 @@ class UserMapper {
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     String role = rs.getString("role");
-                    user = new User(username, password, role);
+                    user = new User(username, password, Role.valueOf(role));
                 } else {
                     throw new DatabaseException("Wrong username or password");
                 }
@@ -34,7 +35,7 @@ class UserMapper {
         return user;
     }
 
-    static User createUser(String username, String password, String role, ConnectionPool connectionPool) throws DatabaseException {
+    static User createUser(String username, String password, Role role, ConnectionPool connectionPool) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
         User user;
         String sql = "insert into user (username, password, role) values (?,?,?)";
@@ -42,7 +43,7 @@ class UserMapper {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setString(1, username);
                 ps.setString(2, password);
-                ps.setString(3, role);
+                ps.setString(3, role.toString());
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected == 1) {
                     user = new User(username, password, role);

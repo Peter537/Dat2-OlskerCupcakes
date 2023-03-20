@@ -1,5 +1,6 @@
 package dat.backend.persistence;
 
+import dat.backend.model.entities.Role;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
@@ -87,9 +88,9 @@ class UserMapperTest {
 
     @Test
     void createUser() throws DatabaseException {
-        User newUser = UserFacade.createUser("jill", "1234", "user", connectionPool);
+        User newUser = UserFacade.createUser("jill", "1234", Role.CUSTOMER, connectionPool);
         User logInUser = UserFacade.login("jill", "1234", connectionPool);
-        User expectedUser = new User("jill", "1234", "user");
+        User expectedUser = new User("jill", "1234", Role.CUSTOMER);
         assertEquals(expectedUser, newUser);
         assertEquals(expectedUser, logInUser);
     }

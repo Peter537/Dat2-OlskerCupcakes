@@ -37,6 +37,29 @@ class OrderMapper {
     }
 
     static List<Order> getAllOrdersByUser(User user, Connection connection) {
+
+        try {
+            String sql = "SELECT * FROM order WHERE fk_user_email = ?";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, user.getEmail());
+            ResultSet rs = pstmt.executeQuery();
+            ArrayList<Order> userOrders = new ArrayList<>();
+
+            while (rs.next()) {
+                int order_id = rs.getInt("order_id");
+                String email = rs.getString("fk_user_email");
+                LocalDateTime time = rs.getDate("readytime").toLocalDate().atStartOfDay();
+                float totalprice = rs.getFloat("totalprice");
+                int cupcakecount = rs.getInt("cupcakecount");
+                String status = rs.getString("status");
+                Order order = new Order(order_id, user, time, null);
+                //TODO: Figure out how shoppingCart plays into the above line
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return new ArrayList<>();
     }
 

@@ -152,7 +152,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('admin','1234','admin',NULL),('magkon@dtu.dk','test','user',0),('user','1234','user',NULL);
+INSERT INTO `user` VALUES ('admin','1234','ADMIN',NULL),('magkon@dtu.dk','test','CUSTOMER',0),('user','1234','CUSTOMER',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

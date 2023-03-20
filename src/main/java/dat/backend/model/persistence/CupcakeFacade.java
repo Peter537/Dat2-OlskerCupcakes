@@ -1,9 +1,6 @@
 package dat.backend.model.persistence;
 
-import dat.backend.model.entities.Bottom;
-import dat.backend.model.entities.ShoppingCart;
-import dat.backend.model.entities.Top;
-import dat.backend.model.entities.User;
+import dat.backend.model.entities.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,7 +23,7 @@ public class CupcakeFacade {
         return CupcakeMapper.getAllBottoms(connectionPool);
     }
 
-    public static void createOrder(User user, LocalDateTime readyTime, ShoppingCart shoppingCart, ConnectionPool connectionPool) {
-        CupcakeMapper.createOrder(user, readyTime, shoppingCart, connectionPool);
+    public static void createOrder(Order order, ConnectionPool connectionPool) {
+        CupcakeMapper.createOrder(order, connectionPool);
     }
 }

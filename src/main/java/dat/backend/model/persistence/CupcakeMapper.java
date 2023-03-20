@@ -2,7 +2,6 @@ package dat.backend.model.persistence;
 
 import dat.backend.model.entities.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 class CupcakeMapper {
@@ -23,7 +22,7 @@ class CupcakeMapper {
         return null;
     }
 
-    public static void createOrder(User user, LocalDateTime readyTime, ShoppingCart shoppingCart, ConnectionPool connectionPool) {
+    public static void createOrder(Order order, ConnectionPool connectionPool) {
 
     }
 }

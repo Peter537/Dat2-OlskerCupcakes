@@ -1,9 +1,9 @@
 # default-web-applikation med page controller
 
-## Startkode på 2. semester efterår 2022
+## Startkode på 2. semester forår 2023
 
 Dette repository er lavet i forbindelse med 2. semester på
-Datamatikeruddannelsen i Lyngby og på Bornholm efterår 2022.
+Datamatikeruddannelsen i Lyngby og på Bornholm forår 2023.
 
 ## Java version
 I pom.xml er diverse dependencies valgt, så projektet kan bygges og køres i Java 8. Nyere versioner af 

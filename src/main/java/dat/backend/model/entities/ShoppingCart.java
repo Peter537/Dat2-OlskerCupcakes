@@ -7,40 +7,36 @@ public class ShoppingCart {
 
     private final List<Cupcake> cupcakeList = new ArrayList<>();
 
-    public ShoppingCart() {
-    }
+    public ShoppingCart() { }
 
     public void addCupcake(Cupcake cupcake) {
-        cupcakeList.add(cupcake);
+        this.cupcakeList.add(cupcake);
     }
 
     public void removeCupcake(Cupcake cupcake) {
-        cupcakeList.remove(cupcake);
+        this.cupcakeList.remove(cupcake);
     }
 
     public void clearCart() {
-        cupcakeList.clear();
+        this.cupcakeList.clear();
     }
 
+    public List<Cupcake> getCupcakeList() {
+        return this.cupcakeList;
+    }
 
     public float getTotalPrice() {
-
         float totalPrice = 0;
-
-        for (Cupcake cupcake : cupcakeList) {
+        for (Cupcake cupcake : this.cupcakeList) {
             totalPrice += cupcake.getPrice();
         }
         return totalPrice;
     }
 
-    public List<Cupcake> getCupcakeList() {
-        return cupcakeList;
+    @Override
+    public String toString() {
+        return "ShoppingCart{" +
+                "cupcakeList=" + this.cupcakeList +
+                '}';
     }
-
-
-
-
-
-
-
 }

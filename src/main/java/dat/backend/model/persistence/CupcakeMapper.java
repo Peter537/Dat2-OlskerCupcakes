@@ -23,7 +23,7 @@ class CupcakeMapper {
         return null;
     }
 
-    public static void createOrder(User user, LocalDateTime readyTime, ShoppingCart shoppingCart, ConnectionPool connectionPool) {
+    public static void createOrder(Order order, ConnectionPool connectionPool) {
 
     }
 }

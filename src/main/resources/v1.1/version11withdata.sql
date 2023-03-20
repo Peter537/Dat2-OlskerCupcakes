@@ -38,6 +38,16 @@ CREATE TABLE `cupcake` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `cupcake`
+--
+
+LOCK TABLES `cupcake` WRITE;
+/*!40000 ALTER TABLE `cupcake` DISABLE KEYS */;
+INSERT INTO `cupcake` VALUES (1,1,1,1);
+/*!40000 ALTER TABLE `cupcake` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `cupcakebottom`
 --
 
@@ -54,6 +64,16 @@ CREATE TABLE `cupcakebottom` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `cupcakebottom`
+--
+
+LOCK TABLES `cupcakebottom` WRITE;
+/*!40000 ALTER TABLE `cupcakebottom` DISABLE KEYS */;
+INSERT INTO `cupcakebottom` VALUES (1,'Chocolate',5),(2,'Vanilla',5),(3,'Nutmeg',5),(4,'Pistacio',6),(5,'Almond',7);
+/*!40000 ALTER TABLE `cupcakebottom` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `cupcaketop`
 --
 
@@ -68,6 +88,16 @@ CREATE TABLE `cupcaketop` (
                               UNIQUE KEY `cupcaketop_id_UNIQUE` (`cupcaketop_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cupcaketop`
+--
+
+LOCK TABLES `cupcaketop` WRITE;
+/*!40000 ALTER TABLE `cupcaketop` DISABLE KEYS */;
+INSERT INTO `cupcaketop` VALUES (1,'Chocolate',5),(2,'Blueberry',5),(3,'Rasberry',5),(4,'Crispy',6),(5,'Strawberry',6),(6,'Rum/Raisin',7),(7,'Orange',8),(8,'Lemon',8),(9,'Blue cheese',9);
+/*!40000 ALTER TABLE `cupcaketop` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `order`
@@ -91,6 +121,16 @@ CREATE TABLE `order` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `order`
+--
+
+LOCK TABLES `order` WRITE;
+/*!40000 ALTER TABLE `order` DISABLE KEYS */;
+INSERT INTO `order` VALUES (1,'magkon@dtu.dk','2023-03-20 11:05:00',NULL,NULL,NULL);
+/*!40000 ALTER TABLE `order` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -105,6 +145,16 @@ CREATE TABLE `user` (
                         PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('admin','1234','admin',NULL),('magkon@dtu.dk','test','user',0),('user','1234','user',NULL);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -115,4 +165,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-20 11:22:58
+-- Dump completed on 2023-03-20 11:23:56

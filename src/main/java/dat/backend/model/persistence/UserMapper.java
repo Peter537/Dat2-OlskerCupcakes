@@ -25,7 +25,7 @@ class UserMapper {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 String role = rs.getString("role");
-                user = new User(email, password, Role.valueOf(role));
+                user = new User(email, password, Role.valueOf(role.toUpperCase()));
             } else {
                 throw new DatabaseException("Wrong username or password");
             }
@@ -42,7 +42,7 @@ class UserMapper {
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, email);
             ps.setString(2, password);
-            ps.setString(3, role.toString());
+            ps.setString(3, role.toString().toUpperCase());
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected == 1) {
                 user = new User(email, password, role);

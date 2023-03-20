@@ -76,5 +76,16 @@ class OrderMapper {
 
     static void deleteOrder(int orderId, Connection connection) {
 
+        try {
+            String sqlStatement = "DELETE FROM order WHERE order_id = ?";
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+            pstmt.setInt(1, orderId);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

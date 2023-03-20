@@ -59,7 +59,7 @@ class UserMapper {
         return user;
     }
 
-    public static List<User> getAllUsers(ConnectionPool connectionPool) throws DatabaseException {
+    static List<User> getAllUsers(ConnectionPool connectionPool) throws DatabaseException {
         return new ArrayList<>();
     }
 }

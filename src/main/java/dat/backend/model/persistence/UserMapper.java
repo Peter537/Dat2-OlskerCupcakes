@@ -48,7 +48,7 @@ class UserMapper {
                 if (rowsAffected == 1) {
                     user = new User(email, password, role);
                 } else {
-                    throw new DatabaseException("The user with username = " + username + " could not be inserted into the database");
+                    throw new DatabaseException("The user with username = " + email + " could not be inserted into the database");
                 }
             }
         } catch (SQLException ex) {

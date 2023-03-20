@@ -337,4 +337,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-!/src/main/resources/dbpass.csv
+src/main/resources/dbpass.csv

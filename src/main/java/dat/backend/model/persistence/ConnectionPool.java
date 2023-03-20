@@ -5,6 +5,8 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Objects;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,11 +16,12 @@ public class ConnectionPool {
 
     private HikariDataSource ds;
     private static String USER = "root";
-    private static String PASSWORD = "123";
+    private static String PASSWORD;
     private static String URL = "jdbc:mysql://localhost:3306/olskerCupcakes";
 
-    public ConnectionPool() {
-        this(USER, PASSWORD, URL);
+    public ConnectionPool(String password) {
+        this(USER, password, URL);
+        PASSWORD = password;
     }
 
     public ConnectionPool(String USER, String PASSWORD, String URL) {

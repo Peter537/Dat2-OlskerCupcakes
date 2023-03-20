@@ -5,10 +5,14 @@ import dat.backend.model.persistence.ConnectionPool;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.io.*;
+import java.nio.file.Files;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Enumeration;
+import java.util.Objects;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,7 +36,7 @@ public class ApplicationStart implements ServletContextListener {
         Logger.getLogger("web").log(Level.INFO, "Starting up application and connection pool");
         try {
             Class.forName("org.slf4j.impl.StaticLoggerBinder");
-            connectionPool = new ConnectionPool();
+            connectionPool = new ConnectionPool(getPassword(sce));
         } catch (ClassNotFoundException e) {
             Logger.getLogger("web").log(Level.SEVERE, e.getMessage(), e);
         }
@@ -68,5 +72,21 @@ public class ApplicationStart implements ServletContextListener {
                 Logger.getLogger("web").log(Level.WARNING, "Error deregistering JDBC driver");
             }
         }
+    }
+
+    private String getPassword(ServletContextEvent sce) {
+        // get password from dbpass file
+        String pass = "";
+        try {
+            String path = sce.getServletContext().getRealPath("/") + "WEB-INF\\classes\\dbpass.csv";
+            File file = new File(path);
+            Scanner s = new Scanner(file);
+            pass = s.nextLine();
+        }
+        catch (Exception e) {
+            Logger.getLogger("web").log(Level.SEVERE, e.getMessage(), e);
+        }
+
+        return pass;
     }
 }

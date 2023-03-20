@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public class Order {
 
+    private int id;
     private User user;
     private LocalDateTime readyTime;
     private ShoppingCart shoppingCart;
@@ -12,6 +13,21 @@ public class Order {
         this.user = user;
         this.readyTime = readyTime;
         this.shoppingCart = shoppingCart;
+    }
+
+    public Order(int id, User user, LocalDateTime readyTime, ShoppingCart shoppingCart) {
+        this.id = id;
+        this.user = user;
+        this.readyTime = readyTime;
+        this.shoppingCart = shoppingCart;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public User getUser() {
@@ -40,10 +56,11 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "user=" + this.user +
-                ", readyTime=" + this.readyTime +
-                ", shoppingCart=" + this.shoppingCart +
-                '}';
+        return "{" +
+            " id='" + this.getId() + "'" +
+            ", user='" + this.getUser() + "'" +
+            ", readyTime='" + this.getReadyTime() + "'" +
+            ", shoppingCart='" + this.getShoppingCart() + "'" +
+            "}";
     }
 }

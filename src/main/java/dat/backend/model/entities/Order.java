@@ -8,11 +8,13 @@ public class Order {
     private User user;
     private LocalDateTime readyTime;
     private ShoppingCart shoppingCart;
+    private OrderStatus status;
 
     public Order(User user, LocalDateTime readyTime, ShoppingCart shoppingCart) {
         this.user = user;
         this.readyTime = readyTime;
         this.shoppingCart = shoppingCart;
+        this.status = OrderStatus.PENDING;
     }
 
     public Order(int id, User user, LocalDateTime readyTime, ShoppingCart shoppingCart) {
@@ -20,6 +22,7 @@ public class Order {
         this.user = user;
         this.readyTime = readyTime;
         this.shoppingCart = shoppingCart;
+        this.status = OrderStatus.PENDING;
     }
 
     public int getId() {
@@ -54,13 +57,22 @@ public class Order {
         this.shoppingCart = shoppingCart;
     }
 
+    public OrderStatus getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return "{" +
-            " id='" + this.getId() + "'" +
-            ", user='" + this.getUser() + "'" +
-            ", readyTime='" + this.getReadyTime() + "'" +
-            ", shoppingCart='" + this.getShoppingCart() + "'" +
-            "}";
+        return "Order{" +
+                "id=" + this.id +
+                ", user=" + this.user +
+                ", readyTime=" + this.readyTime +
+                ", shoppingCart=" + this.shoppingCart +
+                ", status=" + this.status +
+                '}';
     }
 }

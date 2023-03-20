@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class User {
 
+    private int id;
     private String username;
     private String password;
     private String role;
@@ -14,8 +15,23 @@ public class User {
         this.role = role;
     }
 
+    public User(int id, String username, String password, String role) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setUsername(String username) {
@@ -23,7 +39,7 @@ public class User {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
@@ -31,7 +47,7 @@ public class User {
     }
 
     public String getRole() {
-        return role;
+        return this.role;
     }
 
     public void setRole(String role) {
@@ -43,21 +59,24 @@ public class User {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return getUsername().equals(user.getUsername()) && getPassword().equals(user.getPassword()) &&
-                getRole().equals(user.getRole());
+        return this.getId() == user.getId() &&
+                this.getUsername().equals(user.getUsername()) &&
+                this.getPassword().equals(user.getPassword()) &&
+                this.getRole().equals(user.getRole());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUsername(), getPassword(), getRole());
+        return Objects.hash(this.getId(), this.getUsername(), this.getPassword(), this.getRole());
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "brugerNavn='" + username + '\'' +
-                ", kodeord='" + password + '\'' +
-                ", rolle='" + role + '\'' +
+                "id=" + this.id +
+                ", username='" + this.username + '\'' +
+                ", password='" + this.password + '\'' +
+                ", role='" + this.role + '\'' +
                 '}';
     }
 }

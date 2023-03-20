@@ -23,6 +23,11 @@ public class CupcakeFacade {
         return CupcakeMapper.getAllBottoms(connectionPool);
     }
 
+    public static List<Order> getAllOrders(ConnectionPool connectionPool) {
+        return null;
+        //return CupcakeMapper.getAllOrders(connectionPool);
+    }
+
     public static void createOrder(Order order, ConnectionPool connectionPool) {
         CupcakeMapper.createOrder(order, connectionPool);
     }

@@ -17,10 +17,10 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-<header>
+<header class="header">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="index.jsp">
+            <a class="navbar-brand" href="index.jsp" style="width: calc(var(--header-height)*var(--header-img-multi));">
                 <img src="${pageContext.request.contextPath}/images/cphbusiness.png" width="400px;" class="img-fluid"/>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -50,7 +50,7 @@
 </div>
 
 <!-- Footer -->
-<div class="container mt-3">
+<div class="container mt-3 footer">
     <hr/>
     <div class="row mt-4">
         <div class="col">
@@ -78,3 +78,27 @@
 
 </body>
 </html>
+
+<style>
+    :root {
+        --header-height: 11.6rem;
+        --header-img-multi: 1.5;
+    }
+    .footer {
+        /*position: fixed;*/
+        left: 0;
+        bottom: 5%;
+        width: 100%;
+        /*background-color: white;*/
+        /*color: white;*/
+        text-align: center;
+    }
+
+    .header {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        background-size : cover;
+        background-repeat : no-repeat;
+    }
+</style>

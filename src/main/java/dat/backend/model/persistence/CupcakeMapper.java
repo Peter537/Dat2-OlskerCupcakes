@@ -2,7 +2,6 @@ package dat.backend.model.persistence;
 
 import dat.backend.model.entities.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 class CupcakeMapper {

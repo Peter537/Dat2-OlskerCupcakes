@@ -52,6 +52,10 @@ public class Cupcake {
         this.quantity = quantity;
     }
 
+    public int getPrice() {
+        return this.bottom.getPrice() + this.top.getPrice();
+    }
+
     @Override
     public String toString() {
         return "Cupcake{" +

@@ -43,9 +43,7 @@ public class User {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return this.getEmail().equals(user.getEmail()) &&
-                this.getPassword().equals(user.getPassword()) &&
-                this.getRole().equals(user.getRole());
+        return this.getEmail().equals(user.getEmail());
     }
 
     @Override

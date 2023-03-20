@@ -5,6 +5,8 @@ import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -55,5 +57,9 @@ class UserMapper {
             throw new DatabaseException(ex, "Could not insert username into database");
         }
         return user;
+    }
+
+    public static List<User> getAllUsers(ConnectionPool connectionPool) throws DatabaseException {
+        return new ArrayList<>();
     }
 }

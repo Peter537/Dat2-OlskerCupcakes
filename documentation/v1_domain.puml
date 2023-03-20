@@ -1,0 +1,40 @@
+@startuml
+
+Velkommen o-- (Log ind)
+Velkommen o-- (Opret bruger)
+
+(Log ind) o-- (Log ud)
+(Log ud) o-- Velkommen
+
+(Opret bruger) o-- (Log ud)
+(Log ud) o-- Velkommen
+
+(Log ind) o-- (Bruger Hovedmenu)
+(Log ind) o-- (Opret bruger)
+(Opret bruger) o-- (Log ind)
+
+(Opret bruger) o-- (Bruger Hovedmenu)
+
+(Bruger Hovedmenu) o-- (Overview)
+(Overview) o-- (Bruger Hovedmenu)
+
+(Bruger Hovedmenu) o-- (Indkøbskurv)
+(Bruger Hovedmenu) o-- (Ordre)
+
+(Ordre) o-- (Bruger Hovedmenu)
+(Indkøbskurv) o-- (Bruger Hovedmenu)
+
+(Ordre) o-- (Indkøbskurv)
+(Indkøbskurv) o-- (Ordre)
+
+(Ordre) o-- (Ordrebekræftelse)
+
+(Log ind) o-- (Admin)
+
+(Admin) o-- (Gennemse ordrer)
+(Gennemse ordrer) o-- (Admin)
+
+(Admin) o-- (Gennemse brugere)
+(Gennemse brugere) o-- (Admin)
+
+@enduml

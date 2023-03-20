@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class Login extends HttpServlet {
@@ -37,11 +38,11 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
 
         try {
-            User user = UserFacade.login(username, password, connectionPool);
+            User user = UserFacade.login(username, password, connectionPool.getConnection());
             session = request.getSession();
             session.setAttribute("user", user); // adding user object to session scope
             request.getRequestDispatcher("WEB-INF/welcome.jsp").forward(request, response);
-        } catch (DatabaseException e) {
+        } catch (DatabaseException | SQLException e) {
             request.setAttribute("errormessage", e.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }

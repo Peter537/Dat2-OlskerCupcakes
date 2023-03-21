@@ -1,6 +1,7 @@
 package dat.backend.model.persistence;
 
 import dat.backend.model.entities.Order;
+import dat.backend.model.entities.OrderStatus;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 
@@ -21,7 +22,7 @@ public class OrderFacade {
         OrderMapper.createOrder(order, connection);
     }
 
-    public static void deleteOrder(int orderId, Connection connection) throws DatabaseException {
-        OrderMapper.deleteOrder(orderId, connection);
+    public static void updateOrderStatus(int orderId, OrderStatus status, Connection connection) throws DatabaseException {
+        OrderMapper.updateOrderStatus(orderId, status, connection);
     }
 }

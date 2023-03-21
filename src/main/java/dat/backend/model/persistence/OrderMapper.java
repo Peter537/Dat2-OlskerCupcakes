@@ -86,19 +86,7 @@ class OrderMapper {
         }
     }
 
-    static void deleteOrder(int orderId, Connection connection) throws DatabaseException {
-
-        try {
-            String sqlStatement = "DELETE FROM order WHERE order_id = ?";
-            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-            pstmt.setInt(1, orderId);
-            pstmt.executeUpdate();
-
-            //TODO: Should this method have a "throw database exception" if ID doesnt exist?
-        } catch (SQLException e) {
-            throw new DatabaseException(e, "Could not delete order from database");
-        }
-
+    static void updateOrderStatus(int orderId, OrderStatus status, Connection connection) throws DatabaseException {
 
     }
 

@@ -28,14 +28,18 @@
 
         <c:if test="${sessionScope.user == null}">
             <p>For at fortsætte din bestiling, skal du logge ind.
-                <div class="container">
-                <a
-                    href="login.jsp">
-                <button type="button">Login</button>
-                </a>
-                <a href="register.jsp">
-                <button type="button">Register</button>
-                </a>
+                <div class="row">
+                    <div class="col-sm-3">
+                    <a
+                        href="login.jsp">
+                    <button class="btn btn-primary">Login</button>
+                    </a>
+                    </div>
+                    <div class="col-sm-3">
+                    <a href="register.jsp">
+                    <button class="btn btn-primary">Register</button>
+                    </a>
+                    </div>
                 </div>
 
             </p>

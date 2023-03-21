@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CupcakeMapper {
+class CupcakeMapper {
 
     static List<Top> getAllToppings(Connection connection) throws DatabaseException {
         ArrayList<Top> toppings = new ArrayList<>();

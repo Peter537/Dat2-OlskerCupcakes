@@ -46,7 +46,6 @@ class UserMapper {
     }
 
     public static User getUserByEmail(String email, Connection connection) throws DatabaseException {
-
         String sql = "SELECT * FROM user WHERE email = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);

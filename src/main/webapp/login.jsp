@@ -6,55 +6,33 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-             Login
+             Log-ind
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-            Login
+            Log-ind
     </jsp:attribute>
-
     <jsp:body>
-
-        <h3>You can log in here</h3>
-
-        <form action="login" method="post">
-            <label for="username">Username: </label>
-            <input type="text" id="username" name="username"/>
-            <label for="password">Password: </label>
-            <input type="password" id="password" name="password"/>
-            <input type="submit"  value="Log in"/>
-        </form>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+        <div>
+            <h3>Indtast dit brugernavn og password</h3>
+            <div class="row">
+                <div class="col-sm-4">
+                <form action="login" method="post">
+                    <div class="form-group">
+                        <label for="username">Username: </label>
+                        <input class="form-control" type="text" id="username" name="username" placeholder="Brugernavn"/>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label for="password">Password: </label>
+                        <input class="form-control" type="password" id="password" name="password" placeholder="Password"/>
+                    </div>
+                    <br/>
+                    <input class="btn btn-primary" type="submit"  value="Log in"/>
+                </form>
+                </div>
+                <div class="col-sm-8"></div>
+            </div>
+        </div>
     </jsp:body>
 </t:pagetemplate>

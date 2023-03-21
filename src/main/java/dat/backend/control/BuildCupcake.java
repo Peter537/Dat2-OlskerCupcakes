@@ -43,7 +43,6 @@ public class BuildCupcake extends HttpServlet {
                 }
             }
 
-
             Top top = topList.get(topIndex);
             Bottom bottom = bottomList.get(bottomIndex);
 
@@ -52,12 +51,8 @@ public class BuildCupcake extends HttpServlet {
             request.setAttribute("topping", top);
             request.setAttribute("bottom", bottom);
 
-
-
             request.setAttribute("cupcake_price", cupcake.getPrice());
-
-
-
+            request.getRequestDispatcher("WEB-INF/order.jsp").forward(request, response);
 
 
         } catch (Exception e) {

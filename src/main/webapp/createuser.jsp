@@ -6,15 +6,15 @@
 
 <t:pagetemplate>
     <jsp:attribute name="head">
-        Log-ind
+        Opret bruger
     </jsp:attribute>
 
     <jsp:attribute name="header">
-        <h1>Log-ind</h1>
+        <h1>Opret Bruger</h1>
     </jsp:attribute>
 
   <jsp:attribute name="footer">
-        Log-ind
+        Opret Bruger
     </jsp:attribute>
 
     <jsp:body>
@@ -31,6 +31,11 @@
                         <div class="form-group">
                             <label for="password">Password: </label>
                             <input class="form-control" type="password" id="password" name="password" placeholder="Password"/>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label for="password">Gentag password: </label>
+                            <input class="form-control" type="password" id="password" name="password" placeholder="Gentag password"/>
                         </div>
                         <br/>
                         <div class="form-group">

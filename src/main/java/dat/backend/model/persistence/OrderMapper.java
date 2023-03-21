@@ -4,6 +4,7 @@ import dat.backend.model.entities.Cupcake;
 import dat.backend.model.entities.Order;
 import dat.backend.model.entities.ShoppingCart;
 import dat.backend.model.entities.User;
+import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -12,7 +13,7 @@ import java.util.List;
 
 class OrderMapper {
 
-    static List<Order> getAllOrders(Connection connection) {
+    static List<Order> getAllOrders(Connection connection) throws DatabaseException {
         try {
             String statement = "SELECT * FROM order";
             PreparedStatement pstmt = connection.prepareStatement(statement);
@@ -32,12 +33,12 @@ class OrderMapper {
                 //TODO: Add more to order constructor, and then fix above line (123) so it uses the correct values.
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseException(e, "Could not get all orders from database");
         }
         return new ArrayList<>();
     }
 
-    static List<Order> getAllOrdersByUser(User user, Connection connection) {
+    static List<Order> getAllOrdersByUser(User user, Connection connection) throws DatabaseException {
 
         try {
             String sql = "SELECT * FROM order WHERE fk_user_email = ?";
@@ -59,13 +60,13 @@ class OrderMapper {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseException(e, "Could not get all orders from a user from database");
         }
 
         return new ArrayList<>();
     }
 
-    static void createOrder(Order order, Connection connection) {
+    static void createOrder(Order order, Connection connection) throws DatabaseException {
         try {
             String sqlStatement = "INSERT INTO order (fk_user_email, readytime, totalprice, cupcakecount, status) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement, Statement.RETURN_GENERATED_KEYS);
@@ -95,11 +96,11 @@ class OrderMapper {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseException(e, "Could not create order in database");
         }
     }
 
-    static void deleteOrder(int orderId, Connection connection) {
+    static void deleteOrder(int orderId, Connection connection) throws DatabaseException {
 
         try {
             String sqlStatement = "DELETE FROM order WHERE order_id = ?";
@@ -108,7 +109,7 @@ class OrderMapper {
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseException(e, "Could not delete order from database");
         }
 
 

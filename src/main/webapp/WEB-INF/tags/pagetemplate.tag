@@ -43,6 +43,7 @@
                     </c:if>
                     <c:if test="${sessionScope.user != null }">
                         <a class="nav-item nav-link navtext" href="${pageContext.request.contextPath}/logout">Log out</a>
+                        <a class="nav-item nav-link navtext" style="border: 0;">(${sessionScope.user.getEmail()})</a>
                     </c:if>
                 </div>
             </div>
@@ -123,5 +124,7 @@
     }
     .navtext {
         color: var(--navbar-text-color);
+        border-right: 1px solid #00000038;
+        border-radius: 3px 3px 3px 3px;
     }
 </style>

@@ -81,8 +81,8 @@
             <p>&copy; 2023 Olskercupcakes</p>
         </div>
         <div class="col">
-            Datamatikeruddannelsen<br/>
-            2. semester forår 2023
+            Contact information: <br/>
+            Olsker@cupcakes.dk
         </div>
     </div>
 

@@ -8,7 +8,7 @@
     <jsp:attribute name="head">
         Log-ind
     </jsp:attribute>
-    
+
     <jsp:attribute name="header">
         <h1>Log-ind</h1>
     </jsp:attribute>

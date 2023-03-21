@@ -6,7 +6,7 @@
 
 <t:pagetemplate>
     <jsp:attribute name="head">
-        Log-ind
+        Bekræftelse
     </jsp:attribute>
 
     <jsp:attribute name="header">

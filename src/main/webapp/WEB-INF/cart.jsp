@@ -6,7 +6,7 @@
 
 <t:pagetemplate>
     <jsp:attribute name="head">
-        Log-ind
+        Indkøbskurv
     </jsp:attribute>
 
     <jsp:attribute name="header">

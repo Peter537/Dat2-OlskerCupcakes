@@ -6,7 +6,7 @@
 
 <t:pagetemplate>
     <jsp:attribute name="head">
-        Log-ind
+        Mine ordre
     </jsp:attribute>
 
     <jsp:attribute name="header">

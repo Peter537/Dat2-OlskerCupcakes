@@ -6,7 +6,7 @@
 
 <t:pagetemplate>
     <jsp:attribute name="head">
-        Log-ind
+        Bestil
     </jsp:attribute>
 
     <jsp:attribute name="header">

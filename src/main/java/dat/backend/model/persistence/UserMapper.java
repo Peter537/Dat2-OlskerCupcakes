@@ -45,6 +45,10 @@ class UserMapper {
         }
     }
 
+    public static User getUserByEmail(String email, Connection connection) {
+        return null;
+    }
+
     static List<User> getAllUsers(Connection connection) throws DatabaseException {
         List<User> users = new ArrayList<>();
         String sql = "SELECT * FROM user";

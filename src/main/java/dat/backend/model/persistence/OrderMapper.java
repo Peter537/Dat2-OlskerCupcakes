@@ -14,8 +14,8 @@ class OrderMapper {
         ArrayList<Order> orders = new ArrayList<>();
         String sqlStatement = "SELECT * FROM order";
         try {
-            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-            ResultSet rs = pstmt.executeQuery();
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int order_id = rs.getInt("order_id");
                 String email = rs.getString("fk_user_email");
@@ -35,9 +35,9 @@ class OrderMapper {
         ArrayList<Order> orders = new ArrayList<>();
         String sqlStatement = "SELECT * FROM order WHERE fk_user_email = ?";
         try {
-            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-            pstmt.setString(1, user.getEmail());
-            ResultSet rs = pstmt.executeQuery();
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.setString(1, user.getEmail());
+            ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int order_id = rs.getInt("order_id");
                 LocalDateTime time = rs.getDate("readytime").toLocalDate().atStartOfDay();
@@ -56,27 +56,27 @@ class OrderMapper {
     static void createOrder(Order order, Connection connection) throws DatabaseException {
         String sqlStatement = "INSERT INTO order (fk_user_email, readytime, totalprice, cupcakecount, status) VALUES (?, ?, ?, ?, ?)";
         try {
-            PreparedStatement pstmt = connection.prepareStatement(sqlStatement, Statement.RETURN_GENERATED_KEYS);
-            pstmt.setString(1, order.getUser().getEmail());
-            pstmt.setDate(2, Date.valueOf(order.getReadyTime().toLocalDate()));
-            pstmt.setFloat(3, order.getShoppingCart().getTotalPrice());
-            pstmt.setInt(4, order.getShoppingCart().getCupcakeList().size());
-            pstmt.setString(5, order.getStatus().toString().toUpperCase());
+            PreparedStatement preparedStatementInsertOrder = connection.prepareStatement(sqlStatement, Statement.RETURN_GENERATED_KEYS);
+            preparedStatementInsertOrder.setString(1, order.getUser().getEmail());
+            preparedStatementInsertOrder.setDate(2, Date.valueOf(order.getReadyTime().toLocalDate()));
+            preparedStatementInsertOrder.setFloat(3, order.getShoppingCart().getTotalPrice());
+            preparedStatementInsertOrder.setInt(4, order.getShoppingCart().getCupcakeList().size());
+            preparedStatementInsertOrder.setString(5, order.getStatus().toString().toUpperCase());
 
-            pstmt.executeUpdate();
-            ResultSet rs = pstmt.getGeneratedKeys();
+            preparedStatementInsertOrder.executeUpdate();
+            ResultSet rs = preparedStatementInsertOrder.getGeneratedKeys();
             if (rs.next()) {
                 order.setId(rs.getInt(1));
             }
 
-            String insertOrderlist = "INSERT INTO order (fk_cupcaketop_id, fk_cupcakebottom_id, fk_order_id) VALUES (?, ?, ?)";
+            String insertOrderlist = "INSERT INTO cupcake (fk_cupcaketop_id, fk_cupcakebottom_id, fk_order_id) VALUES (?, ?, ?)";
             for (Cupcake cupcake : order.getShoppingCart().getCupcakeList()) {
                 try {
-                    PreparedStatement pstmt2 = connection.prepareStatement(insertOrderlist);
-                    pstmt2.setInt(1, cupcake.getTop().getId());
-                    pstmt2.setInt(2, cupcake.getBottom().getId());
-                    pstmt2.setInt(3, order.getId());
-                    pstmt2.executeUpdate();
+                    PreparedStatement preparedStatementInsertCupcake = connection.prepareStatement(insertOrderlist);
+                    preparedStatementInsertCupcake.setInt(1, cupcake.getTop().getId());
+                    preparedStatementInsertCupcake.setInt(2, cupcake.getBottom().getId());
+                    preparedStatementInsertCupcake.setInt(3, order.getId());
+                    preparedStatementInsertCupcake.executeUpdate();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -89,10 +89,10 @@ class OrderMapper {
     static void updateOrderStatus(int orderId, OrderStatus status, Connection connection) throws DatabaseException {
         String sqlStatement = "UPDATE order SET status = ? WHERE order_id = ?";
         try {
-            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-            pstmt.setString(1, status.toString().toUpperCase());
-            pstmt.setInt(2, orderId);
-            pstmt.executeUpdate();
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.setString(1, status.toString().toUpperCase());
+            preparedStatement.setInt(2, orderId);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DatabaseException(e, "Could not update order status in database");
         }
@@ -102,9 +102,9 @@ class OrderMapper {
         ShoppingCart shoppingCart = new ShoppingCart();
         String sql = "SELECT * FROM cupcake WHERE fk_order_id = ?";
         try {
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1, orderId);
-            ResultSet rs = pstmt.executeQuery();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, orderId);
+            ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int cupcake_id = rs.getInt("cupcake_id");
                 Top top = getTopById(rs.getInt("fk_cupcaketop_id"), connection);
@@ -123,9 +123,9 @@ class OrderMapper {
     private static Top getTopById(int id, Connection connection) throws DatabaseException {
         String sqlStatement = "SELECT * FROM cupcaketop WHERE cupcaketop_id = ?";
         try {
-            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-            pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 int cupcaketop_id = rs.getInt("cupcaketop_id");
                 String cupcakeTopping = rs.getString("topping");
@@ -142,9 +142,9 @@ class OrderMapper {
     private static Bottom getBottomById(int id, Connection connection) throws DatabaseException {
         String sqlStatement = "SELECT * FROM cupcakebottom WHERE cupcakebottom_id = ?";
         try {
-            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-            pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 int cupcakebottom_id = rs.getInt("cupcakebottom_id");
                 String cupcakeBottom = rs.getString("bottom");

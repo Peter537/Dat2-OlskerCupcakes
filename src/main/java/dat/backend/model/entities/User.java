@@ -7,11 +7,13 @@ public class User {
     private String email;
     private String password;
     private Role role;
+    private ShoppingCart shoppingCart;
 
     public User(String email, String password, Role role) {
         this.email = email;
         this.password = password;
         this.role = role;
+        this.shoppingCart = new ShoppingCart();
     }
 
     public String getEmail() {
@@ -38,6 +40,14 @@ public class User {
         this.role = role;
     }
 
+    public ShoppingCart getShoppingCart() {
+        return this.shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -48,15 +58,16 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getEmail(), this.getPassword(), this.getRole());
+        return Objects.hash(this.getEmail(), this.getPassword(), this.getRole(), this.getShoppingCart());
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "email='" + this.email + '\'' +
-                ", password='" + this.password + '\'' +
-                ", role=" + this.role +
+                "email='" + this.getEmail() + '\'' +
+                ", password='" + this.getPassword() + '\'' +
+                ", role=" + this.getRole() +
+                ", shoppingCart=" + this.getShoppingCart() +
                 '}';
     }
 }

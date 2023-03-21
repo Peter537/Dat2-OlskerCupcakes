@@ -26,8 +26,8 @@ class OrderMapper {
                 float totalprice = rs.getFloat("totalprice");
                 int cupcakecount = rs.getInt("cupcakecount");
                 String status = rs.getString("status");
-                Order order = new Order(order_id, null, time, null);
-                //TODO: Add more to order constructor, and then fix above line (123) so it uses the correct values.
+                ShoppingCart shoppingCart = getShoppingCartByOrderId(order_id, connection);
+                Order order = new Order(order_id, UserMapper.getUserByEmail(email, connection), time, shoppingCart );
             }
         } catch (SQLException e) {
             throw new DatabaseException(e, "Could not get all orders from database");
@@ -102,6 +102,7 @@ class OrderMapper {
             pstmt.setInt(1, orderId);
             pstmt.executeUpdate();
 
+            //TODO: Should this method have a "throw database exception" if ID doesnt exist?
         } catch (SQLException e) {
             throw new DatabaseException(e, "Could not delete order from database");
         }
@@ -109,9 +110,8 @@ class OrderMapper {
 
     }
 
-    private static ShoppingCart getShoppingCartByOrderId(int orderId, Connection connection) {
+    private static ShoppingCart getShoppingCartByOrderId(int orderId, Connection connection) throws DatabaseException{
         ShoppingCart shoppingCart = new ShoppingCart();
-        ArrayList<Cupcake> cupcakeList = new ArrayList<>();
         String sql = "SELECT * FROM cupcake WHERE fk_order_id = ?";
 
         try {
@@ -123,22 +123,22 @@ class OrderMapper {
                 int cupcake_id = rs.getInt("cupcake_id");
                 int fk_order_id = rs.getInt("fk_order_id");
                 Top top = getTopById(rs.getInt("fk_cupcaketop_id"), connection);
+                Bottom bottom = getBottomById(rs.getInt("fk_cupcakebottom_id"), connection);
 
-
-
+                Cupcake cupcake = new Cupcake(bottom, top);
+                shoppingCart.addCupcake(cupcake);
+            } else {
+                throw new DatabaseException("Could not get shopping cart by order id from database");
             }
         }catch(SQLException e){
-                e.printStackTrace();
+                throw new DatabaseException(e, "Could not get shopping cart by order id from database")
             }
-
-
-            // TODO: Implement this method
 
             return shoppingCart;
         }
 
 
-        public static Top getTopById ( int id, Connection connection){
+        public static Top getTopById ( int id, Connection connection) throws DatabaseException{
 
             try {
                 String SqlStatement = "SELECT * FROM cupcaketop WHERE cupcaketop_id = ?";
@@ -151,17 +151,18 @@ class OrderMapper {
                     String cupcakeTopping = rs.getString("topping");
                     float cupcaketop_price = rs.getFloat("price");
                     return new Top(cupcaketop_id, cupcakeTopping, cupcaketop_price);
+                } else {
+                    throw new DatabaseException("Could not get top by id from database");
                 }
 
-
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new DatabaseException(e, "Could not get top by id from database")
             }
 
             return null;
         }
 
-        public static Bottom getBottomById ( int id, Connection connection){
+        public static Bottom getBottomById ( int id, Connection connection) throws DatabaseException{
 
             try {
                 String SqlStatement = "SELECT * FROM cupcakebottom WHERE cupcakebottom_id = ?";
@@ -174,13 +175,12 @@ class OrderMapper {
                     String cupcakeBottom = rs.getString("bottom");
                     float cupcakebottom_price = rs.getFloat("price");
                     return new Bottom(cupcakebottom_id, cupcakeBottom, cupcakebottom_price);
+                } else {
+                    throw new DatabaseException("Could not get bottom by id from database");
                 }
 
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new DatabaseException(e, "Could not get bottom by id from database");
             }
-
-            return null;
         }
     }
-}

@@ -45,8 +45,23 @@ class UserMapper {
         }
     }
 
-    public static User getUserByEmail(String email, Connection connection) {
-        return null;
+    public static User getUserByEmail(String email, Connection connection) throws DatabaseException {
+
+        String sql = "SELECT * FROM user WHERE email = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String password = rs.getString("password");
+                String role = rs.getString("role");
+                return new User(email, password, Role.valueOf(role.toUpperCase()));
+            } else {
+                throw new DatabaseException("User with email = '" + email + "' does not exist");
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException("Error getting user by email. Something went wrong with the database");
+        }
     }
 
     static List<User> getAllUsers(Connection connection) throws DatabaseException {

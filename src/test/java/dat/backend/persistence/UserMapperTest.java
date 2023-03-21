@@ -30,10 +30,10 @@ class UserMapperTest {
         try (Connection testConnection = connectionPool.getConnection()) {
             try (Statement stmt = testConnection.createStatement()) {
                 // Create test database - if not exist
-                stmt.execute("CREATE DATABASE  IF NOT EXISTS startcode_test;");
+                stmt.execute("CREATE DATABASE IF NOT EXISTS olskerCupcakes_test;");
 
                 // TODO: Create user table. Add your own tables here
-                stmt.execute("CREATE TABLE IF NOT EXISTS startcode_test.user LIKE startcode.user;");
+                stmt.execute("CREATE TABLE IF NOT EXISTS olskerCupcakes_test.user LIKE olskerCupcakes.user;");
             }
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());

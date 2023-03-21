@@ -4,6 +4,10 @@
 <%@page errorPage="error.jsp" isErrorPage="false" %>
 
 <t:pagetemplate>
+    <jsp:attribute name="head">
+        Velkommen
+    </jsp:attribute>
+
     <jsp:attribute name="header">
          Velkommen til Olsker Cupcakes
     </jsp:attribute>
@@ -41,7 +45,6 @@
                     </a>
                     </div>
                 </div>
-
             </p>
         </c:if>
 

@@ -87,7 +87,15 @@ class OrderMapper {
     }
 
     static void updateOrderStatus(int orderId, OrderStatus status, Connection connection) throws DatabaseException {
-
+        String sqlStatement = "UPDATE order SET status = ? WHERE order_id = ?";
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
+            pstmt.setString(1, status.toString().toUpperCase());
+            pstmt.setInt(2, orderId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Could not update order status in database");
+        }
     }
 
     private static ShoppingCart getShoppingCartByOrderId(int orderId, Connection connection) throws DatabaseException {

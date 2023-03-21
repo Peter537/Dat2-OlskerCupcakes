@@ -5,7 +5,6 @@ import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.CupcakeFacade;
 import dat.backend.model.persistence.UserFacade;
-import dat.backend.model.persistence.ConnectionPool;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,19 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class Login extends HttpServlet {
 
-    private ConnectionPool connectionPool;
+    private Connection connection;
 
     @Override
     public void init() {
-        this.connectionPool = ApplicationStart.getConnectionPool();
         try {
-            getServletContext().setAttribute("toppings", CupcakeFacade.getAllToppings(connectionPool.getConnection()));
-            getServletContext().setAttribute("bottoms", CupcakeFacade.getAllBottoms(connectionPool.getConnection()));
+            this.connection = ApplicationStart.getConnectionPool().getConnection();
+            getServletContext().setAttribute("toppings", CupcakeFacade.getAllToppings(connection));
+            getServletContext().setAttribute("bottoms", CupcakeFacade.getAllBottoms(connection));
         } catch (DatabaseException | SQLException e) {
             throw new RuntimeException(e);
         }
@@ -47,11 +47,11 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
 
         try {
-            User user = UserFacade.login(username, password, connectionPool.getConnection());
+            User user = UserFacade.login(username, password, connection);
             session = request.getSession();
             session.setAttribute("user", user); // adding user object to session scope
             request.getRequestDispatcher("WEB-INF/userpage.jsp").forward(request, response);
-        } catch (DatabaseException | SQLException e) {
+        } catch (DatabaseException e) {
             request.setAttribute("errormessage", e.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }

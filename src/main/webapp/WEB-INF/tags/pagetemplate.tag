@@ -26,7 +26,7 @@
     <nav class="navbar navbar-expand-lg" style="margin-top: -1%;">
         <div class="container">
             <a class="justify-content-start" href="index.jsp">
-                <img src="${pageContext.request.contextPath}/images/Lord_And_Savior.png" alt="Logo" width="100px" >
+                <img src="${pageContext.request.contextPath}/images/logo.png" alt="Logo" width="100px" >
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">

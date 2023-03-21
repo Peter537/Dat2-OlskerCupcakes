@@ -81,12 +81,10 @@
             <p>&copy; 2023 Olskercupcakes</p>
         </div>
         <div class="col">
-            Contact information: <br/>
+            Kontakt information: <br/>
             Olsker@cupcakes.dk
         </div>
     </div>
-
-</div>
 
 </div>
 

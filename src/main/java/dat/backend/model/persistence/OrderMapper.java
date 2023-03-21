@@ -2,6 +2,7 @@ package dat.backend.model.persistence;
 
 import dat.backend.model.entities.Cupcake;
 import dat.backend.model.entities.Order;
+import dat.backend.model.entities.ShoppingCart;
 import dat.backend.model.entities.User;
 
 import java.sql.*;
@@ -52,7 +53,8 @@ class OrderMapper {
                 float totalprice = rs.getFloat("totalprice");
                 int cupcakecount = rs.getInt("cupcakecount");
                 String status = rs.getString("status");
-                Order order = new Order(order_id, user, time, null);
+                ShoppingCart shoppingCart = getShoppingCartByOrderId(order_id, connection);
+                Order order = new Order(order_id, user, time, shoppingCart);
                 //TODO: Figure out how shoppingCart plays into the above line
             }
 
@@ -110,5 +112,13 @@ class OrderMapper {
         }
 
 
+    }
+
+    private static ShoppingCart getShoppingCartByOrderId(int orderId, Connection connection) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+
+        // TODO: Implement this method
+
+        return shoppingCart;
     }
 }

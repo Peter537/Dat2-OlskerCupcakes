@@ -13,43 +13,6 @@ import java.util.List;
 
 class CupcakeMapper {
 
-    static List<Top> getAllToppings(Connection connection) throws DatabaseException {
-        ArrayList<Top> toppings = new ArrayList<>();
-        String sqlStatement = "SELECT * FROM cupcaketop";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                int cupcaketop_id = rs.getInt("cupcaketop_id");
-                String cupcaketopping = rs.getString("topping");
-                float cupcaketop_price = rs.getFloat("price");
-                toppings.add(new Top(cupcaketop_id, cupcaketopping, cupcaketop_price));
-            }
-        } catch (SQLException e) {
-            throw new DatabaseException(e, "Could not get all toppings from database");
-        }
-
-        return toppings;
-    }
-
-    static List<Bottom> getAllBottoms(Connection connection) throws DatabaseException {
-        ArrayList<Bottom> bottoms = new ArrayList<>();
-        String sqlStatement = "SELECT * FROM cupcakebottom";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                int cupcakebottom_id = rs.getInt("cupcakebottom_id");
-                String cupcakeBottom = rs.getString("bottom");
-                float cupcakebottom_price = rs.getFloat("price");
-                bottoms.add(new Bottom(cupcakebottom_id, cupcakeBottom, cupcakebottom_price));
-            }
-        } catch (SQLException e) {
-            throw new DatabaseException(e, "Could not get all bottoms from database");
-        }
-        return bottoms;
-    }
-
     static Top getTopById(int id, Connection connection) throws DatabaseException {
         String sqlStatement = "SELECT * FROM cupcaketop WHERE cupcaketop_id = ?";
         try {
@@ -86,5 +49,42 @@ class CupcakeMapper {
         } catch (SQLException e) {
             throw new DatabaseException(e, "Could not get bottom by id from database");
         }
+    }
+
+    static List<Top> getAllToppings(Connection connection) throws DatabaseException {
+        ArrayList<Top> toppings = new ArrayList<>();
+        String sqlStatement = "SELECT * FROM cupcaketop";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int cupcaketop_id = rs.getInt("cupcaketop_id");
+                String cupcaketopping = rs.getString("topping");
+                float cupcaketop_price = rs.getFloat("price");
+                toppings.add(new Top(cupcaketop_id, cupcaketopping, cupcaketop_price));
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Could not get all toppings from database");
+        }
+
+        return toppings;
+    }
+
+    static List<Bottom> getAllBottoms(Connection connection) throws DatabaseException {
+        ArrayList<Bottom> bottoms = new ArrayList<>();
+        String sqlStatement = "SELECT * FROM cupcakebottom";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int cupcakebottom_id = rs.getInt("cupcakebottom_id");
+                String cupcakeBottom = rs.getString("bottom");
+                float cupcakebottom_price = rs.getFloat("price");
+                bottoms.add(new Bottom(cupcakebottom_id, cupcakeBottom, cupcakebottom_price));
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Could not get all bottoms from database");
+        }
+        return bottoms;
     }
 }

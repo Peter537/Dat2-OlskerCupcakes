@@ -22,7 +22,9 @@ class OrderMapper {
                 LocalDateTime time = rs.getDate("readytime").toLocalDate().atStartOfDay();
                 OrderStatus status = OrderStatus.valueOf(rs.getString("status").toUpperCase());
                 ShoppingCart shoppingCart = getShoppingCartByOrderId(order_id, connection);
-                Order order = new Order(order_id, UserMapper.getUserByEmail(email, connection), time, shoppingCart, status);
+                User user = UserMapper.getUserByEmail(email, connection);
+                user.setShoppingCart(shoppingCart);
+                Order order = new Order(order_id, user, time, status);
                 orders.add(order);
             }
         } catch (SQLException e) {
@@ -43,7 +45,8 @@ class OrderMapper {
                 LocalDateTime time = rs.getDate("readytime").toLocalDate().atStartOfDay();
                 OrderStatus status = OrderStatus.valueOf(rs.getString("status").toUpperCase());
                 ShoppingCart shoppingCart = getShoppingCartByOrderId(order_id, connection);
-                Order order = new Order(order_id, user, time, shoppingCart, status);
+                user.setShoppingCart(shoppingCart);
+                Order order = new Order(order_id, user, time, status);
                 orders.add(order);
             }
         } catch (SQLException e) {
@@ -59,8 +62,8 @@ class OrderMapper {
             PreparedStatement preparedStatementInsertOrder = connection.prepareStatement(sqlStatementOrder, Statement.RETURN_GENERATED_KEYS);
             preparedStatementInsertOrder.setString(1, order.getUser().getEmail());
             preparedStatementInsertOrder.setDate(2, Date.valueOf(order.getReadyTime().toLocalDate()));
-            preparedStatementInsertOrder.setFloat(3, order.getShoppingCart().getTotalPrice());
-            preparedStatementInsertOrder.setInt(4, order.getShoppingCart().getCupcakeList().size());
+            preparedStatementInsertOrder.setFloat(3, order.getUser().getShoppingCart().getTotalPrice());
+            preparedStatementInsertOrder.setInt(4, order.getUser().getShoppingCart().getCupcakeList().size());
             preparedStatementInsertOrder.setString(5, order.getStatus().toString().toUpperCase());
 
             preparedStatementInsertOrder.executeUpdate();
@@ -70,7 +73,7 @@ class OrderMapper {
             }
 
             String sqlStatementCupcake = "INSERT INTO cupcake (fk_cupcaketop_id, fk_cupcakebottom_id, fk_order_id) VALUES (?, ?, ?)";
-            for (Cupcake cupcake : order.getShoppingCart().getCupcakeList()) {
+            for (Cupcake cupcake : order.getUser().getShoppingCart().getCupcakeList()) {
                 try {
                     PreparedStatement preparedStatementInsertCupcake = connection.prepareStatement(sqlStatementCupcake);
                     preparedStatementInsertCupcake.setInt(1, cupcake.getTop().getId());

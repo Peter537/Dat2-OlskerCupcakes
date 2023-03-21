@@ -3,6 +3,7 @@ package dat.backend.control;
 import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
+import dat.backend.model.persistence.CupcakeFacade;
 import dat.backend.model.persistence.UserFacade;
 import dat.backend.model.persistence.ConnectionPool;
 
@@ -21,15 +22,23 @@ public class Login extends HttpServlet {
     private ConnectionPool connectionPool;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         this.connectionPool = ApplicationStart.getConnectionPool();
+        try {
+            getServletContext().setAttribute("toppings", CupcakeFacade.getAllToppings(connectionPool.getConnection()));
+            getServletContext().setAttribute("bottoms", CupcakeFacade.getAllBottoms(connectionPool.getConnection()));
+        } catch (DatabaseException | SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // You shouldn't end up here with a GET-request, thus you get sent back to frontpage
         response.sendRedirect("index.jsp");
     }
 
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
         HttpSession session = request.getSession();

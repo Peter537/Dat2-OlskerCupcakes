@@ -51,6 +51,44 @@ class CupcakeMapper {
         }
     }
 
+    static Top getTopByName(String name, Connection connection) throws DatabaseException {
+        String sqlStatement = "SELECT * FROM cupcaketop WHERE topping = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.setString(1, name);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                int cupcaketop_id = rs.getInt("cupcaketop_id");
+                String cupcakeTopping = rs.getString("topping");
+                float cupcaketop_price = rs.getFloat("price");
+                return new Top(cupcaketop_id, cupcakeTopping, cupcaketop_price);
+            } else {
+                throw new DatabaseException("Could not get top by name from database");
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Could not get top by name from database");
+        }
+    }
+
+    static Bottom getBottomByName(String name, Connection connection) throws DatabaseException {
+        String sqlStatement = "SELECT * FROM cupcakebottom WHERE bottom = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.setString(1, name);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                int cupcakebottom_id = rs.getInt("cupcakebottom_id");
+                String cupcakeBottom = rs.getString("bottom");
+                float cupcakebottom_price = rs.getFloat("price");
+                return new Bottom(cupcakebottom_id, cupcakeBottom, cupcakebottom_price);
+            } else {
+                throw new DatabaseException("Could not get bottom by name from database");
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Could not get bottom by name from database");
+        }
+    }
+
     static List<Top> getAllToppings(Connection connection) throws DatabaseException {
         ArrayList<Top> toppings = new ArrayList<>();
         String sqlStatement = "SELECT * FROM cupcaketop";

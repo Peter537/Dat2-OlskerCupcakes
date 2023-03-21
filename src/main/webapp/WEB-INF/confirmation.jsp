@@ -5,8 +5,12 @@
 <%@page errorPage="error.jsp" isErrorPage="false" %>
 
 <t:pagetemplate>
+    <jsp:attribute name="head">
+        Bekræftelse
+    </jsp:attribute>
+
     <jsp:attribute name="header">
-         Log-ind
+        <h1>Log-ind</h1>
     </jsp:attribute>
 
   <jsp:attribute name="footer">

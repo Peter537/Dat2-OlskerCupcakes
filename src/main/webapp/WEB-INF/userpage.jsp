@@ -5,8 +5,14 @@
 <%@page errorPage="error.jsp" isErrorPage="false" %>
 
 <t:pagetemplate>
+
+    <jsp:attribute name="head">
+
+        MinSide
+
+    </jsp:attribute>
     <jsp:attribute name="header">
-         Log-ind
+        <h1>Log-ind</h1>
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -15,17 +21,39 @@
 
     <jsp:body>
 
-        <p>You should be logged in now</p>
+       <div class="row">
+           <div class="col-md-6">
+               <a class="buttons" href="ToMyOrders">Mine ordrer</a>
+           </div>
+              <div class="col-md-6">
+                <a class="buttons" href="ToOrder">Bestil cupcakes</a>
+              </div>
+       </div>
 
-        <c:if test="${sessionScope.user != null}">
-            <p>You are logged in with the role of "${sessionScope.user.role}".</p>
-        </c:if>
 
-        <c:if test="${sessionScope.user == null}">
-            <p>You are not logged in yet. You can do it here: <a
-                    href="../login.jsp">Login</a></p>
-        </c:if>
+
+
+
 
     </jsp:body>
+
+    <style>
+        buttons{
+            background-color: #f44336;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+
+    </style>
+
+
 
 </t:pagetemplate>

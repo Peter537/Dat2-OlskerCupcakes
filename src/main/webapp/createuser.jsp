@@ -5,20 +5,25 @@
 <%@page errorPage="error.jsp" isErrorPage="false" %>
 
 <t:pagetemplate>
+    <jsp:attribute name="head">
+        Opret bruger
+    </jsp:attribute>
+
     <jsp:attribute name="header">
-        Registrer dig her
+        <h1>Opret Bruger</h1>
     </jsp:attribute>
 
   <jsp:attribute name="footer">
-        Registrer dig her
+        Opret Bruger
     </jsp:attribute>
 
     <jsp:body>
         <div>
-            <h3>Indtast dit brugernavn og password </h3>
+            <h3>Indtast dit brugernavn og password</h3>
             <div class="row">
                 <div class="col-sm-4">
-                    <form action="login" method="post"> //TODO: Change action to register when ready
+                    <form action="login" method="post"> <%-- TODO: login-action needs to be register when servlet has been made --%>
+
                         <div class="form-group">
                             <label for="username">Username: </label>
                             <input class="form-control" type="text" id="username" name="username" placeholder="Brugernavn"/>
@@ -31,11 +36,11 @@
                         <br/>
                         <div class="form-group">
                             <label for="password">Gentag password: </label>
-                            <input class="form-control" type="password" id="Gentag password" name="Gentag password" placeholder="Gentag password"/>
+                            <input class="form-control" type="password" id="password" name="password" placeholder="Gentag password"/>
                         </div>
                         <br/>
                         <div class="form-group">
-                            <input class="btn btn-primary" type="submit" value="Opret bruger" style="width: 100%;"/>
+                            <input class="btn btn-primary" type="submit" value="Log-ind" style="width: 100%;"/>
                         </div>
                     </form>
                 </div>

@@ -78,7 +78,7 @@ class OrderMapper {
                     preparedStatementInsertCupcake.setInt(3, order.getId());
                     preparedStatementInsertCupcake.executeUpdate();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    throw new DatabaseException(e, "Could not create cupcake in database");
                 }
             }
         } catch (SQLException e) {

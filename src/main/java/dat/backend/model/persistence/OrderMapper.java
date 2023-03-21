@@ -121,9 +121,13 @@ class OrderMapper {
 
             while (rs.next()) {
                 int cupcake_id = rs.getInt("cupcake_id");
-                int fk_cupcaketop_id = rs.getInt("fk_cupcaketop_id");
+                int fk_order_id = rs.getInt("fk_order_id");
+                Top top = getTopById(rs.getInt("fk_cupcaketop_id"), connection);
 
-            } catch(SQLException e){
+
+
+            }
+        }catch(SQLException e){
                 e.printStackTrace();
             }
 

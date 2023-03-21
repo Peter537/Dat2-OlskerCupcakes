@@ -112,7 +112,7 @@ class OrderMapper {
     }
 
 
-    public static Top getTopById(int id, Connection connection) throws DatabaseException {
+    private static Top getTopById(int id, Connection connection) throws DatabaseException {
         String sqlStatement = "SELECT * FROM cupcaketop WHERE cupcaketop_id = ?";
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
@@ -131,7 +131,7 @@ class OrderMapper {
         }
     }
 
-    public static Bottom getBottomById(int id, Connection connection) throws DatabaseException {
+    private static Bottom getBottomById(int id, Connection connection) throws DatabaseException {
         String sqlStatement = "SELECT * FROM cupcakebottom WHERE cupcakebottom_id = ?";
         try {
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);

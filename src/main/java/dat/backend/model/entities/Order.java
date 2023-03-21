@@ -64,10 +64,10 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "id=" + this.id +
-                ", user=" + this.user +
-                ", readyTime=" + this.readyTime +
-                ", status=" + this.status +
+                "id=" + this.getId() +
+                ", user=" + this.getUser() +
+                ", readyTime=" + this.getReadyTime() +
+                ", status=" + this.getStatus() +
                 '}';
     }
 }

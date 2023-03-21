@@ -99,6 +99,7 @@
         --hero-color: #3c1460;
         --hero-navbar: #471f6a;
         --navbar-text-color: #ffffff;
+        --button-color: #e9ca97;
     }
     .footer {
         /*position: fixed;*/
@@ -126,5 +127,9 @@
         color: var(--navbar-text-color);
         border-right: 1px solid #00000038;
         border-radius: 3px 3px 3px 3px;
+    }
+    .btn-primary {
+        background-color: var(--button-color);
+        border-color: var(--button-color);
     }
 </style>

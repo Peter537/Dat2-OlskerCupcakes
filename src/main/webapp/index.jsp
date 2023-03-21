@@ -19,7 +19,7 @@
                 Gå til din side.
             <div class="container">
                 <a href="user.jsp">
-                    <button type ="button">Min side</button>
+                    <button class="btn btn-primary">Min side</button>
                 </a>
             </div>
 

@@ -3,6 +3,7 @@ package dat.backend.control;
 import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
+import dat.backend.model.persistence.CupcakeFacade;
 import dat.backend.model.persistence.UserFacade;
 import dat.backend.model.persistence.ConnectionPool;
 
@@ -23,6 +24,12 @@ public class Login extends HttpServlet {
     @Override
     public void init() {
         this.connectionPool = ApplicationStart.getConnectionPool();
+        try {
+            getServletContext().setAttribute("toppings", CupcakeFacade.getAllToppings(connectionPool.getConnection()));
+            getServletContext().setAttribute("bottoms", CupcakeFacade.getAllBottoms(connectionPool.getConnection()));
+        } catch (DatabaseException | SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

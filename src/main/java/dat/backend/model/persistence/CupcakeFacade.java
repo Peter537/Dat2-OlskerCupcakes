@@ -17,6 +17,14 @@ public class CupcakeFacade {
         return CupcakeMapper.getBottomById(id, connection);
     }
 
+    public static Top getTopByName(String name, Connection connection) throws DatabaseException {
+        return CupcakeMapper.getTopByName(name, connection);
+    }
+
+    public static Bottom getBottomByName(String name, Connection connection) throws DatabaseException {
+        return CupcakeMapper.getBottomByName(name, connection);
+    }
+
     public static List<Top> getAllToppings(Connection connection) throws DatabaseException {
         return CupcakeMapper.getAllToppings(connection);
     }

@@ -22,7 +22,7 @@
             <p>Du er logget ind som "${sessionScope.user.role}".
                 Gå til din side.
             <div class="container">
-                <a href="user.jsp">
+                <a href="${pageContext.request.contextPath}/ToUserpage">
                     <button class="btn btn-primary">Min side</button>
                 </a>
             </div>
@@ -40,7 +40,7 @@
                     </a>
                     </div>
                     <div class="col-sm-3">
-                    <a href="register.jsp">
+                    <a href="createuser.jsp">
                     <button class="btn btn-primary">Register</button>
                     </a>
                     </div>

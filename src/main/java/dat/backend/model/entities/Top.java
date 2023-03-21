@@ -44,9 +44,9 @@ public class Top {
     @Override
     public String toString() {
         return "Top{" +
-                "id=" + this.id +
-                ", name='" + this.name + '\'' +
-                ", price=" + this.price +
+                "id=" + this.getId() +
+                ", name='" + this.getName() + '\'' +
+                ", price=" + this.getPrice() +
                 '}';
     }
 }

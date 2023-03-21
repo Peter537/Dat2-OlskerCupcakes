@@ -44,9 +44,9 @@ public class Bottom {
     @Override
     public String toString() {
         return "Bottom{" +
-                "id=" + this.id +
-                ", name='" + this.name + '\'' +
-                ", price=" + this.price +
+                "id=" + this.getId() +
+                ", name='" + this.getName() + '\'' +
+                ", price=" + this.getPrice() +
                 '}';
     }
 }

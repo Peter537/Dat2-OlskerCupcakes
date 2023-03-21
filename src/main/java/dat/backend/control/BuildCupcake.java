@@ -4,7 +4,6 @@ import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.Bottom;
 import dat.backend.model.entities.Cupcake;
 import dat.backend.model.entities.Top;
-import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.CupcakeFacade;
 
 import javax.servlet.*;
@@ -13,7 +12,6 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 @WebServlet(name = "BuildCupcake", value = "/BuildCupcake")
 public class BuildCupcake extends HttpServlet {

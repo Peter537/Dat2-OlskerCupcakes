@@ -52,7 +52,7 @@
                     </c:if>
                     <c:if test="${sessionScope.user != null }">
                         <a class="nav-item nav-link navtext" style="border: 0;">(${sessionScope.user.getEmail()})</a>
-                        <a class="nav-item nav-link">
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/ToCart">
                             <img src="${pageContext.request.contextPath}/images/basket.png" alt="Logo" width="30px">
                         </a>
                     </c:if>

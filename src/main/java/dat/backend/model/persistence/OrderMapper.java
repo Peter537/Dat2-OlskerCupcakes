@@ -12,9 +12,9 @@ class OrderMapper {
 
     static List<Order> getAllOrders(Connection connection) throws DatabaseException {
         ArrayList<Order> orders = new ArrayList<>();
-        String statement = "SELECT * FROM order";
+        String sqlStatement = "SELECT * FROM order";
         try {
-            PreparedStatement pstmt = connection.prepareStatement(statement);
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 int order_id = rs.getInt("order_id");
@@ -33,9 +33,9 @@ class OrderMapper {
 
     static List<Order> getAllOrdersByUser(User user, Connection connection) throws DatabaseException {
         ArrayList<Order> orders = new ArrayList<>();
-        String sql = "SELECT * FROM order WHERE fk_user_email = ?";
+        String sqlStatement = "SELECT * FROM order WHERE fk_user_email = ?";
         try {
-            PreparedStatement pstmt = connection.prepareStatement(sql);
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             pstmt.setString(1, user.getEmail());
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {

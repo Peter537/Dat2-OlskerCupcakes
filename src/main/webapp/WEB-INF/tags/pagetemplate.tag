@@ -17,11 +17,16 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-<header class="header">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<div style="background: var(--hero-color)">
+    <a class="navbar-brand text-center" href="index.jsp" style="width: calc(var(--header-height)*var(--header-img-multi));">
+        <img src="${pageContext.request.contextPath}/images/cupcake_banner.png" width="400px;" class="img-fluid hero-img"/>
+    </a>
+</div>
+<header class="header" style="background: var(--hero-navbar)">
+    <nav class="navbar navbar-expand-lg" style="margin-top: -1%;">
         <div class="container">
-            <a class="navbar-brand" href="index.jsp" style="width: calc(var(--header-height)*var(--header-img-multi));">
-                <img src="${pageContext.request.contextPath}/images/cphbusiness.png" width="400px;" class="img-fluid"/>
+            <a class="justify-content-start" href="index.jsp">
+                <img src="${pageContext.request.contextPath}/images/Lord_And_Savior.png" alt="Logo" width="100px" >
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,14 +34,14 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/">Page 1</a>
-                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/">Page 2</a>
-                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/">Page 3</a>
+                    <a class="nav-item nav-link navtext" href="${pageContext.request.contextPath}/">Page 1</a>
+                    <a class="nav-item nav-link navtext" href="${pageContext.request.contextPath}/">Page 2</a>
+                    <a class="nav-item nav-link navtext" href="${pageContext.request.contextPath}/">Page 3</a>
                     <c:if test="${sessionScope.user == null }">
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/login.jsp">Login</a>
+                        <a class="nav-item nav-link navtext" href="${pageContext.request.contextPath}/login.jsp">Login</a>
                     </c:if>
                     <c:if test="${sessionScope.user != null }">
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/logout">Log out</a>
+                        <a class="nav-item nav-link navtext" href="${pageContext.request.contextPath}/logout">Log out</a>
                     </c:if>
                 </div>
             </div>
@@ -80,9 +85,18 @@
 </html>
 
 <style>
+    html {
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth;
+    }
     :root {
         --header-height: 11.6rem;
         --header-img-multi: 1.5;
+        --hero-img-multi: 0.3;
+        --hero-color: #3c1460;
+        --hero-navbar: #471f6a;
+        --navbar-text-color: #ffffff;
     }
     .footer {
         /*position: fixed;*/
@@ -93,12 +107,20 @@
         /*color: white;*/
         text-align: center;
     }
-
     .header {
         position: sticky;
         top: 0;
         width: 100%;
         background-size : cover;
         background-repeat : no-repeat;
+    }
+    .hero-img {
+        width: calc(100%*var(--hero-img-multi));
+        text-align: center;
+        display: block;
+        margin: auto;
+    }
+    .navtext {
+        color: var(--navbar-text-color);
     }
 </style>

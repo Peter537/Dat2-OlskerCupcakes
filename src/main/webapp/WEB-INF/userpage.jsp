@@ -23,29 +23,12 @@
 
        <div class="row">
            <div class="col-md-6">
-               <a class="buttons" href="ToMyOrders">Mine ordrer</a>
+                   <a class="btn btn-primary" href="/ToMyOrders">Mine ordre</a>
            </div>
               <div class="col-md-6">
-                <a class="buttons" href="ToOrder">Bestil cupcakes</a>
+                <a class="btn btn-primary" href="ToOrder">Bestil cupcakes</a>
               </div>
        </div>
-
-        <style>
-            buttons{
-                background-color: #f44336;
-                border: none;
-                color: white;
-                padding: 15px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                cursor: pointer;
-            }
-
-
-        </style>
 
 
 

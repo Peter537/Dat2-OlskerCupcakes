@@ -6,15 +6,15 @@
 
 <t:pagetemplate>
     <jsp:attribute name="head">
-        Log-ind
+        Opret bruger
     </jsp:attribute>
 
     <jsp:attribute name="header">
-        <h1>Log-ind</h1>
+        <h1>Opret Bruger</h1>
     </jsp:attribute>
 
   <jsp:attribute name="footer">
-        Log-ind
+        Opret Bruger
     </jsp:attribute>
 
     <jsp:body>
@@ -22,7 +22,8 @@
             <h3>Indtast dit brugernavn og password</h3>
             <div class="row">
                 <div class="col-sm-4">
-                    <form action="login" method="post">
+                    <form action="login" method="post"> <%-- TODO: login-action needs to be register when servlet has been made --%>
+
                         <div class="form-group">
                             <label for="username">Username: </label>
                             <input class="form-control" type="text" id="username" name="username" placeholder="Brugernavn"/>
@@ -31,6 +32,11 @@
                         <div class="form-group">
                             <label for="password">Password: </label>
                             <input class="form-control" type="password" id="password" name="password" placeholder="Password"/>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label for="password">Gentag password: </label>
+                            <input class="form-control" type="password" id="password" name="password" placeholder="Gentag password"/>
                         </div>
                         <br/>
                         <div class="form-group">

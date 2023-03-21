@@ -9,12 +9,12 @@
          Log-ind
     </jsp:attribute>
 
-    <jsp:attribute name="footer">
+  <jsp:attribute name="footer">
         Log-ind
     </jsp:attribute>
 
-    <jsp:body>
+  <jsp:body>
 
-    </jsp:body>
+  </jsp:body>
 
 </t:pagetemplate>

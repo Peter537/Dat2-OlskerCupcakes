@@ -54,9 +54,9 @@ class OrderMapper {
     }
 
     static void createOrder(Order order, Connection connection) throws DatabaseException {
-        String sqlStatement = "INSERT INTO order (fk_user_email, readytime, totalprice, cupcakecount, status) VALUES (?, ?, ?, ?, ?)";
+        String sqlStatementOrder = "INSERT INTO order (fk_user_email, readytime, totalprice, cupcakecount, status) VALUES (?, ?, ?, ?, ?)";
         try {
-            PreparedStatement preparedStatementInsertOrder = connection.prepareStatement(sqlStatement, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement preparedStatementInsertOrder = connection.prepareStatement(sqlStatementOrder, Statement.RETURN_GENERATED_KEYS);
             preparedStatementInsertOrder.setString(1, order.getUser().getEmail());
             preparedStatementInsertOrder.setDate(2, Date.valueOf(order.getReadyTime().toLocalDate()));
             preparedStatementInsertOrder.setFloat(3, order.getShoppingCart().getTotalPrice());
@@ -69,10 +69,10 @@ class OrderMapper {
                 order.setId(rs.getInt(1));
             }
 
-            String insertOrderlist = "INSERT INTO cupcake (fk_cupcaketop_id, fk_cupcakebottom_id, fk_order_id) VALUES (?, ?, ?)";
+            String sqlStatementCupcake = "INSERT INTO cupcake (fk_cupcaketop_id, fk_cupcakebottom_id, fk_order_id) VALUES (?, ?, ?)";
             for (Cupcake cupcake : order.getShoppingCart().getCupcakeList()) {
                 try {
-                    PreparedStatement preparedStatementInsertCupcake = connection.prepareStatement(insertOrderlist);
+                    PreparedStatement preparedStatementInsertCupcake = connection.prepareStatement(sqlStatementCupcake);
                     preparedStatementInsertCupcake.setInt(1, cupcake.getTop().getId());
                     preparedStatementInsertCupcake.setInt(2, cupcake.getBottom().getId());
                     preparedStatementInsertCupcake.setInt(3, order.getId());

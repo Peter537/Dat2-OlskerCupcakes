@@ -138,11 +138,11 @@ class OrderMapper {
         }
 
 
-        public static Top getTopById ( int id, ConnectionPool connectionPool){
+        public static Top getTopById ( int id, Connection connection){
 
             try {
                 String SqlStatement = "SELECT * FROM cupcaketop WHERE cupcaketop_id = ?";
-                PreparedStatement pstmt = connectionPool.getConnection().prepareStatement(SqlStatement);
+                PreparedStatement pstmt = connection.prepareStatement(SqlStatement);
                 pstmt.setInt(1, id);
                 ResultSet rs = pstmt.executeQuery();
 
@@ -161,11 +161,11 @@ class OrderMapper {
             return null;
         }
 
-        public static Bottom getBottomById ( int id, ConnectionPool connectionPool){
+        public static Bottom getBottomById ( int id, Connection connection){
 
             try {
                 String SqlStatement = "SELECT * FROM cupcakebottom WHERE cupcakebottom_id = ?";
-                PreparedStatement pstmt = connectionPool.getConnection().prepareStatement(SqlStatement);
+                PreparedStatement pstmt = connection.prepareStatement(SqlStatement);
                 pstmt.setInt(1, id);
                 ResultSet rs = pstmt.executeQuery();
 

@@ -123,19 +123,60 @@ class OrderMapper {
                 int cupcake_id = rs.getInt("cupcake_id");
                 int fk_cupcaketop_id = rs.getInt("fk_cupcaketop_id");
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+            } catch(SQLException e){
+                e.printStackTrace();
+            }
+
+
+            // TODO: Implement this method
+
+            return shoppingCart;
         }
 
 
+        public static Top getTopById ( int id, ConnectionPool connectionPool){
+
+            try {
+                String SqlStatement = "SELECT * FROM cupcaketop WHERE cupcaketop_id = ?";
+                PreparedStatement pstmt = connectionPool.getConnection().prepareStatement(SqlStatement);
+                pstmt.setInt(1, id);
+                ResultSet rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+                    int cupcaketop_id = rs.getInt("cupcaketop_id");
+                    String cupcakeTopping = rs.getString("topping");
+                    float cupcaketop_price = rs.getFloat("price");
+                    return new Top(cupcaketop_id, cupcakeTopping, cupcaketop_price);
+                }
 
 
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
+            return null;
+        }
 
+        public static Bottom getBottomById ( int id, ConnectionPool connectionPool){
 
+            try {
+                String SqlStatement = "SELECT * FROM cupcakebottom WHERE cupcakebottom_id = ?";
+                PreparedStatement pstmt = connectionPool.getConnection().prepareStatement(SqlStatement);
+                pstmt.setInt(1, id);
+                ResultSet rs = pstmt.executeQuery();
 
-        // TODO: Implement this method
+                if (rs.next()) {
+                    int cupcakebottom_id = rs.getInt("cupcakebottom_id");
+                    String cupcakeBottom = rs.getString("bottom");
+                    float cupcakebottom_price = rs.getFloat("price");
+                    return new Bottom(cupcakebottom_id, cupcakeBottom, cupcakebottom_price);
+                }
 
-        return shoppingCart;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
     }
 }

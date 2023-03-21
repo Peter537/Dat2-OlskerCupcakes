@@ -73,12 +73,12 @@
     <hr/>
     <div class="row mt-4">
         <div class="col">
-            Nørgaardsvej 30<br/>
-            2800 Lyngby
+            Cupcakestreet 32<br/>
+            3770 Olsker
         </div>
         <div class="col">
             <jsp:invoke fragment="footer"/><br/>
-            <p>&copy; 2023 Cphbusiness</p>
+            <p>&copy; 2023 Olskercupcakes</p>
         </div>
         <div class="col">
             Datamatikeruddannelsen<br/>

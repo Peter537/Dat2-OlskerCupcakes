@@ -14,7 +14,7 @@ public class Order {
         this.user = user;
         this.readyTime = readyTime;
         this.shoppingCart = shoppingCart;
-        this.status = OrderStatus.PENDING;
+        this.status = OrderStatus.IN_SHOPPING_CART;
     }
 
     public Order(int id, User user, LocalDateTime readyTime, ShoppingCart shoppingCart) {
@@ -22,7 +22,15 @@ public class Order {
         this.user = user;
         this.readyTime = readyTime;
         this.shoppingCart = shoppingCart;
-        this.status = OrderStatus.PENDING;
+        this.status = OrderStatus.IN_SHOPPING_CART;
+    }
+
+    public Order(int id, User user, LocalDateTime readyTime, ShoppingCart shoppingCart, OrderStatus status) {
+        this.id = id;
+        this.user = user;
+        this.readyTime = readyTime;
+        this.shoppingCart = shoppingCart;
+        this.status = status;
     }
 
     public int getId() {

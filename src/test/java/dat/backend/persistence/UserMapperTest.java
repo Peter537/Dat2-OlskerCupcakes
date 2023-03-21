@@ -16,8 +16,6 @@ import java.sql.Statement;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserMapperTest {
-    // TODO: Change mysql login credentials if needed below
-    //       - Add getPassword() method to a local /data/dbPassword.txt file
 
     private final static String USER = "root";
     private final static String PASSWORD = "123";

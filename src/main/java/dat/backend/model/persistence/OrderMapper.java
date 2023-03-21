@@ -27,7 +27,7 @@ class OrderMapper {
                 int cupcakecount = rs.getInt("cupcakecount");
                 String status = rs.getString("status");
                 ShoppingCart shoppingCart = getShoppingCartByOrderId(order_id, connection);
-                Order order = new Order(order_id, UserMapper.getUserByEmail(email, connection), time, shoppingCart );
+                Order order = new Order(order_id, UserMapper.getUserByEmail(email, connection), time, shoppingCart);
             }
         } catch (SQLException e) {
             throw new DatabaseException(e, "Could not get all orders from database");
@@ -110,7 +110,7 @@ class OrderMapper {
 
     }
 
-    private static ShoppingCart getShoppingCartByOrderId(int orderId, Connection connection) throws DatabaseException{
+    private static ShoppingCart getShoppingCartByOrderId(int orderId, Connection connection) throws DatabaseException {
         ShoppingCart shoppingCart = new ShoppingCart();
         String sql = "SELECT * FROM cupcake WHERE fk_order_id = ?";
 
@@ -127,60 +127,56 @@ class OrderMapper {
 
                 Cupcake cupcake = new Cupcake(bottom, top);
                 shoppingCart.addCupcake(cupcake);
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Could not get shopping cart by order id from database");
+        }
+
+        return shoppingCart;
+    }
+
+
+    public static Top getTopById(int id, Connection connection) throws DatabaseException {
+
+        try {
+            String SqlStatement = "SELECT * FROM cupcaketop WHERE cupcaketop_id = ?";
+            PreparedStatement pstmt = connection.prepareStatement(SqlStatement);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int cupcaketop_id = rs.getInt("cupcaketop_id");
+                String cupcakeTopping = rs.getString("topping");
+                float cupcaketop_price = rs.getFloat("price");
+                return new Top(cupcaketop_id, cupcakeTopping, cupcaketop_price);
             } else {
-                throw new DatabaseException("Could not get shopping cart by order id from database");
-            }
-        }catch(SQLException e){
-                throw new DatabaseException(e, "Could not get shopping cart by order id from database")
+                throw new DatabaseException("Could not get top by id from database");
             }
 
-            return shoppingCart;
-        }
-
-
-        public static Top getTopById ( int id, Connection connection) throws DatabaseException{
-
-            try {
-                String SqlStatement = "SELECT * FROM cupcaketop WHERE cupcaketop_id = ?";
-                PreparedStatement pstmt = connection.prepareStatement(SqlStatement);
-                pstmt.setInt(1, id);
-                ResultSet rs = pstmt.executeQuery();
-
-                if (rs.next()) {
-                    int cupcaketop_id = rs.getInt("cupcaketop_id");
-                    String cupcakeTopping = rs.getString("topping");
-                    float cupcaketop_price = rs.getFloat("price");
-                    return new Top(cupcaketop_id, cupcakeTopping, cupcaketop_price);
-                } else {
-                    throw new DatabaseException("Could not get top by id from database");
-                }
-
-            } catch (SQLException e) {
-                throw new DatabaseException(e, "Could not get top by id from database")
-            }
-
-            return null;
-        }
-
-        public static Bottom getBottomById ( int id, Connection connection) throws DatabaseException{
-
-            try {
-                String SqlStatement = "SELECT * FROM cupcakebottom WHERE cupcakebottom_id = ?";
-                PreparedStatement pstmt = connection.prepareStatement(SqlStatement);
-                pstmt.setInt(1, id);
-                ResultSet rs = pstmt.executeQuery();
-
-                if (rs.next()) {
-                    int cupcakebottom_id = rs.getInt("cupcakebottom_id");
-                    String cupcakeBottom = rs.getString("bottom");
-                    float cupcakebottom_price = rs.getFloat("price");
-                    return new Bottom(cupcakebottom_id, cupcakeBottom, cupcakebottom_price);
-                } else {
-                    throw new DatabaseException("Could not get bottom by id from database");
-                }
-
-            } catch (SQLException e) {
-                throw new DatabaseException(e, "Could not get bottom by id from database");
-            }
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Could not get top by id from database");
         }
     }
+
+    public static Bottom getBottomById(int id, Connection connection) throws DatabaseException {
+
+        try {
+            String SqlStatement = "SELECT * FROM cupcakebottom WHERE cupcakebottom_id = ?";
+            PreparedStatement pstmt = connection.prepareStatement(SqlStatement);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int cupcakebottom_id = rs.getInt("cupcakebottom_id");
+                String cupcakeBottom = rs.getString("bottom");
+                float cupcakebottom_price = rs.getFloat("price");
+                return new Bottom(cupcakebottom_id, cupcakeBottom, cupcakebottom_price);
+            } else {
+                throw new DatabaseException("Could not get bottom by id from database");
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Could not get bottom by id from database");
+        }
+    }
+}

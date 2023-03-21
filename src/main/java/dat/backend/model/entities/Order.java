@@ -10,6 +10,7 @@ public class Order {
     private ShoppingCart shoppingCart;
     private OrderStatus status;
 
+    // TODO: Finde ud af om constructors skal have LocalDateTime som parameter
     public Order(User user, LocalDateTime readyTime, ShoppingCart shoppingCart) {
         this.user = user;
         this.readyTime = readyTime;

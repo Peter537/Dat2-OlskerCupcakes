@@ -5,19 +5,16 @@ public class Cupcake {
     private int id;
     private Bottom bottom;
     private Top top;
-    private int quantity;
 
-    public Cupcake(Bottom bottom, Top top, int quantity) {
+    public Cupcake(Bottom bottom, Top top) {
         this.bottom = bottom;
         this.top = top;
-        this.quantity = quantity;
     }
 
-    public Cupcake(int id, Bottom bottom, Top top, int quantity) {
+    public Cupcake(int id, Bottom bottom, Top top) {
         this.id = id;
         this.bottom = bottom;
         this.top = top;
-        this.quantity = quantity;
     }
 
     public int getId() {
@@ -44,14 +41,6 @@ public class Cupcake {
         this.top = top;
     }
 
-    public int getQuantity() {
-        return this.quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     public float getPrice() {
         return this.bottom.getPrice() + this.top.getPrice();
     }
@@ -61,7 +50,6 @@ public class Cupcake {
         return "Cupcake{" +
                 "bottom=" + this.bottom +
                 ", top=" + this.top +
-                ", quantity=" + this.quantity +
                 '}';
     }
 }

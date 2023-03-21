@@ -1,9 +1,6 @@
 package dat.backend.model.persistence;
 
-import dat.backend.model.entities.Cupcake;
-import dat.backend.model.entities.Order;
-import dat.backend.model.entities.ShoppingCart;
-import dat.backend.model.entities.User;
+import dat.backend.model.entities.*;
 import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.*;
@@ -29,8 +26,8 @@ class OrderMapper {
                 float totalprice = rs.getFloat("totalprice");
                 int cupcakecount = rs.getInt("cupcakecount");
                 String status = rs.getString("status");
-                Order order = new Order(order_id, null, time, null);
-                //TODO: Add more to order constructor, and then fix above line (123) so it uses the correct values.
+                ShoppingCart shoppingCart = getShoppingCartByOrderId(order_id, connection);
+                Order order = new Order(order_id, UserMapper.getUserByEmail(email, connection), time, shoppingCart);
             }
         } catch (SQLException e) {
             throw new DatabaseException(e, "Could not get all orders from database");
@@ -49,14 +46,11 @@ class OrderMapper {
 
             while (rs.next()) {
                 int order_id = rs.getInt("order_id");
-                String email = rs.getString("fk_user_email");
                 LocalDateTime time = rs.getDate("readytime").toLocalDate().atStartOfDay();
-                float totalprice = rs.getFloat("totalprice");
-                int cupcakecount = rs.getInt("cupcakecount");
-                String status = rs.getString("status");
+                OrderStatus status = OrderStatus.valueOf(rs.getString("status").toUpperCase());
                 ShoppingCart shoppingCart = getShoppingCartByOrderId(order_id, connection);
-                Order order = new Order(order_id, user, time, shoppingCart);
-                //TODO: Figure out how shoppingCart plays into the above line
+                Order order = new Order(order_id, user, time, shoppingCart, status);
+
             }
 
         } catch (SQLException e) {
@@ -108,6 +102,7 @@ class OrderMapper {
             pstmt.setInt(1, orderId);
             pstmt.executeUpdate();
 
+            //TODO: Should this method have a "throw database exception" if ID doesnt exist?
         } catch (SQLException e) {
             throw new DatabaseException(e, "Could not delete order from database");
         }
@@ -115,11 +110,73 @@ class OrderMapper {
 
     }
 
-    private static ShoppingCart getShoppingCartByOrderId(int orderId, Connection connection) {
+    private static ShoppingCart getShoppingCartByOrderId(int orderId, Connection connection) throws DatabaseException {
         ShoppingCart shoppingCart = new ShoppingCart();
+        String sql = "SELECT * FROM cupcake WHERE fk_order_id = ?";
 
-        // TODO: Implement this method
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, orderId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int cupcake_id = rs.getInt("cupcake_id");
+                int fk_order_id = rs.getInt("fk_order_id");
+                Top top = getTopById(rs.getInt("fk_cupcaketop_id"), connection);
+                Bottom bottom = getBottomById(rs.getInt("fk_cupcakebottom_id"), connection);
+
+                Cupcake cupcake = new Cupcake(bottom, top);
+                shoppingCart.addCupcake(cupcake);
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Could not get shopping cart by order id from database");
+        }
 
         return shoppingCart;
+    }
+
+
+    public static Top getTopById(int id, Connection connection) throws DatabaseException {
+
+        try {
+            String SqlStatement = "SELECT * FROM cupcaketop WHERE cupcaketop_id = ?";
+            PreparedStatement pstmt = connection.prepareStatement(SqlStatement);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int cupcaketop_id = rs.getInt("cupcaketop_id");
+                String cupcakeTopping = rs.getString("topping");
+                float cupcaketop_price = rs.getFloat("price");
+                return new Top(cupcaketop_id, cupcakeTopping, cupcaketop_price);
+            } else {
+                throw new DatabaseException("Could not get top by id from database");
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Could not get top by id from database");
+        }
+    }
+
+    public static Bottom getBottomById(int id, Connection connection) throws DatabaseException {
+
+        try {
+            String SqlStatement = "SELECT * FROM cupcakebottom WHERE cupcakebottom_id = ?";
+            PreparedStatement pstmt = connection.prepareStatement(SqlStatement);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int cupcakebottom_id = rs.getInt("cupcakebottom_id");
+                String cupcakeBottom = rs.getString("bottom");
+                float cupcakebottom_price = rs.getFloat("price");
+                return new Bottom(cupcakebottom_id, cupcakeBottom, cupcakebottom_price);
+            } else {
+                throw new DatabaseException("Could not get bottom by id from database");
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Could not get bottom by id from database");
+        }
     }
 }

@@ -17,6 +17,10 @@ public class UserFacade {
         return UserMapper.createUser(username, password, role, connection);
     }
 
+    public static User getUserByEmail(String email, Connection connection) throws DatabaseException {
+        return UserMapper.getUserByEmail(email, connection);
+    }
+
     public static List<User> getAllUsers(Connection connection) throws DatabaseException {
         return UserMapper.getAllUsers(connection);
     }

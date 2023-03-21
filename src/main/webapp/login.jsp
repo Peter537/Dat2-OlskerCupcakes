@@ -6,12 +6,13 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-             Log-ind
+         Log-ind
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-            Log-ind
+        Log-ind
     </jsp:attribute>
+
     <jsp:body>
         <div>
             <h3>Indtast dit brugernavn og password</h3>
@@ -28,11 +29,14 @@
                         <input class="form-control" type="password" id="password" name="password" placeholder="Password"/>
                     </div>
                     <br/>
-                    <input class="btn btn-primary" type="submit"  value="Log in"/>
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" value="Log-ind" style="width: 100%;"/>
+                    </div>
                 </form>
                 </div>
                 <div class="col-sm-8"></div>
             </div>
         </div>
     </jsp:body>
+
 </t:pagetemplate>

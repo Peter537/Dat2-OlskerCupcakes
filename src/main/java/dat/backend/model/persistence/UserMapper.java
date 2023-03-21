@@ -11,9 +11,9 @@ import java.util.List;
 class UserMapper {
 
     static User login(String email, String password, Connection connection) throws DatabaseException {
-        String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
+        String sqlStatement = "SELECT * FROM user WHERE email = ? AND password = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sqlStatement);
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
@@ -29,8 +29,9 @@ class UserMapper {
     }
 
     static User createUser(String email, String password, Role role, Connection connection) throws DatabaseException {
-        String sql = "INSERT INTO user (email, password, role) VALUES (?, ?, ?)";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        String sqlStatement = "INSERT INTO user (email, password, role) VALUES (?, ?, ?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sqlStatement);
             ps.setString(1, email);
             ps.setString(2, password);
             ps.setString(3, role.toString().toUpperCase());
@@ -46,9 +47,9 @@ class UserMapper {
     }
 
     public static User getUserByEmail(String email, Connection connection) throws DatabaseException {
-        String sql = "SELECT * FROM user WHERE email = ?";
+        String sqlStatement = "SELECT * FROM user WHERE email = ?";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sqlStatement);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -65,9 +66,9 @@ class UserMapper {
 
     static List<User> getAllUsers(Connection connection) throws DatabaseException {
         List<User> users = new ArrayList<>();
-        String sql = "SELECT * FROM user";
+        String sqlStatement = "SELECT * FROM user";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sqlStatement);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String email = rs.getString("email");

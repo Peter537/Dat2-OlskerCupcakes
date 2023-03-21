@@ -11,58 +11,51 @@ import java.util.List;
 class OrderMapper {
 
     static List<Order> getAllOrders(Connection connection) throws DatabaseException {
+        ArrayList<Order> orders = new ArrayList<>();
+        String sqlStatement = "SELECT * FROM order";
         try {
-            String statement = "SELECT * FROM order";
-            PreparedStatement pstmt = connection.prepareStatement(statement);
-
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             ResultSet rs = pstmt.executeQuery();
-
-            ArrayList<Order> orders = new ArrayList<>();
-
             while (rs.next()) {
                 int order_id = rs.getInt("order_id");
                 String email = rs.getString("fk_user_email");
                 LocalDateTime time = rs.getDate("readytime").toLocalDate().atStartOfDay();
-                float totalprice = rs.getFloat("totalprice");
-                int cupcakecount = rs.getInt("cupcakecount");
-                String status = rs.getString("status");
+                OrderStatus status = OrderStatus.valueOf(rs.getString("status").toUpperCase());
                 ShoppingCart shoppingCart = getShoppingCartByOrderId(order_id, connection);
-                Order order = new Order(order_id, UserMapper.getUserByEmail(email, connection), time, shoppingCart);
+                Order order = new Order(order_id, UserMapper.getUserByEmail(email, connection), time, shoppingCart, status);
+                orders.add(order);
             }
         } catch (SQLException e) {
             throw new DatabaseException(e, "Could not get all orders from database");
         }
-        return new ArrayList<>();
+        return orders;
     }
 
     static List<Order> getAllOrdersByUser(User user, Connection connection) throws DatabaseException {
-
+        ArrayList<Order> orders = new ArrayList<>();
+        String sqlStatement = "SELECT * FROM order WHERE fk_user_email = ?";
         try {
-            String sql = "SELECT * FROM order WHERE fk_user_email = ?";
-            PreparedStatement pstmt = connection.prepareStatement(sql);
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             pstmt.setString(1, user.getEmail());
             ResultSet rs = pstmt.executeQuery();
-            ArrayList<Order> userOrders = new ArrayList<>();
-
             while (rs.next()) {
                 int order_id = rs.getInt("order_id");
                 LocalDateTime time = rs.getDate("readytime").toLocalDate().atStartOfDay();
                 OrderStatus status = OrderStatus.valueOf(rs.getString("status").toUpperCase());
                 ShoppingCart shoppingCart = getShoppingCartByOrderId(order_id, connection);
                 Order order = new Order(order_id, user, time, shoppingCart, status);
-
+                orders.add(order);
             }
-
         } catch (SQLException e) {
             throw new DatabaseException(e, "Could not get all orders from a user from database");
         }
 
-        return new ArrayList<>();
+        return orders;
     }
 
     static void createOrder(Order order, Connection connection) throws DatabaseException {
+        String sqlStatement = "INSERT INTO order (fk_user_email, readytime, totalprice, cupcakecount, status) VALUES (?, ?, ?, ?, ?)";
         try {
-            String sqlStatement = "INSERT INTO order (fk_user_email, readytime, totalprice, cupcakecount, status) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement, Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, order.getUser().getEmail());
             pstmt.setDate(2, Date.valueOf(order.getReadyTime().toLocalDate()));
@@ -77,7 +70,6 @@ class OrderMapper {
             }
 
             String insertOrderlist = "INSERT INTO order (fk_cupcaketop_id, fk_cupcakebottom_id, fk_order_id) VALUES (?, ?, ?)";
-
             for (Cupcake cupcake : order.getShoppingCart().getCupcakeList()) {
                 try {
                     PreparedStatement pstmt2 = connection.prepareStatement(insertOrderlist);
@@ -94,38 +86,30 @@ class OrderMapper {
         }
     }
 
-    static void deleteOrder(int orderId, Connection connection) throws DatabaseException {
-
+    static void updateOrderStatus(int orderId, OrderStatus status, Connection connection) throws DatabaseException {
+        String sqlStatement = "UPDATE order SET status = ? WHERE order_id = ?";
         try {
-            String sqlStatement = "DELETE FROM order WHERE order_id = ?";
             PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
-            pstmt.setInt(1, orderId);
+            pstmt.setString(1, status.toString().toUpperCase());
+            pstmt.setInt(2, orderId);
             pstmt.executeUpdate();
-
-            //TODO: Should this method have a "throw database exception" if ID doesnt exist?
         } catch (SQLException e) {
-            throw new DatabaseException(e, "Could not delete order from database");
+            throw new DatabaseException(e, "Could not update order status in database");
         }
-
-
     }
 
     private static ShoppingCart getShoppingCartByOrderId(int orderId, Connection connection) throws DatabaseException {
         ShoppingCart shoppingCart = new ShoppingCart();
         String sql = "SELECT * FROM cupcake WHERE fk_order_id = ?";
-
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setInt(1, orderId);
             ResultSet rs = pstmt.executeQuery();
-
             while (rs.next()) {
                 int cupcake_id = rs.getInt("cupcake_id");
-                int fk_order_id = rs.getInt("fk_order_id");
                 Top top = getTopById(rs.getInt("fk_cupcaketop_id"), connection);
                 Bottom bottom = getBottomById(rs.getInt("fk_cupcakebottom_id"), connection);
-
-                Cupcake cupcake = new Cupcake(bottom, top);
+                Cupcake cupcake = new Cupcake(cupcake_id, bottom, top);
                 shoppingCart.addCupcake(cupcake);
             }
         } catch (SQLException e) {
@@ -136,14 +120,12 @@ class OrderMapper {
     }
 
 
-    public static Top getTopById(int id, Connection connection) throws DatabaseException {
-
+    private static Top getTopById(int id, Connection connection) throws DatabaseException {
+        String sqlStatement = "SELECT * FROM cupcaketop WHERE cupcaketop_id = ?";
         try {
-            String SqlStatement = "SELECT * FROM cupcaketop WHERE cupcaketop_id = ?";
-            PreparedStatement pstmt = connection.prepareStatement(SqlStatement);
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
-
             if (rs.next()) {
                 int cupcaketop_id = rs.getInt("cupcaketop_id");
                 String cupcakeTopping = rs.getString("topping");
@@ -152,20 +134,17 @@ class OrderMapper {
             } else {
                 throw new DatabaseException("Could not get top by id from database");
             }
-
         } catch (SQLException e) {
             throw new DatabaseException(e, "Could not get top by id from database");
         }
     }
 
-    public static Bottom getBottomById(int id, Connection connection) throws DatabaseException {
-
+    private static Bottom getBottomById(int id, Connection connection) throws DatabaseException {
+        String sqlStatement = "SELECT * FROM cupcakebottom WHERE cupcakebottom_id = ?";
         try {
-            String SqlStatement = "SELECT * FROM cupcakebottom WHERE cupcakebottom_id = ?";
-            PreparedStatement pstmt = connection.prepareStatement(SqlStatement);
+            PreparedStatement pstmt = connection.prepareStatement(sqlStatement);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
-
             if (rs.next()) {
                 int cupcakebottom_id = rs.getInt("cupcakebottom_id");
                 String cupcakeBottom = rs.getString("bottom");
@@ -174,7 +153,6 @@ class OrderMapper {
             } else {
                 throw new DatabaseException("Could not get bottom by id from database");
             }
-
         } catch (SQLException e) {
             throw new DatabaseException(e, "Could not get bottom by id from database");
         }

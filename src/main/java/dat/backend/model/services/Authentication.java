@@ -16,4 +16,8 @@ public class Authentication {
         }
         return false;
     }
+
+    public static boolean isAdmin(HttpServletRequest request) {
+        return isRoleAllowed(Role.ADMIN, request);
+    }
 }

@@ -12,12 +12,20 @@ public class Authentication {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            return user.getRole().equals(role);
+            return isRoleAllowed(role, user);
         }
         return false;
     }
 
+    public static boolean isRoleAllowed(Role role, User user) {
+        return user.getRole().equals(role);
+    }
+
     public static boolean isAdmin(HttpServletRequest request) {
         return isRoleAllowed(Role.ADMIN, request);
+    }
+
+    public static boolean isAdmin(User user) {
+        return isRoleAllowed(Role.ADMIN, user);
     }
 }

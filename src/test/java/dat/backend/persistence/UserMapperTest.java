@@ -46,11 +46,11 @@ class UserMapperTest {
         try (Connection testConnection = connectionPool.getConnection()) {
             try (Statement stmt = testConnection.createStatement()) {
                 // TODO: Remove all rows from all tables - add your own tables here
-                stmt.execute("delete from user");
+                stmt.execute("DELETE FROM user");
 
                 // TODO: Insert a few users - insert rows into your own tables here
-                stmt.execute("insert into user (email, password, role) " +
-                        "values ('user','1234','customer'),('admin','1234','admin'), ('ben','1234','customer')");
+                stmt.execute("INSERT INTO user (email, password, role) " +
+                        "VALUES ('user', '1234', 'customer'), ('admin', '1234', 'admin'), ('ben', '1234', 'customer')");
             }
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());

@@ -19,7 +19,11 @@
 
     <jsp:body>
         <div class="row">
-            <div class="col-sm-12">
+            <form action="UpdateOrdersList" method="post">
+                <input type="submit" class="btn btn-primary" value="Opdater liste">
+            </form>
+            <br>
+            <div class="col-sm-9">
                 <table class="table">
                     <thead>
                         <tr>

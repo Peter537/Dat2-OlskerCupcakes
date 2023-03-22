@@ -13,12 +13,18 @@ public class AddToCart extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Cupcake cupcake = (Cupcake) request.getAttribute("cupcake");
-        User user = (User) request.getSession().getAttribute("user");
-        user.getShoppingCart().addCupcake(cupcake);
-        request.setAttribute("cupcake", null);
-        request.setAttribute("bottom", null);
-        request.setAttribute("topping", null);
-        request.getRequestDispatcher("WEB-INF/cart.jsp").forward(request, response);
+        try {
+            Cupcake cupcake = (Cupcake) request.getAttribute("cupcake");
+            User user = (User) request.getSession().getAttribute("user");
+            user.getShoppingCart().addCupcake(cupcake);
+            request.setAttribute("cupcake", null);
+            request.setAttribute("bottom", null);
+            request.setAttribute("topping", null);
+            request.setAttribute("msg", "Tilføjet til kurv");
+            request.getRequestDispatcher("WEB-INF/order.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("msg", "Der skete en fejl");
+            request.getRequestDispatcher("WEB-INF/order.jsp").forward(request, response);
+        }
     }
 }

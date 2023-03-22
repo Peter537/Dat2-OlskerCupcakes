@@ -11,6 +11,7 @@
 
     <jsp:attribute name="header">
         <h1 style="margin-left: 25%;">Tilføj til kurv</h1>
+        <h3 style="margin-left: 22%;">${requestScope.msg}</h3>
     </jsp:attribute>
 
     <jsp:attribute name="footer">

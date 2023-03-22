@@ -2,7 +2,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<!-- <%@page errorPage="error.jsp" isErrorPage="false" %> -->
+<%@page errorPage="error.jsp" isErrorPage="false" %>
 
 <t:pagetemplate>
     <jsp:attribute name="head">
@@ -23,12 +23,20 @@
                 <th>Bund</th>
                 <th>Topping</th>
                 <th>Total pris</th>
+                <th></th>
             </tr>
             <c:forEach items="${sessionScope.user.shoppingCart.cupcakeList}" var="item">
                 <tr>
                     <td>${item.getBottom().getName()}</td>
                     <td>${item.getTop().getName()}</td>
                     <td>${item.getPrice()}</td>
+                    <td>
+                        <form action="RemoveCupcake" method="post">
+                            <input type="hidden" readonly="readonly" name="cupcake" id="cupcake" value="${item}" class="form-control">
+                            <input type="hidden" readonly="readonly" name="shoppingcart" id="shoppingcart" value="${sessionScope.user.shoppingCart}" class="form-control">
+                            <input type="submit" value="Aflys" class="btn btn-primary" style="float: right;">
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
         </table>

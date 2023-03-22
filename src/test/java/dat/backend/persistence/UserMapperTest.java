@@ -49,8 +49,8 @@ class UserMapperTest {
                 stmt.execute("delete from user");
 
                 // TODO: Insert a few users - insert rows into your own tables here
-                stmt.execute("insert into user (username, password, role) " +
-                        "values ('user','1234','user'),('admin','1234','admin'), ('ben','1234','user')");
+                stmt.execute("insert into user (email, password, role) " +
+                        "values ('user','1234','customer'),('admin','1234','admin'), ('ben','1234','customer')");
             }
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());

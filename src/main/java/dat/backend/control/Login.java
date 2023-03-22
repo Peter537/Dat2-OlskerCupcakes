@@ -1,9 +1,11 @@
 package dat.backend.control;
 
 import dat.backend.model.config.ApplicationStart;
+import dat.backend.model.entities.Role;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.CupcakeFacade;
+import dat.backend.model.persistence.OrderFacade;
 import dat.backend.model.persistence.UserFacade;
 
 import javax.servlet.ServletException;
@@ -46,11 +48,23 @@ public class Login extends HttpServlet {
 
         try {
             User user = UserFacade.login(username, password, connection);
+
             session = request.getSession();
             session.setAttribute("user", user); // adding user object to session scope
+            if (user.getRole() == Role.ADMIN) {
+                request.setAttribute("users", UserFacade.getAllUsers(connection));
+                request.setAttribute("orders", OrderFacade.getAllOrders(connection));
+                request.getRequestDispatcher("WEB-INF/adminpage.jsp").forward(request, response);
+                return;
+            }
             request.getRequestDispatcher("WEB-INF/userpage.jsp").forward(request, response);
         } catch (DatabaseException e) {
             request.setAttribute("errormessage", e.getMessage());
+            if (e.getMessage().equals("Wrong username or password")) {
+                request.setAttribute("msg", "Wrong username or password");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+                return;
+            }
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }

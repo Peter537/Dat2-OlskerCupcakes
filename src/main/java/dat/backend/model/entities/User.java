@@ -1,5 +1,11 @@
 package dat.backend.model.entities;
 
+import dat.backend.model.config.ApplicationStart;
+import dat.backend.model.exceptions.DatabaseException;
+import dat.backend.model.persistence.OrderFacade;
+
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Objects;
 
 public class User {
@@ -46,6 +52,14 @@ public class User {
 
     public void setShoppingCart(ShoppingCart shoppingCart) {
         this.shoppingCart = shoppingCart;
+    }
+
+    public List<Order> getOrders() {
+        try {
+            return OrderFacade.getAllOrdersByUser(this, ApplicationStart.getConnectionPool().getConnection());
+        } catch (DatabaseException | SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

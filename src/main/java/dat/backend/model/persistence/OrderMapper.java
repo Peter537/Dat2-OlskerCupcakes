@@ -62,8 +62,8 @@ class OrderMapper {
         try {
             PreparedStatement preparedStatementInsertOrder = connection.prepareStatement(sqlStatementOrder, Statement.RETURN_GENERATED_KEYS);
             preparedStatementInsertOrder.setString(1, order.getUser().getEmail());
-            //String time = order.getReadyTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            preparedStatementInsertOrder.setString(2, "2021-05-05 12:00:00");
+            String time = order.getReadyTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            preparedStatementInsertOrder.setString(2, time);
             preparedStatementInsertOrder.setFloat(3, order.getUser().getShoppingCart().getTotalPrice());
             preparedStatementInsertOrder.setInt(4, order.getUser().getShoppingCart().getCupcakeList().size());
             preparedStatementInsertOrder.setString(5, order.getStatus().toString().toUpperCase());

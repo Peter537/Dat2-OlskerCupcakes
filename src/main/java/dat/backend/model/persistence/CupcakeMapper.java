@@ -25,7 +25,7 @@ class CupcakeMapper {
                 float cupcaketop_price = rs.getFloat("price");
                 return new Top(cupcaketop_id, cupcakeTopping, cupcaketop_price);
             } else {
-                throw new DatabaseException("Could not get top by id from database");
+                throw new DatabaseException("Could not find top by id from database");
             }
         } catch (SQLException e) {
             throw new DatabaseException(e, "Could not get top by id from database");
@@ -44,7 +44,7 @@ class CupcakeMapper {
                 float cupcakebottom_price = rs.getFloat("price");
                 return new Bottom(cupcakebottom_id, cupcakeBottom, cupcakebottom_price);
             } else {
-                throw new DatabaseException("Could not get bottom by id from database");
+                throw new DatabaseException("Could not find bottom by id from database");
             }
         } catch (SQLException e) {
             throw new DatabaseException(e, "Could not get bottom by id from database");

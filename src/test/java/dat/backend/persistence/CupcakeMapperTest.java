@@ -1,13 +1,20 @@
 package dat.backend.persistence;
 
+import dat.backend.model.entities.Bottom;
+import dat.backend.model.entities.Top;
+import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
+import dat.backend.model.persistence.CupcakeFacade;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class CupcakeMapperTest {
@@ -43,8 +50,8 @@ class CupcakeMapperTest {
         try {
             Statement stmt = connection.createStatement();
             // TODO: Remove all rows from all tables - add your own tables here
-            stmt.execute("DELETE FROM cupcakebottom");
-            stmt.execute("DELETE FROM cupcaketop");
+            stmt.execute("TRUNCATE TABLE cupcakebottom");
+            stmt.execute("TRUNCATE TABLE cupcaketop");
 
             // TODO: Insert a few users - insert rows into your own tables here
             stmt.execute("INSERT INTO cupcakebottom (bottom, price) " +
@@ -55,5 +62,45 @@ class CupcakeMapperTest {
             System.out.println(e.getMessage());
             fail("Database connection failed");
         }
+    }
+
+    @Test
+    public void testGetAllBottoms() throws DatabaseException {
+        List<Bottom> bottoms = CupcakeFacade.getAllBottoms(connection);
+        assertEquals(2, bottoms.size());
+    }
+
+    @Test
+    public void testGetAllToppings() throws DatabaseException {
+        List<Top> tops = CupcakeFacade.getAllToppings(connection);
+        assertEquals(2, tops.size());
+    }
+
+    @Test
+    public void testGetBottomById_1() throws DatabaseException {
+        Bottom bottom = CupcakeFacade.getBottomById(1, connection);
+        assertEquals("chokolade", bottom.getName());
+        assertEquals(5, bottom.getPrice());
+    }
+
+    @Test
+    public void testGetBottomById_2() throws DatabaseException {
+        Bottom bottom = CupcakeFacade.getBottomById(2, connection);
+        assertEquals("vanilla", bottom.getName());
+        assertEquals(7, bottom.getPrice());
+    }
+
+    @Test
+    public void testGetTopById_1() throws DatabaseException {
+        Top top = CupcakeFacade.getTopById(1, connection);
+        assertEquals("chokolade", top.getName());
+        assertEquals(5, top.getPrice());
+    }
+
+    @Test
+    public void testGetTopById_2() throws DatabaseException {
+        Top top = CupcakeFacade.getTopById(2, connection);
+        assertEquals("vanilla", top.getName());
+        assertEquals(7, top.getPrice());
     }
 }

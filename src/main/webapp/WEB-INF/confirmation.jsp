@@ -10,15 +10,18 @@
     </jsp:attribute>
 
     <jsp:attribute name="header">
-        <h1>Log-ind</h1>
+        <h1>Order bekræftelse</h1>
     </jsp:attribute>
 
   <jsp:attribute name="footer">
-        Log-ind
+        Bekræftelse
     </jsp:attribute>
 
   <jsp:body>
-
+      <br>
+      <div class="row">
+          <p>Dine cupcakes er bestilt!</p>
+      </div>
   </jsp:body>
 
 </t:pagetemplate>

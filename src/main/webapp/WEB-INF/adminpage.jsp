@@ -2,7 +2,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<!-- <%@page errorPage="error.jsp" isErrorPage="false" %> -->
+<%--<!-- <%@page errorPage="error.jsp" isErrorPage="false" %> -->--%>
 
 <t:pagetemplate>
     <jsp:attribute name="head">
@@ -34,10 +34,10 @@
                         <c:forEach items="${sessionScope.orders}" var="order">
                             <tr>
                                 <td>${order.id}</td>
-                                <td>${order.user.username}</td>
-                                <td>${order.price}</td>
-                                <td>${order.deliveryTime}</td>
-                                <td>${order.status}</td>
+                                <td>${order.getUser().getEmail()}</td>
+                                <td>${order.getPrice()}</td>
+                                <td>${order.getReadyTime()}</td>
+                                <td>${order.getStatus()}</td>
                             </tr>
                         </c:forEach>
                 </table>

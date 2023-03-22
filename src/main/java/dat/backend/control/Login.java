@@ -1,6 +1,7 @@
 package dat.backend.control;
 
 import dat.backend.model.config.ApplicationStart;
+import dat.backend.model.entities.Order;
 import dat.backend.model.entities.Role;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
@@ -17,6 +18,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class Login extends HttpServlet {
@@ -53,7 +57,11 @@ public class Login extends HttpServlet {
             session.setAttribute("user", user); // adding user object to session scope
             if (user.getRole() == Role.ADMIN) {
                 request.getSession().setAttribute("users", UserFacade.getAllUsers(connection));
-                request.getSession().setAttribute("orders", OrderFacade.getAllOrders(connection));
+                List<Order> orders = OrderFacade.getAllOrders(connection);
+                orders.sort(Comparator.comparingInt(o -> o.getStatus().getValue()));
+                Collections.reverse(orders);
+
+                request.getSession().setAttribute("orders", orders);
                 request.getRequestDispatcher("WEB-INF/adminpage.jsp").forward(request, response);
                 return;
             }

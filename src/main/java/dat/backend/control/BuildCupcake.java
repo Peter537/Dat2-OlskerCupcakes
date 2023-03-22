@@ -39,7 +39,7 @@ public class BuildCupcake extends HttpServlet {
 
             request.setAttribute("topping", top);
             request.setAttribute("bottom", bottom);
-            request.setAttribute("cupcake", cupcake);
+            request.getSession().setAttribute("cupcake", cupcake);
             request.getRequestDispatcher("WEB-INF/order.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();

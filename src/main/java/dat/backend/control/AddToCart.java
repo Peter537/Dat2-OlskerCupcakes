@@ -14,10 +14,10 @@ public class AddToCart extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Cupcake cupcake = (Cupcake) request.getAttribute("cupcake");
+            Cupcake cupcake = (Cupcake) request.getSession().getAttribute("cupcake");
             User user = (User) request.getSession().getAttribute("user");
             user.getShoppingCart().addCupcake(cupcake);
-            request.setAttribute("cupcake", null);
+            request.getSession().setAttribute("cupcake", null);
             request.setAttribute("bottom", null);
             request.setAttribute("topping", null);
             request.setAttribute("msg", "Tilføjet til kurv");

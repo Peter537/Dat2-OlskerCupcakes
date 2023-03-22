@@ -1,4 +1,4 @@
 package dat.backend.persistence;
 
-public class CupcakeMapperTest {
+class CupcakeMapperTest {
 }

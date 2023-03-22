@@ -1,5 +1,8 @@
 package dat.backend.control;
 
+import dat.backend.model.entities.Role;
+import dat.backend.model.entities.User;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -10,6 +13,10 @@ public class ToUserpage extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("WEB-INF/userpage.jsp").forward(request, response);
+        User user = (User) request.getSession().getAttribute("user");
+        if (user.getRole().equals(Role.ADMIN))
+            request.getRequestDispatcher("WEB-INF/adminpage.jsp").forward(request, response);
+        else
+            request.getRequestDispatcher("WEB-INF/userpage.jsp").forward(request, response);
     }
 }

@@ -23,7 +23,7 @@
 
        <div class="row">
            <div class="col-md-6">
-                   <a class="btn btn-primary" href="/ToMyOrders">Mine ordre</a>
+                   <a class="btn btn-primary" href="ToMyOrders">Mine ordre</a>
            </div>
               <div class="col-md-6">
                 <a class="btn btn-primary" href="ToOrder">Bestil cupcakes</a>

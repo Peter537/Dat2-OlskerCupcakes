@@ -71,7 +71,11 @@
                     <tbody>
                         <c:forEach items="${sessionScope.users}" var="user">
                             <tr>
-                                <td>${user.getEmail()}</td>
+                                <td>
+                                    <form action="AdminUserOverview" method="post">
+                                        <input type="text" name="chosenuser" id="chosenuser" disabled value="${user.getEmail()}">
+                                    </form>
+                                </td>
                                 <td>${user.getRole()}</td>
                                 <td>${user.getBalance()}</td>
                                 <td>

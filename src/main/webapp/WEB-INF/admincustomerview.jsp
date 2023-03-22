@@ -6,6 +6,22 @@
 
 <t:pagetemplate>
     <jsp:attribute name="head">
-      ${requestScope.currentuser}
+        ${requestScope.chosenuser}
     </jsp:attribute>
+
+    <jsp:attribute name="header">
+        <h1>Overblik over ${requestScope.chosenuser}</h1>
+    </jsp:attribute>
+
+    <jsp:attribute name="footer">
+        ${requestScope.chosenuser}
+    </jsp:attribute>
+
+    <jsp:body>
+        <div class="row">
+            <div class="col-sm-12">
+
+            </div>
+        </div>
+    </jsp:body>
 </t:pagetemplate>

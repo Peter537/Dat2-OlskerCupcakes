@@ -36,7 +36,7 @@
                         <br/>
                         <div class="form-group">
                             <label for="password">Gentag password: </label>
-                            <input class="form-control" type="password" id="password" name="password" placeholder="Gentag password"/>
+                            <input class="form-control" type="password" id="password" name="confirmPassword" placeholder="Gentag password"/>
                         </div>
                         <br/>
                         <div class="form-group">

@@ -2,6 +2,7 @@ package dat.backend.control;
 
 import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.Order;
+import dat.backend.model.entities.ShoppingCart;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.OrderFacade;
@@ -44,6 +45,9 @@ public class CreateOrder extends HttpServlet {
             throw new RuntimeException(e);
         }
         request.setAttribute("order", order);
+        ShoppingCart cart = user.getShoppingCart();
+        request.setAttribute("currentcart", cart);
+        user.setShoppingCart(new ShoppingCart());
         request.getRequestDispatcher("WEB-INF/confirmation.jsp").forward(request, response);
     }
 }

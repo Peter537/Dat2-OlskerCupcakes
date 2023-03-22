@@ -18,6 +18,9 @@
     </jsp:attribute>
 
   <jsp:body>
+      <c:if test="${empty sessionScope.user}">
+          <c:redirect url="/login.jsp"/>
+      </c:if>
       <br>
       <div class="row">
           <p>Dine cupcakes er bestilt!</p>
@@ -31,7 +34,7 @@
                       <td>Bund: </td>
                       <td>Pris: </td>
                   </tr>
-                    <c:forEach items="${sessionScope.user.getShoppingCart().getCupcakeList()}" var="cupcake">
+                    <c:forEach items="${requestScope.currentcart.getCupcakeList()}" var="cupcake">
                         <tr>
                             <td>${cupcake.top.getName()}</td>
                             <td>${cupcake.bottom.getName()}</td>
@@ -41,7 +44,7 @@
                   <tr>
                         <td>Kan afhentes: ${requestScope.order.getReadyTime()}</td>
                         <td></td>
-                        <td><b>Total: ${sessionScope.user.getShoppingCart().getTotalPrice()} .kr</b></td>
+                        <td><b>Total: ${requestScope.currentcart.getTotalPrice()} .kr</b></td>
                   </tr>
               </table>
           </div>

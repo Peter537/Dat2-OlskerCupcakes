@@ -30,10 +30,12 @@ public class CancelOrder extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int orderId = Integer.parseInt(request.getParameter("orderId"));
+
         try {
             OrderFacade.updateOrderStatus(orderId, OrderStatus.CANCELLED, connection);
             User user = (User) request.getSession().getAttribute("user");
             if (user.getRole() == Role.ADMIN) {
+                request.getSession().setAttribute("orders", OrderFacade.getAllOrders(connection));
                 request.getRequestDispatcher("WEB-INF/adminpage.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("WEB-INF/userpage.jsp").forward(request, response);

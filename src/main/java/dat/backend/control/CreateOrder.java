@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @WebServlet(name = "CreateOrder", value = "/CreateOrder")
 public class CreateOrder extends HttpServlet {
@@ -31,7 +32,10 @@ public class CreateOrder extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("user");
-        LocalDateTime readyTime = LocalDateTime.parse(request.getParameter("readyTime"));
+        String readyTimeStr = request.getParameter("readyTime");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        System.out.println(readyTimeStr);
+        LocalDateTime readyTime = LocalDateTime.parse(readyTimeStr, formatter);
         Order order = new Order(user, readyTime);
         try {
             OrderFacade.createOrder(order, connection);

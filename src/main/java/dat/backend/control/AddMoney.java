@@ -11,7 +11,7 @@ import java.io.IOException;
 public class AddMoney extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("user");
         try {
             float amount = Float.parseFloat(request.getParameter("addedAmount"));

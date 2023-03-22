@@ -25,9 +25,7 @@ public class Login extends HttpServlet {
     public void init() {
         try {
             this.connection = ApplicationStart.getConnectionPool().getConnection();
-            getServletContext().setAttribute("toppings", CupcakeFacade.getAllToppings(connection));
-            getServletContext().setAttribute("bottoms", CupcakeFacade.getAllBottoms(connection));
-        } catch (DatabaseException | SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

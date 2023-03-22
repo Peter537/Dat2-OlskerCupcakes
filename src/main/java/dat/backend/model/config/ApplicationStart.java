@@ -1,6 +1,8 @@
 package dat.backend.model.config;
 
+import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
+import dat.backend.model.persistence.CupcakeFacade;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -32,7 +34,9 @@ public class ApplicationStart implements ServletContextListener {
         try {
             Class.forName("org.slf4j.impl.StaticLoggerBinder");
             connectionPool = new ConnectionPool(getPassword(sce));
-        } catch (ClassNotFoundException e) {
+            sce.getServletContext().setAttribute("toppings", CupcakeFacade.getAllToppings(connectionPool.getConnection()));
+            sce.getServletContext().setAttribute("bottoms", CupcakeFacade.getAllBottoms(connectionPool.getConnection()));
+        } catch (SQLException | DatabaseException | ClassNotFoundException e) {
             Logger.getLogger("web").log(Level.SEVERE, e.getMessage(), e);
         }
     }

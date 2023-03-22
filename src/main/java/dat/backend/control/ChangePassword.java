@@ -22,7 +22,7 @@ public class ChangePassword extends HttpServlet {
         try {
             UserFacade.setNewPassword(user, ApplicationStart.getConnectionPool().getConnection());
         } catch (DatabaseException | SQLException e) {
-            throw new RuntimeException(e);
+            request.setAttribute("changePasswordError", e.getMessage());
         }
         request.getRequestDispatcher("WEB-INF/userpage.jsp").forward(request, response);
     }

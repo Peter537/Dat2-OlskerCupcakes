@@ -14,12 +14,22 @@ public class User {
     private String password;
     private Role role;
     private ShoppingCart shoppingCart;
+    private float balance;
 
     public User(String email, String password, Role role) {
         this.email = email;
         this.password = password;
         this.role = role;
         this.shoppingCart = new ShoppingCart();
+        this.balance = 0;
+    }
+
+    public User(String email, String password, Role role, float balance) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.shoppingCart = new ShoppingCart();
+        this.balance = balance;
     }
 
     public String getEmail() {
@@ -54,6 +64,14 @@ public class User {
         this.shoppingCart = shoppingCart;
     }
 
+    public float getBalance() {
+        return this.balance;
+    }
+
+    public void setBalance(float balance) {
+        this.balance = balance;
+    }
+
     public List<Order> getOrders() {
         try {
             return OrderFacade.getAllOrdersByUser(this, ApplicationStart.getConnectionPool().getConnection());
@@ -84,6 +102,7 @@ public class User {
                 ", password='" + this.getPassword() + '\'' +
                 ", role=" + this.getRole() +
                 ", shoppingCart=" + this.getShoppingCart() +
+                ", balance=" + this.getBalance() +
                 '}';
     }
 }

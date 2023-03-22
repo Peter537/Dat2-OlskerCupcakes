@@ -82,4 +82,16 @@ class UserMapper {
 
         return users;
     }
+
+    public static void setNewPassword(User user, Connection connection) throws DatabaseException {
+        String sqlStatement = "UPDATE user SET password = ? WHERE email = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.setString(1, user.getPassword());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Could not update password in database");
+        }
+    }
 }

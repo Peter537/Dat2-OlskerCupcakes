@@ -24,4 +24,8 @@ public class UserFacade {
     public static List<User> getAllUsers(Connection connection) throws DatabaseException {
         return UserMapper.getAllUsers(connection);
     }
+
+    public static void setNewPassword(User user, Connection connection) throws DatabaseException {
+        UserMapper.setNewPassword(user, connection);
+    }
 }

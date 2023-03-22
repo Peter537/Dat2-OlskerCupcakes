@@ -35,7 +35,8 @@ public class CreateOrder extends HttpServlet {
         String readyTimeStr = request.getParameter("readyTime");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         System.out.println(readyTimeStr);
-        LocalDateTime readyTime = LocalDateTime.parse(readyTimeStr, formatter);
+        //LocalDateTime readyTime = LocalDateTime.parse(readyTimeStr, formatter);
+        LocalDateTime readyTime = LocalDateTime.now();
         Order order = new Order(user, readyTime);
         try {
             OrderFacade.createOrder(order, connection);

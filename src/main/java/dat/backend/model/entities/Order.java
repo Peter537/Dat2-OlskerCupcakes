@@ -61,6 +61,18 @@ public class Order {
         this.status = status;
     }
 
+    public float getPrice() {
+        float totalPrice = 0;
+        for (Cupcake cupcake : this.user.getShoppingCart().getCupcakeList()) {
+            totalPrice += cupcake.getPrice();
+        }
+        return totalPrice;
+    }
+
+    public int getCupcakeCount() {
+        return this.user.getShoppingCart().getCupcakeList().size();
+    }
+
     @Override
     public String toString() {
         return "Order{" +

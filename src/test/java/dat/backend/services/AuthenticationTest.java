@@ -1,4 +1,4 @@
-package dat.backend.persistence;
+package dat.backend.services;
 
 import dat.backend.model.entities.Role;
 import dat.backend.model.entities.User;

@@ -10,14 +10,35 @@
     </jsp:attribute>
 
     <jsp:attribute name="header">
-        <h1>Log-ind</h1>
+        <h1>Mine Ordre</h1>
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-        Log-ind
+        Se dine ordre her
     </jsp:attribute>
 
     <jsp:body>
+
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Ordre ID</th>
+                    <th>Ordre status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="order" items="${sessionScope.user.orders}">
+                    <tr>
+                        <td>${order.id}</td>
+                        <td>${order.status}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        <c:if test="${empty sessionScope.user.orders}">
+            <p>Du har ingen ordre</p>
+        </c:if>
 
     </jsp:body>
 

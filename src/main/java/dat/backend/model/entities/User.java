@@ -68,6 +68,10 @@ public class User {
         return this.balance;
     }
 
+    public void addBalance(float amount) {
+        this.balance += amount;
+    }
+
     public void setBalance(float balance) {
         this.balance = balance;
     }

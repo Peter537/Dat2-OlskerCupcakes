@@ -43,6 +43,7 @@ public class CreateOrder extends HttpServlet {
         } catch (DatabaseException e) {
             throw new RuntimeException(e);
         }
+        request.setAttribute("order", order);
         request.getRequestDispatcher("WEB-INF/confirmation.jsp").forward(request, response);
     }
 }

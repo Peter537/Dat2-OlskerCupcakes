@@ -5,6 +5,7 @@ import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ class OrderMapper {
 
     static List<Order> getAllOrders(Connection connection) throws DatabaseException {
         ArrayList<Order> orders = new ArrayList<>();
-        String sqlStatement = "SELECT * FROM order";
+        String sqlStatement = "SELECT * FROM olskerCupcakes.order";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             ResultSet rs = preparedStatement.executeQuery();
@@ -35,7 +36,7 @@ class OrderMapper {
 
     static List<Order> getAllOrdersByUser(User user, Connection connection) throws DatabaseException {
         ArrayList<Order> orders = new ArrayList<>();
-        String sqlStatement = "SELECT * FROM order WHERE fk_user_email = ?";
+        String sqlStatement = "SELECT * FROM olskerCupcakes.order WHERE fk_user_email = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             preparedStatement.setString(1, user.getEmail());
@@ -57,12 +58,12 @@ class OrderMapper {
     }
 
     static void createOrder(Order order, Connection connection) throws DatabaseException {
-        String sqlStatementOrder = "INSERT INTO order (fk_user_email, readytime, totalprice, cupcakecount, status) VALUES (?, ?, ?, ?, ?)";
+        String sqlStatementOrder = "INSERT INTO olskerCupcakes.order (fk_user_email, readytime, totalprice, cupcakecount, status) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatementInsertOrder = connection.prepareStatement(sqlStatementOrder, Statement.RETURN_GENERATED_KEYS);
             preparedStatementInsertOrder.setString(1, order.getUser().getEmail());
-            //preparedStatementInsertOrder.setTimestamp(2, Timestamp.valueOf(order.getReadyTime()));
-            preparedStatementInsertOrder.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+            //String time = order.getReadyTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            preparedStatementInsertOrder.setString(2, "2021-05-05 12:00:00");
             preparedStatementInsertOrder.setFloat(3, order.getUser().getShoppingCart().getTotalPrice());
             preparedStatementInsertOrder.setInt(4, order.getUser().getShoppingCart().getCupcakeList().size());
             preparedStatementInsertOrder.setString(5, order.getStatus().toString().toUpperCase());
@@ -91,7 +92,7 @@ class OrderMapper {
     }
 
     static void updateOrderStatus(int orderId, OrderStatus status, Connection connection) throws DatabaseException {
-        String sqlStatement = "UPDATE order SET status = ? WHERE order_id = ?";
+        String sqlStatement = "UPDATE olskerCupcakes.order SET status = ? WHERE order_id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             preparedStatement.setString(1, status.toString().toUpperCase());

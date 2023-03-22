@@ -1,5 +1,6 @@
 package dat.backend.model.persistence;
 
+import dat.backend.model.entities.OrderStatus;
 import dat.backend.model.entities.Role;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
@@ -92,6 +93,18 @@ class UserMapper {
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             throw new DatabaseException(ex, "Could not update password in database");
+        }
+    }
+
+    static void updateBalance(User user, Connection connection, boolean isTest) throws DatabaseException {
+        String sqlStatement = "UPDATE user SET balance = ? WHERE email = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.setFloat(1, user.getBalance());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Could not update user balance in database");
         }
     }
 }

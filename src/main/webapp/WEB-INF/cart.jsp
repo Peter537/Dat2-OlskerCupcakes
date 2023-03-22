@@ -24,7 +24,7 @@
                 <th>Topping</th>
                 <th>Total pris</th>
             </tr>
-            <c:forEach items="${sessionScope.user.shoppingCart().cupcakeList()}" var="item">
+            <c:forEach items="${sessionScope.user.shoppingCart.cupcakeList}" var="item">
                 <tr>
                     <td>${item.getBottom().getName()}</td>
                     <td>${item.getTop().getName()}</td>

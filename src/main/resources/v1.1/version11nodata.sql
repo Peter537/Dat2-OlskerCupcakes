@@ -82,7 +82,7 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
                          `order_id` int NOT NULL AUTO_INCREMENT,
                          `fk_user_email` varchar(90) NOT NULL,
-                         `readytime` datetime DEFAULT NULL,
+                         `readytime` varchar(90) DEFAULT NULL,
                          `totalprice` float DEFAULT NULL,
                          `cupcakecount` int DEFAULT NULL,
                          `status` varchar(45) DEFAULT NULL,

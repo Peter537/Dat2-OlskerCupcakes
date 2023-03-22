@@ -77,15 +77,15 @@
                             <div class="col-sm-5"></div>
                             <div class="col-sm-7 border rounded">
                                 <div class="row">
-                                    <c:if test="${requestScope.cupcake != null}">
-                                        <p>Topping pris: ${requestScope.topping.getPrice()} kr.</p>
-                                        <p>Bund pris: ${requestScope.bottom.getPrice()} kr.</p>
-                                        <p>Pris: ${requestScope.cupcake.getPrice()} kr.</p>
+                                    <c:if test="${sessionScope.cupcake != null}">
+                                        <p>Topping pris: ${sessionScope.cupcake.getTop().getPrice()} kr.</p>
+                                        <p>Bund pris: ${sessionScope.cupcake.getBottom().getPrice()} kr.</p>
+                                        <p>Pris: ${sessionScope.cupcake.getPrice()} kr.</p>
                                     </c:if>
                                 </div>
                                 <div class="row">
-                                    <c:if test="${requestScope.cupcake != null}">
-                                        <input type="submit" class="btn btn-primary" formaction="AddToCart" formmethod="post" value="Tilføj til kurv">
+                                    <c:if test="${sessionScope.cupcake != null}">
+                                        <input type="submit" class="btn btn-primary" formaction="CreateOrder" formmethod="post" value="Tilføj til kurv">
                                     </c:if>
                                 </div>
                             </div>

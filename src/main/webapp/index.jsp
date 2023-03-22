@@ -22,7 +22,7 @@
             <p>Du er logget ind som "${sessionScope.user.role}".
                 Gå til din side.
             <div class="container">
-                <a href="${pageContext.request.contextPath}/ToUserpage">
+                <a href="ToUserpage">
                     <button class="btn btn-primary">Min side</button>
                 </a>
             </div>

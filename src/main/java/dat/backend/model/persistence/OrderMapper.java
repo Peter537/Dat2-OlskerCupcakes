@@ -21,7 +21,12 @@ class OrderMapper {
                 int order_id = rs.getInt("order_id");
                 String email = rs.getString("fk_user_email");
                 LocalDateTime time = rs.getDate("readytime").toLocalDate().atStartOfDay(); // TODO: Fjerne atStartOfDay() når vi har tid
-                OrderStatus status = OrderStatus.valueOf(rs.getString("status").toUpperCase());
+                OrderStatus status = null;
+                if (rs.getString("status") == null) {
+                    status = OrderStatus.CANCELLED;
+                }
+                else
+                    status = OrderStatus.valueOf(rs.getString("status").toUpperCase());
                 ShoppingCart shoppingCart = getShoppingCartByOrderId(order_id, connection);
                 User user = UserMapper.getUserByEmail(email, connection);
                 user.setShoppingCart(shoppingCart);

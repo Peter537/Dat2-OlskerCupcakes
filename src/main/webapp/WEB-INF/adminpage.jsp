@@ -22,8 +22,11 @@
             <form action="UpdateOrdersList" method="post">
                 <input type="submit" class="btn btn-primary" value="Opdater liste">
             </form>
-            <br>
+        </div>
+        <br>
+        <div class="row">
             <div class="col-sm-9">
+                <h2>Ordrer</h2>
                 <table class="table">
                     <thead>
                         <tr>
@@ -49,6 +52,33 @@
                                     <form action="CancelOrder" method="post">
                                         <input type="hidden" readonly="readonly" name="orderId" id="orderId" value="${order.getId()}" class="form-control">
                                         <input type="submit" value="Aflys" class="btn btn-primary" style="float: right;">
+                                    </form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                </table>
+            </div>
+            <div class="col-sm-3">
+                <h2>Brugere</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Bruger</th>
+                            <th>Role</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${sessionScope.users}" var="user">
+                            <tr>
+                                <td>${user.getEmail()}</td>
+                                <td>${user.getRole()}</td>
+                                <td>${user.getBalance()}</td>
+                                <td>
+                                    <form action="AddMoneyById" method="post">
+                                        <input type="hidden" readonly="readonly" name="userEmail" id="userEmail" value="${user.getEmail()}" class="form-control">
+                                        <input type="number" name="amount" id="amount" value="0" class="form-control">
+                                        <input type="submit" value="Tilføj" class="btn btn-primary" style="float: right;">
                                     </form>
                                 </td>
                             </tr>

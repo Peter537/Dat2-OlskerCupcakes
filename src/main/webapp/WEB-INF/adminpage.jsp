@@ -26,8 +26,10 @@
                             <th>Order nr.</th>
                             <th>Bruger</th>
                             <th>Pris</th>
-                            <th>Leverings tidspunk</th>
+                            <th>Antal cupcakes</th>
                             <th>Status</th>
+                            <th>Leverings tidspunk</th>
+                            <th>Aflys</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,8 +38,15 @@
                                 <td>${order.getId()}</td>
                                 <td>${order.getUser().getEmail()}</td>
                                 <td>${order.getPrice()}</td>
-                                <td>${order.getReadyTime()}</td>
+                                <td>${order.getCupcakeCount()}</td>
                                 <td>${order.getStatus()}</td>
+                                <td>${order.getReadyTime()}</td>
+                                <td>
+                                    <form action="CancelOrder" method="post">
+                                        <input type="hidden" readonly="readonly" name="orderId" id="orderId" value="${order.getId()}" class="form-control">
+                                        <input type="submit" value="Aflys" class="btn btn-primary" style="float: right;">
+                                    </form>
+                                </td>
                             </tr>
                         </c:forEach>
                 </table>

@@ -10,15 +10,29 @@
     </jsp:attribute>
 
     <jsp:attribute name="header">
-        <h1>Log-ind</h1>
+        <h1>Indkøbskurv</h1>
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-        Log-ind
+        Indkøbskurv
     </jsp:attribute>
 
     <jsp:body>
-
+        <c:out value="${sessionScope.user.getShoppingCart().getCupcakeList()}" />
+        <table>
+            <tr>
+                <th>Bund</th>
+                <th>Topping</th>
+                <th>Pris</th>
+            </tr>
+            <c:forEach items="${sessionScope.user.getShoppingCart().getCupcakeList()}" var="item">
+                <tr>
+                    <td>${item.getBund()}</td>
+                    <td>${item.getTop()}</td>
+                    <td>${item.getPrice()}</td>
+                </tr>
+            </c:forEach>
+        </table>
     </jsp:body>
 
 </t:pagetemplate>

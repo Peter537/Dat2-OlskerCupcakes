@@ -1,6 +1,7 @@
 package dat.backend.model.persistence;
 
 import dat.backend.model.entities.Bottom;
+import dat.backend.model.entities.Cupcake;
 import dat.backend.model.entities.Top;
 import dat.backend.model.exceptions.DatabaseException;
 
@@ -12,6 +13,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 class CupcakeMapper {
+
+
+
+    static Cupcake getCupcakeById(int id, Connection connection) {
+
+        String sql = "SELECT * FROM cupcake WHERE cupcake_id = ?";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setInt(1, id);
+
+        ResultSet rs = preparedStatement.executeQuery();
+
+        if (rs.next()) {
+            int cupcakebottom_id = rs.getInt("fk_cupcakebottom_id");
+            int cupcaketop_id = rs.getInt("fk_cupcaketop_id");
+
+            return new Cupcake(cupcakebottom_id, cupcaketop_id);
+            
+        } else {
+            throw new DatabaseException("Could not find cupcake by id from database");
+        }
+
+    }
+
 
     static Top getTopById(int id, Connection connection) throws DatabaseException {
         String sqlStatement = "SELECT * FROM cupcaketop WHERE cupcaketop_id = ?";

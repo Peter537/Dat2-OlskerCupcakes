@@ -16,20 +16,12 @@ import java.sql.SQLException;
 
 public class RemoveCupcake extends HttpServlet
 {
-    private Connection connection;
-    @Override
-    public void init() {
-        try {
-            connection = ApplicationStart.getConnectionPool().getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Cupcake cupcake = (Cupcake) request.getParameter ("cupcake");
-            ShoppingCart shoppingCart = (ShoppingCart) request.getParameter("shoppingcart");
+
+            Cupcake cupcake = request.getParameter("cupcake");
+            ShoppingCart shoppingCart = request.getParameter("shoppingCart");
             shoppingCart.removeCupcake(cupcake);
             request.getRequestDispatcher("WEB-INF/cart.jsp").forward(request, response);
         } catch (Exception e) {

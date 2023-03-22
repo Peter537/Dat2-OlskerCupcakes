@@ -27,13 +27,13 @@
             </tr>
             <c:forEach items="${sessionScope.user.shoppingCart.cupcakeList}" var="item">
                 <tr>
-                    <td>${item.getBottom().getName()}</td>
-                    <td>${item.getTop().getName()}</td>
-                    <td>${item.getPrice()}</td>
+                    <td>${item.bottom.name}</td>
+                    <td>${item.top.name}</td>
+                    <td>${item.price}</td>
                     <td>
                         <form action="RemoveCupcake" method="post">
-                            <input type="hidden" readonly="readonly" name="cupcake" id="cupcake" value="${item}" class="form-control">
-                            <input type="hidden" readonly="readonly" name="shoppingcart" id="shoppingcart" value="${sessionScope.user.shoppingCart}" class="form-control">
+                            <input type="hidden"  name="cupcake" id="cupcake" value=${item} class="form-control">
+                            <input type="hidden"  name="shoppingcart" id="shoppingcart" value="${sessionScope.user.shoppingCart}" class="form-control">
                             <input type="submit" value="Aflys" class="btn btn-primary" style="float: right;">
                         </form>
                     </td>

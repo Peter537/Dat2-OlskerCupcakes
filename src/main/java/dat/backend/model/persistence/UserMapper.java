@@ -20,7 +20,8 @@ class UserMapper {
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 String role = rs.getString("role");
-                return new User(email, password, Role.valueOf(role.toUpperCase()));
+                float balance = rs.getFloat("balance");
+                return new User(email, password, Role.valueOf(role.toUpperCase()), balance);
             } else {
                 throw new DatabaseException("Wrong username or password");
             }
@@ -56,7 +57,8 @@ class UserMapper {
             if (rs.next()) {
                 String password = rs.getString("password");
                 String role = rs.getString("role");
-                return new User(email, password, Role.valueOf(role.toUpperCase()));
+                float balance = rs.getFloat("balance");
+                return new User(email, password, Role.valueOf(role.toUpperCase()), balance);
             } else {
                 throw new DatabaseException("User with email = '" + email + "' does not exist");
             }
@@ -75,7 +77,8 @@ class UserMapper {
                 String email = rs.getString("email");
                 String password = rs.getString("password");
                 String role = rs.getString("role");
-                users.add(new User(email, password, Role.valueOf(role.toUpperCase())));
+                float balance = rs.getFloat("balance");
+                users.add(new User(email, password, Role.valueOf(role.toUpperCase()), balance));
             }
         } catch (SQLException ex) {
             throw new DatabaseException(ex, "Could not get all users from database");

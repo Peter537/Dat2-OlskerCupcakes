@@ -11,9 +11,9 @@ import java.util.List;
 
 class OrderMapper {
 
-    static List<Order> getAllOrders(Connection connection) throws DatabaseException {
+    static List<Order> getAllOrders(Connection connection, boolean isTest) throws DatabaseException {
         ArrayList<Order> orders = new ArrayList<>();
-        String sqlStatement = "SELECT * FROM olskerCupcakes.order";
+        String sqlStatement = "SELECT * FROM olskerCupcakes" + (isTest ? "_test" : "") + ".order";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             ResultSet rs = preparedStatement.executeQuery();
@@ -34,9 +34,9 @@ class OrderMapper {
         return orders;
     }
 
-    static List<Order> getAllOrdersByUser(User user, Connection connection) throws DatabaseException {
+    static List<Order> getAllOrdersByUser(User user, Connection connection, boolean isTest) throws DatabaseException {
         ArrayList<Order> orders = new ArrayList<>();
-        String sqlStatement = "SELECT * FROM olskerCupcakes.order WHERE fk_user_email = ?";
+        String sqlStatement = "SELECT * FROM olskerCupcakes" + (isTest ? "_test" : "") + ".order WHERE fk_user_email = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             preparedStatement.setString(1, user.getEmail());
@@ -57,8 +57,8 @@ class OrderMapper {
         return orders;
     }
 
-    static void createOrder(Order order, Connection connection) throws DatabaseException {
-        String sqlStatementOrder = "INSERT INTO olskerCupcakes.order (fk_user_email, readytime, totalprice, cupcakecount, status) VALUES (?, ?, ?, ?, ?)";
+    static void createOrder(Order order, Connection connection, boolean isTest) throws DatabaseException {
+        String sqlStatementOrder = "INSERT INTO olskerCupcakes" + (isTest ? "_test" : "") + ".order (fk_user_email, readytime, totalprice, cupcakecount, status) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatementInsertOrder = connection.prepareStatement(sqlStatementOrder, Statement.RETURN_GENERATED_KEYS);
             preparedStatementInsertOrder.setString(1, order.getUser().getEmail());
@@ -91,8 +91,8 @@ class OrderMapper {
         }
     }
 
-    static void updateOrderStatus(int orderId, OrderStatus status, Connection connection) throws DatabaseException {
-        String sqlStatement = "UPDATE olskerCupcakes.order SET status = ? WHERE order_id = ?";
+    static void updateOrderStatus(int orderId, OrderStatus status, Connection connection, boolean isTest) throws DatabaseException {
+        String sqlStatement = "UPDATE olskerCupcakes" + (isTest ? "_test" : "") + ".order SET status = ? WHERE order_id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             preparedStatement.setString(1, status.toString().toUpperCase());

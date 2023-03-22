@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="row">
                                     <c:if test="${sessionScope.cupcake != null}">
-                                        <input type="submit" class="btn btn-primary" formaction="CreateOrder" formmethod="post" value="Tilføj til kurv">
+                                        <input type="submit" class="btn btn-primary" formaction="AddToCart" formmethod="post" value="Tilføj til kurv">
                                     </c:if>
                                 </div>
                             </div>

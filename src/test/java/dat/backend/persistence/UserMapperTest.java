@@ -36,8 +36,8 @@ class UserMapperTest {
 
             // TODO: Create user table. Add your own tables here
             stmt.execute("CREATE TABLE IF NOT EXISTS olskerCupcakes_test.user LIKE olskerCupcakes.user;");
-        } catch (SQLException throwables) {
-            System.out.println(throwables.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
             fail("Database connection failed");
         }
     }
@@ -52,8 +52,8 @@ class UserMapperTest {
             // TODO: Insert a few users - insert rows into your own tables here
             stmt.execute("INSERT INTO user (email, password, role) " +
                     "VALUES ('user', '1234', 'customer'), ('admin', '1234', 'admin'), ('ben', '1234', 'customer')");
-        } catch (SQLException throwables) {
-            System.out.println(throwables.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
             fail("Database connection failed");
         }
     }

@@ -2,7 +2,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@page errorPage="error.jsp" isErrorPage="false" %>
+<%--<%@page errorPage="error.jsp" isErrorPage="false" %>--%>
 
 <t:pagetemplate>
     <jsp:attribute name="head">
@@ -18,25 +18,23 @@
     </jsp:attribute>
 
     <jsp:body>
-
-
-            <table class="table table-striped">
-                <thead>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Ordre ID</th>
+                <th>Ordre status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="order" items="${sessionScope.user.getOrders()}">
                 <tr>
-                    <th>Ordre ID</th>
-                    <th>Ordre status</th>
+                    <td>${order.getId()}</td>
+                    <td>${order.getStatus()}</td>
                 </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="order" items="${sessionScope.user.orders}">
-                    <tr>
-                        <td>${order.id}</td>
-                        <td>${order.status}</td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        <c:if test="${empty sessionScope.user.orders}">
+            </c:forEach>
+            </tbody>
+        </table>
+        <c:if test="${empty sessionScope.user.getOrders()}">
             <p>Du har ingen ordre</p>
         </c:if>
 

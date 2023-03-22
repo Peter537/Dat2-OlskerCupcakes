@@ -28,4 +28,8 @@ public class UserFacade {
     public static void setNewPassword(User user, Connection connection) throws DatabaseException {
         UserMapper.setNewPassword(user, connection);
     }
+
+    public static void updateBalance(User user, Connection connection) throws DatabaseException {
+        UserMapper.updateBalance(user, connection, false);
+    }
 }

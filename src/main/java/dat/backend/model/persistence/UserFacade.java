@@ -9,12 +9,12 @@ import java.util.List;
 
 public class UserFacade {
 
-    public static User login(String username, String password, Connection connection) throws DatabaseException {
-        return UserMapper.login(username, password, connection);
+    public static User login(String email, String password, Connection connection) throws DatabaseException {
+        return UserMapper.login(email, password, connection);
     }
 
-    public static User createUser(String username, String password, Role role, Connection connection) throws DatabaseException {
-        return UserMapper.createUser(username, password, role, connection);
+    public static User createUser(String email, String password, Role role, Connection connection) throws DatabaseException {
+        return UserMapper.createUser(email, password, role, connection);
     }
 
     public static User getUserByEmail(String email, Connection connection) throws DatabaseException {

@@ -45,7 +45,8 @@ public class CreateOrder extends HttpServlet {
             throw new RuntimeException(e);
         }
         request.setAttribute("order", order);
-        request.setAttribute("currentcart", user.getShoppingCart());
+        ShoppingCart cart = user.getShoppingCart();
+        request.setAttribute("currentcart", cart);
         user.setShoppingCart(new ShoppingCart());
         request.getRequestDispatcher("WEB-INF/confirmation.jsp").forward(request, response);
     }

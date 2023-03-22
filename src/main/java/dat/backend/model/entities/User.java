@@ -55,8 +55,7 @@ public class User {
         User user = (User) o;
         return this.getEmail().equals(user.getEmail()) &&
                 this.getPassword().equals(user.getPassword()) &&
-                this.getRole() == user.getRole() &&
-                this.getShoppingCart().equals(user.getShoppingCart());
+                this.getRole() == user.getRole();
     }
 
     @Override

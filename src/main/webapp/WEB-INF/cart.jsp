@@ -32,6 +32,20 @@
                 </tr>
             </c:forEach>
         </table>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <a
+                        href="ToOrder">
+                    <button class="btn btn-primary">Bestil flere cupcakes</button>
+                </a>
+            </div>
+            <div class="col-sm-3">
+                <form action="CreateOrder" method="post">
+                    <button class="btn btn-primary">Bekræft Ordre</button>
+                </form>
+            </div>
+        </div>
     </jsp:body>
 
 </t:pagetemplate>

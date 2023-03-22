@@ -22,6 +22,46 @@
       <div class="row">
           <p>Dine cupcakes er bestilt!</p>
       </div>
+      <div class="row">
+          <p>Data om din order: </p>
+          <div class="col-sm-6">
+              <table class="table">
+                  <tr>
+                      <td>Top: </td>
+                      <td>Bund: </td>
+                      <td>Pris: </td>
+                  </tr>
+                    <c:forEach items="${sessionScope.user.getShoppingCart().getCupcakeList()}" var="cupcake">
+                        <tr>
+                            <td>${cupcake.top.getName()}</td>
+                            <td>${cupcake.bottom.getName()}</td>
+                            <td>${cupcake.price} .kr</td>
+                        </tr>
+                    </c:forEach>
+                  <tr>
+                        <td>Kan afhentes: ${requestScope.order.getReadyTime()}</td>
+                        <td></td>
+                        <td><b>Total: ${sessionScope.user.getShoppingCart().getTotalPrice()} .kr</b></td>
+                  </tr>
+              </table>
+          </div>
+          <div class="col-sm-6">
+              <br><br><br><br><br><br><br>
+              <div class="row">
+                  <div class="col-sm-12">
+                      <a class="btn btn-primary" href="ToOrder">
+                          Lav en ny order
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </div>
+<%--      <div class="row">--%>
+<%--          <div class="col-sm-7"></div>--%>
+<%--          <div class="col-sm-5">--%>
+
+<%--          </div>--%>
+<%--      </div>--%>
   </jsp:body>
 
 </t:pagetemplate>

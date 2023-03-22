@@ -33,7 +33,7 @@
                     <tbody>
                         <c:forEach items="${sessionScope.orders}" var="order">
                             <tr>
-                                <td>${order.id}</td>
+                                <td>${order.getId()}</td>
                                 <td>${order.getUser().getEmail()}</td>
                                 <td>${order.getPrice()}</td>
                                 <td>${order.getReadyTime()}</td>

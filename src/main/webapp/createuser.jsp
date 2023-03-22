@@ -18,11 +18,15 @@
     </jsp:attribute>
 
     <jsp:body>
+
+
+        <label>${requestScope.errormessage}</label>
+
         <div>
             <h3>Indtast dit brugernavn og password</h3>
             <div class="row">
                 <div class="col-sm-4">
-                    <form action="login" method="post"> <%-- TODO: login-action needs to be register when servlet has been made --%>
+                    <form action="CreateUser" method="post"> <%-- TODO: login-action needs to be register when servlet has been made --%>
 
                         <div class="form-group">
                             <label for="username">Username: </label>
@@ -35,8 +39,8 @@
                         </div>
                         <br/>
                         <div class="form-group">
-                            <label for="password">Gentag password: </label>
-                            <input class="form-control" type="password" id="password" name="confirmPassword" placeholder="Gentag password"/>
+                            <label for="confirmPassword">Gentag password: </label>
+                            <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" placeholder="Gentag password"/>
                         </div>
                         <br/>
                         <div class="form-group">

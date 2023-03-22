@@ -30,16 +30,16 @@ public class BuildCupcake extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            String toppingName = request.getParameter("toppingName");
-            String bottomName = request.getParameter("bottomName");
+            int toppingID = Integer.parseInt(request.getParameter("toppingID"));
+            int bottomID = Integer.parseInt(request.getParameter("bottomID"));
 
-            Top top = CupcakeFacade.getTopByName(toppingName, connection);
-            Bottom bottom = CupcakeFacade.getBottomByName(bottomName, connection);
+            Top top = CupcakeFacade.getTopById(toppingID, connection);
+            Bottom bottom = CupcakeFacade.getBottomById(bottomID, connection);
             Cupcake cupcake = new Cupcake(bottom, top);
 
             request.setAttribute("topping", top);
             request.setAttribute("bottom", bottom);
-            request.setAttribute("cupcake_price", cupcake.getPrice());
+            request.setAttribute("cupcake", cupcake);
             request.getRequestDispatcher("WEB-INF/order.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();

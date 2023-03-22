@@ -31,7 +31,7 @@
                       <td>Bund: </td>
                       <td>Pris: </td>
                   </tr>
-                    <c:forEach items="${sessionScope.user.getShoppingCart().getCupcakeList()}" var="cupcake">
+                    <c:forEach items="${sessionScope.currentcart.getCupcakeList()}" var="cupcake">
                         <tr>
                             <td>${cupcake.top.getName()}</td>
                             <td>${cupcake.bottom.getName()}</td>
@@ -41,7 +41,7 @@
                   <tr>
                         <td>Kan afhentes: ${requestScope.order.getReadyTime()}</td>
                         <td></td>
-                        <td><b>Total: ${sessionScope.user.getShoppingCart().getTotalPrice()} .kr</b></td>
+                        <td><b>Total: ${sessionScope.currentcart.getTotalPrice()} .kr</b></td>
                   </tr>
               </table>
           </div>

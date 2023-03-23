@@ -33,6 +33,17 @@ public class CreateOrder extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("user");
+        ShoppingCart cart = user.getShoppingCart();
+
+        if (user.getBalance() < cart.getTotalPrice()) {
+            request.setAttribute("msgmoney", "Du har ikke nok penge på din konto til at købe denne vare");
+            request.getRequestDispatcher("WEB-INF/cart.jsp").forward(request, response);
+            return;
+        }
+        else {
+            user.setBalance(user.getBalance() - cart.getTotalPrice());
+        }
+
         String readyTimeStr = request.getParameter("readyTime");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         System.out.println(readyTimeStr);
@@ -45,7 +56,6 @@ public class CreateOrder extends HttpServlet {
             throw new RuntimeException(e);
         }
         request.setAttribute("order", order);
-        ShoppingCart cart = user.getShoppingCart();
         request.setAttribute("currentcart", cart);
         user.setShoppingCart(new ShoppingCart());
         request.getRequestDispatcher("WEB-INF/confirmation.jsp").forward(request, response);

@@ -6,6 +6,8 @@ import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.Connection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class OrderFacade {
@@ -16,6 +18,14 @@ public class OrderFacade {
 
     public static List<Order> getAllOrders(Connection connection, boolean isTest) throws DatabaseException {
         return OrderMapper.getAllOrders(connection, isTest);
+    }
+
+    public static List<Order> getAllOrdersSortedByStatus(Connection connection) throws DatabaseException {
+        List<Order> orders = getAllOrders(connection);
+        orders.sort(Comparator.comparingInt(o -> o.getStatus().getValue()));
+        Collections.reverse(orders);
+
+        return orders;
     }
 
     public static List<Order> getAllOrdersByUser(User user, Connection connection) throws DatabaseException {

@@ -1,5 +1,6 @@
 package dat.backend.model.persistence;
 
+import dat.backend.model.entities.OrderStatus;
 import dat.backend.model.entities.Role;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
@@ -19,7 +20,8 @@ class UserMapper {
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 String role = rs.getString("role");
-                return new User(email, password, Role.valueOf(role.toUpperCase()));
+                float balance = rs.getFloat("balance");
+                return new User(email, password, Role.valueOf(role.toUpperCase()), balance);
             } else {
                 throw new DatabaseException("Wrong username or password");
             }
@@ -55,7 +57,8 @@ class UserMapper {
             if (rs.next()) {
                 String password = rs.getString("password");
                 String role = rs.getString("role");
-                return new User(email, password, Role.valueOf(role.toUpperCase()));
+                float balance = rs.getFloat("balance");
+                return new User(email, password, Role.valueOf(role.toUpperCase()), balance);
             } else {
                 throw new DatabaseException("User with email = '" + email + "' does not exist");
             }
@@ -74,7 +77,8 @@ class UserMapper {
                 String email = rs.getString("email");
                 String password = rs.getString("password");
                 String role = rs.getString("role");
-                users.add(new User(email, password, Role.valueOf(role.toUpperCase())));
+                float balance = rs.getFloat("balance");
+                users.add(new User(email, password, Role.valueOf(role.toUpperCase()), balance));
             }
         } catch (SQLException ex) {
             throw new DatabaseException(ex, "Could not get all users from database");
@@ -92,6 +96,18 @@ class UserMapper {
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             throw new DatabaseException(ex, "Could not update password in database");
+        }
+    }
+
+    static void updateBalance(User user, Connection connection, boolean isTest) throws DatabaseException {
+        String sqlStatement = "UPDATE user SET balance = ? WHERE email = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.setFloat(1, user.getBalance());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Could not update user balance in database");
         }
     }
 }

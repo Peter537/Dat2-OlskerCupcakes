@@ -37,13 +37,13 @@ public class CreateUser extends HttpServlet {
 
             if (userList.stream().anyMatch(user -> user.getEmail().equals(newUsername))) {
                 request.setAttribute("errormessage", "Username already exists");
-                request.getRequestDispatcher("createUser.jsp").forward(request, response);
+                request.getRequestDispatcher("createuser.jsp").forward(request, response);
 
             }
 
             if (!newUserPassword.equals(confirmPassword)) {
                 request.setAttribute("errormessage", "Passwords do not match");
-                request.getRequestDispatcher("createUser.jsp").forward(request, response);
+                request.getRequestDispatcher("createuser.jsp").forward(request, response);
             } else {
                 UserFacade.createUser(newUsername, newUserPassword, Role.CUSTOMER, connection);
                 User user = new User(newUsername, newUserPassword, Role.CUSTOMER);

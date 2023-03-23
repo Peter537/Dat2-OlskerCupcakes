@@ -18,12 +18,18 @@ public class ChangePassword extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("user");
         String newPassword = request.getParameter("newPassword");
+        if (newPassword == null || newPassword.equals("")) {
+            request.setAttribute("changePasswordError", "Password cannot be empty");
+            request.getRequestDispatcher("WEB-INF/changePassword.jsp").forward(request, response);
+        }
+
         user.setPassword(newPassword);
         try {
             UserFacade.setNewPassword(user, ApplicationStart.getConnectionPool().getConnection());
+            request.getRequestDispatcher("WEB-INF/userpage.jsp").forward(request, response);
         } catch (DatabaseException | SQLException e) {
-            request.setAttribute("changePasswordError", e.getMessage());
+            request.setAttribute("changePasswordError", "Something went wrong, please try again");
+            request.getRequestDispatcher("WEB-INF/changePassword.jsp").forward(request, response);
         }
-        request.getRequestDispatcher("WEB-INF/userpage.jsp").forward(request, response);
     }
 }

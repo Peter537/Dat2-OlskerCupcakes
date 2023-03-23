@@ -49,7 +49,12 @@ class OrderMapper {
             while (rs.next()) {
                 int order_id = rs.getInt("order_id");
                 LocalDateTime time = rs.getDate("readytime").toLocalDate().atStartOfDay();
-                OrderStatus status = OrderStatus.valueOf(rs.getString("status").toUpperCase());
+                OrderStatus status = null;
+                if (rs.getString("status") == null) {
+                    status = OrderStatus.CANCELLED;
+                }
+                else
+                    status = OrderStatus.valueOf(rs.getString("status").toUpperCase());
                 ShoppingCart shoppingCart = getShoppingCartByOrderId(order_id, connection);
                 user.setShoppingCart(shoppingCart);
                 Order order = new Order(order_id, user, time, status);

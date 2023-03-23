@@ -21,7 +21,6 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Flavors</th>
                 <th>ReadyTime</th>
                 <th>Ordre status</th>
                 <th>Price</th>
@@ -31,7 +30,7 @@
             <c:forEach var="order" items="${sessionScope.user.getOrders()}">
                 <tr>
 
-                    <td>${order.getId()}</td>
+                    <td>${order.getReadyTime()}</td>
                     <td>${order.getStatus()}</td>
                     <td>${order.getPrice()}</td>
                 </tr>

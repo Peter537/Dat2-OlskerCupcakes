@@ -33,6 +33,15 @@ public class ShoppingCart {
         return totalPrice;
     }
 
+    public void removeCupcakeById(int id) {
+        for (Cupcake cupcake : this.cupcakeList) {
+            if (cupcake.getId() == id) {
+                this.cupcakeList.remove(cupcake);
+                break;
+            }
+        }
+    }
+
     @Override
     public String toString() {
         return "ShoppingCart{" +

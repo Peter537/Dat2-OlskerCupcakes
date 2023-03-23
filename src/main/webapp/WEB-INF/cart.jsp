@@ -32,8 +32,7 @@
                     <td>${item.price}</td>
                     <td>
                         <form action="RemoveCupcake" method="post">
-                            <input type="hidden"  name="cupcake" id="cupcake" value=${item} class="form-control">
-                            <input type="hidden"  name="shoppingcart" id="shoppingcart" value="${sessionScope.user.shoppingCart}" class="form-control">
+                            <input type="hidden"  name="cupcake" id="cupcake" value="${item.id}" class="form-control">
                             <input type="submit" value="Aflys" class="btn btn-primary" style="float: right;">
                         </form>
                     </td>

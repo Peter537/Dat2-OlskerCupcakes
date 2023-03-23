@@ -17,6 +17,15 @@ public class ShoppingCart {
         this.cupcakeList.remove(cupcake);
     }
 
+    public void removeCupcakeById(int id) {
+        for (Cupcake cupcake : this.cupcakeList) {
+            if (cupcake.getId() == id) {
+                this.cupcakeList.remove(cupcake);
+                break;
+            }
+        }
+    }
+
     public void clearCart() {
         this.cupcakeList.clear();
     }
@@ -31,15 +40,6 @@ public class ShoppingCart {
             totalPrice += cupcake.getPrice();
         }
         return totalPrice;
-    }
-
-    public void removeCupcakeById(int id) {
-        for (Cupcake cupcake : this.cupcakeList) {
-            if (cupcake.getId() == id) {
-                this.cupcakeList.remove(cupcake);
-                break;
-            }
-        }
     }
 
     @Override

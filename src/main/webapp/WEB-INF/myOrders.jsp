@@ -32,7 +32,7 @@
 
                     <td>${order.getReadyTime()}</td>
                     <td>${order.getStatus()}</td>
-                    <td>${order.getPrice()}</td>
+                    <td>${order.getPrice()} kr.</td>
                 </tr>
             </c:forEach>
             </tbody>

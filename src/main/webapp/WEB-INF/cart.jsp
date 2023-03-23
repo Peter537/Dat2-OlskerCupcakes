@@ -11,7 +11,7 @@
 
     <jsp:attribute name="header">
         <h1>Indkøbskurv</h1>
-        <h3 class="warning">${requestScope.msgmoney}</h3>
+        <h3 class="bg-danger">${requestScope.msgmoney}</h3>
     </jsp:attribute>
 
     <jsp:attribute name="footer">

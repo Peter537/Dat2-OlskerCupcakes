@@ -37,8 +37,8 @@
             <div class="collapse navbar-collapse justify-content-start" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-item nav-link navtext" href="ToUserpage">Min side</a>
+                    <a class="nav-item nav-link navtext" href="ToMyOrders">Mine ordre</a>
                     <a class="nav-item nav-link navtext" href="ToOrder">Bestil</a>
-<%--                    <a class="nav-item nav-link navtext" href="${pageContext.request.contextPath}/">Page 3</a>--%>
                     <c:if test="${sessionScope.user == null }">
                         <a class="nav-item nav-link navtext" href="${pageContext.request.contextPath}/login.jsp">Login</a>
                     </c:if>
@@ -52,7 +52,7 @@
                     <c:if test="${sessionScope.user == null }">
                     </c:if>
                     <c:if test="${sessionScope.user != null }">
-                        <a class="nav-item nav-link navtext" style="border: 0;" href="${pageContext.request.contextPath}/ToUserpage">${sessionScope.user.getEmail()}</a>
+                        <a class="nav-item nav-link navtext" style="border: 0;" href="${pageContext.request.contextPath}/ToUserpage">${sessionScope.user.getEmail()} (${sessionScope.user.getBalance()} kr.)</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/ToCart">
                             <img src="${pageContext.request.contextPath}/images/basket.png" alt="Logo" width="30px">
                         </a>

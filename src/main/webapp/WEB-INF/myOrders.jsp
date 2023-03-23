@@ -40,7 +40,6 @@
         <c:if test="${empty sessionScope.user.getOrders()}">
             <p>Du har ingen ordre</p>
         </c:if>
-
     </jsp:body>
 
 </t:pagetemplate>

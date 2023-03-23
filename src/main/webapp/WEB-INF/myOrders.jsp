@@ -21,15 +21,19 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Ordre ID</th>
+                <th>Flavors</th>
+                <th>ReadyTime</th>
                 <th>Ordre status</th>
+                <th>Price</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach var="order" items="${sessionScope.user.getOrders()}">
                 <tr>
+
                     <td>${order.getId()}</td>
                     <td>${order.getStatus()}</td>
+                    <td>${order.getPrice()}</td>
                 </tr>
             </c:forEach>
             </tbody>

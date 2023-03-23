@@ -39,6 +39,12 @@
                     </td>
                 </tr>
             </c:forEach>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><b>Total pris: ${sessionScope.user.shoppingCart.totalPrice}</b></td>
+                <td></td>
+            </tr>
         </table>
 
         <div class="row">

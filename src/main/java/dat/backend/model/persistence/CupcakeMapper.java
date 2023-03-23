@@ -1,7 +1,6 @@
 package dat.backend.model.persistence;
 
 import dat.backend.model.entities.Bottom;
-import dat.backend.model.entities.Cupcake;
 import dat.backend.model.entities.Top;
 import dat.backend.model.exceptions.DatabaseException;
 
@@ -13,10 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 class CupcakeMapper {
-
-
-
-
 
     static Top getTopById(int id, Connection connection) throws DatabaseException {
         String sqlStatement = "SELECT * FROM cupcaketop WHERE cupcaketop_id = ?";

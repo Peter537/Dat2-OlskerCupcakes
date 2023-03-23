@@ -21,6 +21,10 @@
         <c:if test="${empty sessionScope.user || empty requestScope.chosenuser}">
             <c:redirect url="/login.jsp"/>
         </c:if>
+        <br>
+        <a class="btn btn-primary" href="ToUserpage">Gå tilbage</a>
+        <br>
+        <br>
         <div class="row">
             <div class="col-sm-12">
                 <table class="table">
@@ -39,9 +43,9 @@
                             <tr>
                                 <td>${order.getId()}</td>
                                 <td>${order.getPrice()}</td>
-                                <td>${order.getQuantity()}</td>
+                                <td>${order.getCupcakeCount()}</td>
                                 <td>${order.getStatus()}</td>
-                                <td>${order.getDeliveryTime()}</td>
+                                <td>${order.getReadyTime()}</td>
                                 <td>
                                     <form action="CancelOrder" method="post">
                                         <input type="hidden" readonly="readonly" name="orderId" id="orderId" value="${order.getId()}" class="form-control">

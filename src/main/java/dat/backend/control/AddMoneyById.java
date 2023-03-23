@@ -14,6 +14,7 @@ import java.sql.SQLException;
 
 @WebServlet(name = "AddMoneyById", value = "/AddMoneyById")
 public class AddMoneyById extends HttpServlet {
+
     private Connection connection;
 
     @Override
@@ -28,23 +29,24 @@ public class AddMoneyById extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userEmail = request.getParameter("userEmail");
-        User user = null;
+        User user;
         try {
             user = UserFacade.getUserByEmail(userEmail, connection);
         } catch (DatabaseException e) {
             throw new RuntimeException(e);
         }
+
         float amount = Float.parseFloat(request.getParameter("amount"));
         try {
             user.addBalance(amount);
             UserFacade.updateBalance(user, connection);
-
             request.getSession().setAttribute("users", UserFacade.getAllUsers(connection));
         } catch (NumberFormatException e) {
             request.setAttribute("addMoneyError", "Inkorrekt beløb");
         } catch (DatabaseException e) {
             throw new RuntimeException(e);
         }
+
         request.getRequestDispatcher("WEB-INF/adminpage.jsp").forward(request, response);
     }
 }

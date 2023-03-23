@@ -19,6 +19,7 @@ import java.util.List;
 
 @WebServlet(name = "AdminUserOverview", value = "/AdminUserOverview")
 public class AdminUserOverview extends HttpServlet {
+
     private Connection connection;
 
     @Override
@@ -29,14 +30,16 @@ public class AdminUserOverview extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = null;
+        User user;
         try {
             user = UserFacade.getUserByEmail(request.getParameter("chosenuser"), connection);
         } catch (DatabaseException e) {
             throw new RuntimeException(e);
         }
+
         request.setAttribute("chosenuser", user);
         List<Order> orders = null;
         try {
@@ -44,9 +47,9 @@ public class AdminUserOverview extends HttpServlet {
         } catch (DatabaseException e) {
             throw new RuntimeException(e);
         }
+
         orders.sort(Comparator.comparingInt(o -> o.getStatus().getValue()));
         Collections.reverse(orders);
-
         request.setAttribute("userorders", orders);
         request.getRequestDispatcher("WEB-INF/admincustomerview.jsp").forward(request, response);
     }

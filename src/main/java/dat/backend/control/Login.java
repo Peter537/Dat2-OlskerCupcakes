@@ -50,17 +50,14 @@ public class Login extends HttpServlet {
         session.setAttribute("user", null); // invalidating user object in session scope
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
         try {
             User user = UserFacade.login(username, password, connection);
-
             session = request.getSession();
             session.setAttribute("user", user); // adding user object to session scope
             if (user.getRole() == Role.ADMIN) {
                 Collection<User> users = UserFacade.getAllUsers(connection);
                 users.removeIf(user1 -> user1.getRole() == Role.ADMIN);
                 request.getSession().setAttribute("users", users);
-
                 request.getSession().setAttribute("orders", OrderFacade.getAllOrdersSortedByStatus(connection));
                 request.getRequestDispatcher("WEB-INF/adminpage.jsp").forward(request, response);
                 return;

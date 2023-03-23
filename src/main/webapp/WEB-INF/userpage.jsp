@@ -5,18 +5,11 @@
 <%@page errorPage="error.jsp" isErrorPage="false" %>
 
 <t:pagetemplate>
-
     <jsp:attribute name="head">
-
-        MinSide
-
+        Olsker Cupcakes
     </jsp:attribute>
     <jsp:attribute name="header">
-        <h1>Velkommen tilbage, ${sessionScope.user.email}!</h1>
-    </jsp:attribute>
-
-    <jsp:attribute name="footer">
-        Din side
+        <h1>Velkommen tilbage!</h1>
     </jsp:attribute>
 
     <jsp:body>
@@ -24,68 +17,51 @@
             <c:redirect url="/login.jsp"/>
         </c:if>
 
-        <div class="row">
-            <div class="col-sm-4 border rounded" id="status">
-                <p>Sidste ordre status:</p>
-                <p>${sessionScope.user.getLastOrderStatus()}</p>
-                <p></p>
-                <p>Medlemskab:</p>
-                <p>${sessionScope.user.getRole()}</p>
-            </div>
-            <div class="col-sm-4 border rounded" id="money">
-                <p>Balance</p>
-                <p>${sessionScope.user.balance}</p>
-                <div class="col-md-6">
-                    <a class="btn btn-primary" href="ToOrder">Bestil cupcakes</a>
-                </div>
+        <div class="row" style="height: 500px">
+            <div style="border: 1px rgb(10, 10, 10) solid; border-radius: 25px; width: 25%;margin: 40px; background-color: lightgray" id="status">
+                <h2>Sidste ordre status:</h2>
+                <h4> - ${sessionScope.user.getLastOrderStatus()}</h4>
                 <br>
-                <form action="AddMoney" method="get">
-                    <label for="addedAmount">
+                <br>
+                <br>
+                <h2>Medlemskab:</h2>
+                <h4> - ${sessionScope.user.getRole().getName()}</h4>
+            </div>
+            <div style="border: 1px rgb(10, 10, 10) solid; border-radius: 25px; width: 30%; margin: 40px" id="money">
+                <h2 style="text-align: center; text-decoration-line: underline">Tilføj penge</h2>
+                <form action="AddMoney" method="post" style="text-align: center">
+                    <input class="btn btn-primary" type="submit" value="Tilføj penge">
+                    <label for="addedAmount">  -->
                         <input type="text" id="addedAmount" name="addedAmount" placeholder="Tilføj penge">
                     </label>
-                    <input class="btn btn-primary" type="submit" value="Tilføj penge">
                 </form>
-            </div>
-            <div class="col-sm-4 border rounded" id="account">
-                <div class="col-md-6">
-                    <a class="btn btn-primary" href="ToMyOrders">Mine ordre</a>
+                <br>
+                <h2>Balance:</h2>
+                <h4>${sessionScope.user.balance} DKK</h4>
+                <br>
+                <div style="text-align: center; margin: 5px">
+                    <a class="btn btn-primary" href="ToOrder" style="box-sizing: border-box; width: 100%; font-size: 38px">Bestil cupcakes</a>
                 </div>
-                <div class="col-md-6">
-                    <a class="btn btn-primary" href="ToChangePassword">Skift adgangskode</a>
+            </div>
+            <div style="border: 1px rgb(10, 10, 10) solid; border-radius: 25px; width: 25%; margin: 40px" id="account">
+                <h2 style="text-align: center; text-decoration-line: underline">Konto information</h2>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Email: </label>
+                    </div>
+                    <div class="col-sm-10">
+                        <label style="text-decoration-line: underline; text-decoration-thickness: 1px">${sessionScope.user.email}</label>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <a class="btn btn-primary" style="box-sizing: border-box; width: 100%; font-size: 25px;" href="ToChangePassword">Skift adgangskode</a>
+                </div>
+                <br>
+                <div>
+                    <a class="btn btn-primary" style="box-sizing: border-box; width: 100%; font-size: 30px;" href="ToMyOrders">Mine ordre</a>
                 </div>
             </div>
         </div>
-
-        <!--
-        // TODO: Udkommenteret, men skal slettes
-        <div class="row">
-            <div class="col-md-6">
-                <a class="btn btn-primary" href="ToMyOrders">Mine ordre</a>
-            </div>
-            <div class="col-md-6">
-                <a class="btn btn-primary" href="ToOrder">Bestil cupcakes</a>
-            </div>
-        </div>
-        -->
-
-        <!--
-        // TODO: Skal ind i en ny jsp side
-        <form action="AddMoney" method="post">
-            <label for="addedAmount">Tilføj penge
-                <input type="text" id="addedAmount" name="addedAmount" placeholder="Tilføj penge"><br>
-            </label>
-            <input class="btn btn-primary" type="submit" value="Tilføj penge">
-        </form>
-
-        // TODO: Skal ind i en ny jsp side
-        <form action="ChangePassword" method="post">
-            <label for="newPassword">Skift adgangskode
-                <input type="text" id="newPassword" name="newPassword" placeholder="New password"><br>
-            </label>
-            <input class="btn btn-primary" type="submit" value="Skift adgangskode"><br>
-        </form>
-        -->
     </jsp:body>
-
-
 </t:pagetemplate>

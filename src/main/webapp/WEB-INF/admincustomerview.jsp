@@ -6,21 +6,26 @@
 
 <t:pagetemplate>
     <jsp:attribute name="head">
-        ${requestScope.chosenuser}
+        ${requestScope.chosenuser.getEmail()}
     </jsp:attribute>
 
     <jsp:attribute name="header">
-        <h1>Overblik over ${requestScope.chosenuser}</h1>
+        <h1>Overblik over ${requestScope.chosenuser.getEmail()}</h1>
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-        ${requestScope.chosenuser}
+        ${requestScope.chosenuser.getEmail()}
     </jsp:attribute>
 
     <jsp:body>
+        <c:if test="${empty sessionScope.user || empty requestScope.chosenuser}">
+            <c:redirect url="/login.jsp"/>
+        </c:if>
         <div class="row">
             <div class="col-sm-12">
+                <table class="table">
 
+                </table>
             </div>
         </div>
     </jsp:body>

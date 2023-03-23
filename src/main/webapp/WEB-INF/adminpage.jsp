@@ -18,6 +18,9 @@
     </jsp:attribute>
 
     <jsp:body>
+        <c:if test="${empty sessionScope.user}">
+            <c:redirect url="/login.jsp"/>
+        </c:if>
         <div class="row">
             <form action="UpdateOrdersList" method="post">
                 <input type="submit" class="btn btn-primary" value="Opdater liste">
@@ -44,7 +47,7 @@
                             <tr>
                                 <td>${order.getId()}</td>
                                 <td>${order.getUser().getEmail()}</td>
-                                <td>${order.getPrice()}</td>
+                                <td>${order.getPrice()} kr.</td>
                                 <td>${order.getCupcakeCount()}</td>
                                 <td>${order.getStatus()}</td>
                                 <td>${order.getReadyTime()}</td>
@@ -73,11 +76,11 @@
                             <tr>
                                 <td>
                                     <form action="AdminUserOverview" method="post">
-                                        <input type="text" name="chosenuser" id="chosenuser" disabled value="${user.getEmail()}">
+                                        <input type="submit" class="form-control" name="chosenuser" id="chosenuser" value="${user.getEmail()}">
                                     </form>
                                 </td>
                                 <td>${user.getRole()}</td>
-                                <td>${user.getBalance()}</td>
+                                <td>${user.getBalance()} kr.</td>
                                 <td>
                                     <form action="AddMoneyById" method="post">
                                         <input type="hidden" readonly="readonly" name="userEmail" id="userEmail" value="${user.getEmail()}" class="form-control">

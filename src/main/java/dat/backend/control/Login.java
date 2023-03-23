@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -56,12 +57,11 @@ public class Login extends HttpServlet {
             session = request.getSession();
             session.setAttribute("user", user); // adding user object to session scope
             if (user.getRole() == Role.ADMIN) {
-                request.getSession().setAttribute("users", UserFacade.getAllUsers(connection));
-                List<Order> orders = OrderFacade.getAllOrders(connection);
-                orders.sort(Comparator.comparingInt(o -> o.getStatus().getValue()));
-                Collections.reverse(orders);
+                Collection<User> users = UserFacade.getAllUsers(connection);
+                users.removeIf(user1 -> user1.getRole() == Role.ADMIN);
+                request.getSession().setAttribute("users", users);
 
-                request.getSession().setAttribute("orders", orders);
+                request.getSession().setAttribute("orders", OrderFacade.getAllOrdersSortedByStatus(connection));
                 request.getRequestDispatcher("WEB-INF/adminpage.jsp").forward(request, response);
                 return;
             }

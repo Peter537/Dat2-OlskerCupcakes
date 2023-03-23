@@ -20,7 +20,7 @@
         <div class="row" style="height: 500px">
             <div style="border: 1px rgb(10, 10, 10) solid; border-radius: 25px; width: 25%;margin: 40px; background-color: lightgray" id="status">
                 <h2>Sidste ordre status:</h2>
-                <h4> - ${sessionScope.user.getLastOrderStatus()}</h4>
+                <h4> - ${sessionScope.user.getLastOrderStatus().getName()}</h4>
                 <br>
                 <br>
                 <br>

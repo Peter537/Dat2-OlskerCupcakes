@@ -49,6 +49,25 @@
 
         <div class="row">
             <div class="col-sm-3">
+                <label for="readyTimeDate">Afhentningstid:
+                    <input type="date" id="readyTimeDate" name="readyTimeDate">
+                </label>
+            </div>
+            <div class="col-sm-2">
+                <label for="readyTimeHour">Time:
+                    <input type="number" min="0" max="23" id="readyTimeHour" name="readyTimeHour">
+                </label>
+            </div>
+            <div class="col-sm-2">
+                <label for="readyTimeMinute">Minut:
+                    <input type="number" min="0" max="59" id="readyTimeMinute" name="readyTimeMinute">
+                </label>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-sm-3">
                 <a
                         href="ToOrder">
                     <button class="btn btn-primary">Bestil flere cupcakes</button>

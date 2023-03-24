@@ -24,7 +24,6 @@ public class OrderFacade {
         List<Order> orders = getAllOrders(connection);
         orders.sort(Comparator.comparingInt(o -> o.getStatus().getValue()));
         Collections.reverse(orders);
-
         return orders;
     }
 

@@ -6,24 +6,24 @@
 
 <t:pagetemplate>
     <jsp:attribute name="head">
-        Mine ordre
+        Mine ordrer
     </jsp:attribute>
 
     <jsp:attribute name="header">
-        <h1>Mine Ordre</h1>
+        <h1>Mine Ordrer</h1>
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-        Se dine ordre her
+        Se dine ordrer her
     </jsp:attribute>
 
     <jsp:body>
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>ReadyTime</th>
+                <th>Afhentningstid</th>
                 <th>Ordre status</th>
-                <th>Price</th>
+                <th>Pris</th>
             </tr>
             </thead>
             <tbody>
@@ -38,7 +38,7 @@
             </tbody>
         </table>
         <c:if test="${empty sessionScope.user.getOrders()}">
-            <p>Du har ingen ordre</p>
+            <p>Du har ingen ordrer</p>
         </c:if>
     </jsp:body>
 

@@ -7,6 +7,7 @@ import dat.backend.model.entities.ShoppingCart;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.OrderFacade;
+import dat.backend.model.persistence.UserFacade;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -42,6 +43,11 @@ public class CreateOrder extends HttpServlet {
             return;
         } else {
             user.setBalance(user.getBalance() - cart.getTotalPrice());
+            try {
+                UserFacade.updateBalance(user, connection);
+            } catch (DatabaseException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         String readyTimeDate = request.getParameter("readyTimeDate");

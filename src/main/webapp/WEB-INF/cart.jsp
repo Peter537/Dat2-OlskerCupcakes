@@ -49,36 +49,43 @@
 
         <div class="row">
             <div class="col-sm-3">
-                <a
-                        href="ToOrder">
+                <a href="ToOrder">
+                    <br>
                     <button class="btn btn-primary">Bestil flere cupcakes</button>
                 </a>
             </div>
-            <div class="col-sm-3">
-                <form action="CreateOrder" method="post">
-                    <c:if test="${requestScope.msgReadyTime != null}">
-                        <div class="col-sm-3">
-                            <h3 class="bg-danger">${requestScope.msgReadyTime}</h3>
+            <c:if test="${sessionScope.user.getCurrentOrder().getShoppingCart().getTotalAmount() > 0}">
+                <div class="col-sm-9">
+                    <form action="CreateOrder" method="post">
+                        <div class="row">
+                            <c:if test="${requestScope.msgReadyTime != null}">
+                                <div class="col-sm-3">
+                                    <h3 class="bg-danger">${requestScope.msgReadyTime}</h3>
+                                </div>
+                            </c:if>
+                            <div class="col-sm-3">
+                                <label for="readyTimeDate">Afhentningstid:
+
+                                </label>
+                                <input type="date" name="readyTimeDate" id="readyTimeDate" class="form-control"></div>
+                            <div class="col-sm-2">
+                                <label for="readyTimeHour">Time:
+
+                                </label>
+                                <input type="number" min="0" max="23" name="readyTimeHour" id="readyTimeHour" class="form-control"></div>
+                            <div class="col-sm-2">
+                                <label for="readyTimeMinute">Minut:
+
+                                </label>
+                                <input type="number" min="0" max="59" name="readyTimeMinute" id="readyTimeMinute" class="form-control"></div>
+                            <div class="col-sm-2">
+                                <br>
+                                <button class="btn btn-primary form-control">Bekræft Ordre</button>
+                            </div>
                         </div>
-                    </c:if>
-                    <div class="col-sm-3">
-                        <label for="readyTimeDate">Afhentningstid:
-                            <input type="date" id="readyTimeDate" name="readyTimeDate">
-                        </label>
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="readyTimeHour">Time:
-                            <input type="number" min="0" max="23" id="readyTimeHour" name="readyTimeHour">
-                        </label>
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="readyTimeMinute">Minut:
-                            <input type="number" min="0" max="59" id="readyTimeMinute" name="readyTimeMinute">
-                        </label>
-                    </div>
-                    <button class="btn btn-primary">Bekræft Ordre</button>
-                </form>
-            </div>
+                    </form>
+                </div>
+            </c:if>
         </div>
     </jsp:body>
 

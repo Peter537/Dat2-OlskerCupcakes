@@ -1,6 +1,7 @@
 package dat.backend.model.entities;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Order {
 
@@ -65,6 +66,10 @@ public class Order {
 
     public LocalDateTime getReadyTime() {
         return this.readyTime;
+    }
+
+    public String getFormattedReadyTime() {
+        return readyTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
     }
 
     public void setReadyTime(LocalDateTime readyTime) {

@@ -45,7 +45,7 @@
                                 <td>${order.getPrice()}</td>
                                 <td>${order.getCupcakeCount()}</td>
                                 <td>${order.getStatus()}</td>
-                                <td>${order.getReadyTime()}</td>
+                                <td>${order.getFormattedReadyTime()}</td>
                                 <td>
                                     <form action="CancelOrder" method="post">
                                         <input type="hidden" readonly="readonly" name="orderId" id="orderId" value="${order.getId()}" class="form-control">

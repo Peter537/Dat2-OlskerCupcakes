@@ -20,7 +20,8 @@ class OrderMapper {
             while (rs.next()) {
                 int order_id = rs.getInt("order_id");
                 String email = rs.getString("fk_user_email");
-                LocalDateTime time = rs.getDate("readytime").toLocalDate().atStartOfDay(); // TODO: Fjerne atStartOfDay() når vi har tid
+                String timeStr = rs.getString("readytime");
+                LocalDateTime time = LocalDateTime.parse(timeStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                 OrderStatus status;
                 if (rs.getString("status") == null) {
                     status = OrderStatus.CANCELLED;
@@ -47,7 +48,8 @@ class OrderMapper {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int order_id = rs.getInt("order_id");
-                LocalDateTime time = rs.getDate("readytime").toLocalDate().atStartOfDay();
+                String timeStr = rs.getString("readytime");
+                LocalDateTime time = LocalDateTime.parse(timeStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                 OrderStatus status;
                 if (rs.getString("status") == null) {
                     status = OrderStatus.CANCELLED;

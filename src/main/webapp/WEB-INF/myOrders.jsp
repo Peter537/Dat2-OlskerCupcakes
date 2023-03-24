@@ -30,7 +30,7 @@
             <c:forEach var="order" items="${sessionScope.user.getOrders()}">
                 <tr>
 
-                    <td>${order.getReadyTime()}</td>
+                    <td>${order.getFormattedReadyTime()}</td>
                     <td>${order.getStatus()}</td>
                     <td>${order.getPrice()} kr.</td>
                 </tr>

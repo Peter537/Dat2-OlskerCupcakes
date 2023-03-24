@@ -52,7 +52,7 @@
                     <c:if test="${sessionScope.user == null }">
                     </c:if>
                     <c:if test="${sessionScope.user != null }">
-                        <a class="nav-item nav-link navtext" style="border: 0;" href="${pageContext.request.contextPath}/ToUserpage">${sessionScope.user.getEmail()} (${sessionScope.user.getBalance()} kr.)</a>
+                        <a class="nav-item nav-link navtext" style="border: 0;" href="${pageContext.request.contextPath}/ToUserpage">${sessionScope.user.getEmail()} (${sessionScope.user.getFormattedBalance()} kr.)</a>
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/ToCart">
                             <img src="${pageContext.request.contextPath}/images/basket.png" alt="Logo" width="30px">
                         </a>

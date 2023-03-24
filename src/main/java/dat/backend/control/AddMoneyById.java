@@ -36,7 +36,7 @@ public class AddMoneyById extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        float amount = Float.parseFloat(request.getParameter("amount"));
+        float amount = Float.parseFloat(request.getParameter("amount").replace(",", "."));
         try {
             user.addBalance(amount);
             UserFacade.updateBalance(user, connection);

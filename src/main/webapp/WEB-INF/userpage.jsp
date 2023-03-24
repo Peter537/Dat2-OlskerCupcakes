@@ -37,9 +37,8 @@
                 </form>
                 <br>
                 <h2>Saldo:</h2>
-                <h4>${sessionScope.user.balance} DKK</h4>
+                <h4>${sessionScope.user.getFormattedBalance()} kr.</h4>
                 <br>
-
             </div>
             <div class="item-box" id="account">
                 <h2 style="text-align: center; text-decoration-line: underline">Konto information</h2>

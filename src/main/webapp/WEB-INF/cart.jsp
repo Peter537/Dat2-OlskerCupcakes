@@ -26,7 +26,7 @@
                 <th>Total pris</th>
                 <th></th>
             </tr>
-            <c:forEach items="${sessionScope.user.shoppingCart.cupcakeList}" var="item">
+            <c:forEach items="${sessionScope.user.currentOrder.shoppingCart.cupcakeList}" var="item">
                 <tr>
                     <td>${item.bottom.name}</td>
                     <td>${item.top.name}</td>
@@ -42,7 +42,7 @@
             <tr>
                 <td></td>
                 <td></td>
-                <td><b>Total pris: ${sessionScope.user.shoppingCart.totalPrice}</b></td>
+                <td><b>Total pris: ${sessionScope.user.currentOrder.shoppingCart.totalPrice}</b></td>
                 <td></td>
             </tr>
         </table>

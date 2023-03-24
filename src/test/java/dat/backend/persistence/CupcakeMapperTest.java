@@ -36,7 +36,7 @@ class CupcakeMapperTest {
             // Create test database - if not exist
             stmt.execute("CREATE DATABASE IF NOT EXISTS olskerCupcakes_test;");
 
-            // TODO: Create user table. Add your own tables here
+            // Create user table. Add your own tables here
             stmt.execute("CREATE TABLE IF NOT EXISTS olskerCupcakes_test.cupcakebottom LIKE olskerCupcakes.cupcakebottom;");
             stmt.execute("CREATE TABLE IF NOT EXISTS olskerCupcakes_test.cupcaketop LIKE olskerCupcakes.cupcaketop;");
         } catch (SQLException e) {
@@ -49,11 +49,11 @@ class CupcakeMapperTest {
     void setUp() {
         try {
             Statement stmt = connection.createStatement();
-            // TODO: Remove all rows from all tables - add your own tables here
+            // Remove all rows from all tables - add your own tables here
             stmt.execute("TRUNCATE TABLE cupcakebottom");
             stmt.execute("TRUNCATE TABLE cupcaketop");
 
-            // TODO: Insert a few users - insert rows into your own tables here
+            // Insert a few users - insert rows into your own tables here
             stmt.execute("INSERT INTO cupcakebottom (bottom, price) " +
                     "VALUES ('chokolade', 5), ('vanilla', 7)");
             stmt.execute("INSERT INTO cupcaketop (topping, price) " +

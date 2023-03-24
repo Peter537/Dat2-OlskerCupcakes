@@ -38,7 +38,7 @@ class OrderMapperTest {
             // Create test database - if not exist
             stmt.execute("CREATE DATABASE IF NOT EXISTS olskerCupcakes_test;");
 
-            // TODO: Create user table. Add your own tables here
+            // Create user table. Add your own tables here
             stmt.execute("CREATE TABLE IF NOT EXISTS olskerCupcakes_test.user LIKE olskerCupcakes.user;");
             stmt.execute("CREATE TABLE IF NOT EXISTS olskerCupcakes_test.order LIKE olskerCupcakes.order;");
             stmt.execute("CREATE TABLE IF NOT EXISTS olskerCupcakes_test.cupcake LIKE olskerCupcakes.cupcake;");
@@ -54,7 +54,7 @@ class OrderMapperTest {
     void setUp() {
         try {
             Statement stmt = connection.createStatement();
-            // TODO: Remove all rows from all tables - add your own tables here
+            // Remove all rows from all tables - add your own tables here
             stmt.execute("DELETE FROM olskerCupcakes_test.user");
             stmt.execute("DELETE FROM olskerCupcakes_test.order");
             stmt.execute("DELETE FROM olskerCupcakes_test.cupcake");
@@ -66,7 +66,7 @@ class OrderMapperTest {
             stmt.execute("TRUNCATE TABLE olskerCupcakes_test.cupcakebottom");
             stmt.execute("TRUNCATE TABLE olskerCupcakes_test.cupcaketop");
 
-            // TODO: Insert a few users - insert rows into your own tables here
+            // Insert a few users - insert rows into your own tables here
             stmt.execute("INSERT INTO olskerCupcakes_test.user (email, password, role) " +
                     "VALUES ('user', '1234', 'customer'), ('ben', '1234', 'customer')");
             stmt.execute("INSERT INTO olskerCupcakes_test.cupcakebottom (bottom, price) " +

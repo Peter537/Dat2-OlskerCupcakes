@@ -34,7 +34,7 @@ class UserMapperTest {
             // Create test database - if not exist
             stmt.execute("CREATE DATABASE IF NOT EXISTS olskerCupcakes_test;");
 
-            // TODO: Create user table. Add your own tables here
+            // Create user table. Add your own tables here
             stmt.execute("CREATE TABLE IF NOT EXISTS olskerCupcakes_test.user LIKE olskerCupcakes.user;");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -46,10 +46,10 @@ class UserMapperTest {
     void setUp() {
         try {
             Statement stmt = connection.createStatement();
-            // TODO: Remove all rows from all tables - add your own tables here
+            // Remove all rows from all tables - add your own tables here
             stmt.execute("DELETE FROM user");
 
-            // TODO: Insert a few users - insert rows into your own tables here
+            // Insert a few users - insert rows into your own tables here
             stmt.execute("INSERT INTO user (email, password, role) " +
                     "VALUES ('user', '1234', 'customer'), ('admin', '1234', 'admin'), ('ben', '1234', 'customer')");
         } catch (SQLException e) {

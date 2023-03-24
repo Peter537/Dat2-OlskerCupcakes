@@ -56,6 +56,9 @@
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/ToCart">
                             <img src="${pageContext.request.contextPath}/images/basket.png" alt="Logo" width="30px">
                         </a>
+                        <c:if test="${sessionScope.user.getCurrentOrder().getShoppingCart().getTotalAmount() > 0}">
+                            <a class="nav-item nav-link navtext" style="border: 0;" href="${pageContext.request.contextPath}/ToCart">(${sessionScope.user.getCurrentOrder().getShoppingCart().getTotalAmount()})</a>
+                        </c:if>
                     </c:if>
                 </div>
             </div>
@@ -109,8 +112,8 @@
         --hero-color: #3c1460;
         --hero-navbar: #471f6a;
         --navbar-text-color: #ffffff;
-        --button-color: #e9ca97;
-        --button-color-light: #f7d9a9;
+        --button-color: #b08411;
+        --button-color-light: #ce9a15;
     }
     .footer {
         /*position: fixed;*/

@@ -103,7 +103,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + this.getId() +
-                ", user=" + this.getUser() +
+                ", user_email=" + this.getUser().getEmail() +
                 ", readyTime=" + this.getReadyTime() +
                 ", status=" + this.getStatus() +
                 ", shoppingCart=" + this.getShoppingCart() +

@@ -28,7 +28,7 @@
                 <h4> - ${sessionScope.user.getRole().getName()}</h4>
             </div>
             <div class="item-box" id="money" style="width: 30%">
-                <h2 style="text-align: center; text-decoration-line: underline">Tilføj penge</h2>
+                <h2 style="text-align: center; text-decoration-line: underline">Min saldo</h2>
                 <form action="AddMoney" method="post" style="text-align: center">
                     <input class="btn btn-primary" type="submit" value="Tilføj penge">
                     <label for="addedAmount">  -->

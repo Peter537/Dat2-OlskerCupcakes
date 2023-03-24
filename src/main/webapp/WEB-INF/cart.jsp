@@ -19,7 +19,7 @@
     </jsp:attribute>
 
     <jsp:body>
-        <table             class="table table-striped table-bordered table-hover">
+        <table class="table table-striped table-bordered table-hover">
             <tr>
                 <th>Bund</th>
                 <th>Topping</th>
@@ -30,10 +30,10 @@
                 <tr>
                     <td>${item.bottom.name}</td>
                     <td>${item.top.name}</td>
-                    <td>${item.price}</td>
+                    <td>${item.price} DKK</td>
                     <td>
                         <form action="RemoveCupcake" method="post">
-                            <input type="hidden"  name="cupcake" id="cupcake" value="${item.id}" class="form-control">
+                            <input type="hidden" name="cupcake" id="cupcake" value="${item.id}" class="form-control">
                             <input type="submit" value="Aflys" class="btn btn-primary" style="float: right;">
                         </form>
                     </td>
@@ -42,7 +42,7 @@
             <tr>
                 <td></td>
                 <td></td>
-                <td><b>Total pris: ${sessionScope.user.currentOrder.shoppingCart.totalPrice}</b></td>
+                <td><b>Total pris: ${sessionScope.user.currentOrder.shoppingCart.totalPrice} DKK</b></td>
                 <td></td>
             </tr>
         </table>

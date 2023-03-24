@@ -87,7 +87,7 @@ public class User {
     }
 
     public OrderStatus getLastOrderStatus() {
-        return OrderStatus.READY; // TODO: Implement this
+        return this.getOrders().get(this.getOrders().size() - 1).getStatus();
     }
 
     public String getFormattedBalance() {

@@ -30,7 +30,7 @@
                 <tr>
                     <td>${item.bottom.name}</td>
                     <td>${item.top.name}</td>
-                    <td>${item.price} DKK</td>
+                    <td>${item.price} kr.</td>
                     <td>
                         <form action="RemoveCupcake" method="post">
                             <input type="hidden" name="cupcake" id="cupcake" value="${item.id}" class="form-control">
@@ -42,7 +42,7 @@
             <tr>
                 <td></td>
                 <td></td>
-                <td><b>Total pris: ${sessionScope.user.currentOrder.shoppingCart.totalPrice} DKK</b></td>
+                <td><b>Total pris: ${sessionScope.user.currentOrder.shoppingCart.totalPrice} kr.</b></td>
                 <td></td>
             </tr>
         </table>
@@ -56,6 +56,26 @@
             </div>
             <div class="col-sm-3">
                 <form action="CreateOrder" method="post">
+                    <c:if test="${requestScope.msgReadyTime != null}">
+                        <div class="col-sm-3">
+                            <h3 class="bg-danger">${requestScope.msgReadyTime}</h3>
+                        </div>
+                    </c:if>
+                    <div class="col-sm-3">
+                        <label for="readyTimeDate">Afhentningstid:
+                            <input type="date" id="readyTimeDate" name="readyTimeDate">
+                        </label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="readyTimeHour">Time:
+                            <input type="number" min="0" max="23" id="readyTimeHour" name="readyTimeHour">
+                        </label>
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="readyTimeMinute">Minut:
+                            <input type="number" min="0" max="59" id="readyTimeMinute" name="readyTimeMinute">
+                        </label>
+                    </div>
                     <button class="btn btn-primary">Bekræft Ordre</button>
                 </form>
             </div>

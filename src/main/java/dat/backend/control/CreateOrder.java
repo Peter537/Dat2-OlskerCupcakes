@@ -40,16 +40,26 @@ public class CreateOrder extends HttpServlet {
             request.setAttribute("msgmoney", "Du har ikke nok penge på din konto til at købe denne vare");
             request.getRequestDispatcher("WEB-INF/cart.jsp").forward(request, response);
             return;
-        }
-        else {
+        } else {
             user.setBalance(user.getBalance() - cart.getTotalPrice());
         }
 
-        String readyTimeStr = request.getParameter("readyTime");
+        String readyTimeDate = request.getParameter("readyTimeDate");
+        String readyTimeHour = request.getParameter("readyTimeHour");
+        String readyTimeMinute = request.getParameter("readyTimeMinute");
+        System.out.println("ReadyTimeDate: " + readyTimeDate);
+        System.out.println("ReadyTimeHour: " + readyTimeHour);
+        System.out.println("ReadyTimeMinute: " + readyTimeMinute);
+        if (readyTimeDate == null || readyTimeHour == null || readyTimeMinute == null) {
+            request.setAttribute("msgReadyTime", "Du skal vælge en afhentningsdato og tid");
+            request.getRequestDispatcher("WEB-INF/cart.jsp").forward(request, response);
+            return;
+        }
+        String readyTimeStr = readyTimeDate + " " + readyTimeHour + ":" + readyTimeMinute;
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         System.out.println(readyTimeStr);
-        //LocalDateTime readyTime = LocalDateTime.parse(readyTimeStr, formatter);
-        LocalDateTime readyTime = LocalDateTime.now();
+        LocalDateTime readyTime = LocalDateTime.parse(readyTimeStr, formatter);
         user.getCurrentOrder().setReadyTime(readyTime);
         user.getCurrentOrder().setStatus(OrderStatus.PENDING);
         try {
@@ -59,6 +69,7 @@ public class CreateOrder extends HttpServlet {
         }
         request.setAttribute("order", user.getCurrentOrder());
         request.setAttribute("currentcart", cart);
+        request.setAttribute("readyTime", readyTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
         user.setCurrentOrder(new Order(user));
         request.getRequestDispatcher("WEB-INF/confirmation.jsp").forward(request, response);
     }

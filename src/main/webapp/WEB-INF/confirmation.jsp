@@ -42,7 +42,7 @@
                         </tr>
                     </c:forEach>
                   <tr>
-                        <td>Kan afhentes: ${requestScope.order.getReadyTime()}</td>
+                        <td>Kan afhentes: ${requestScope.readyTime}</td>
                         <td></td>
                         <td><b>Total: ${requestScope.currentcart.getTotalPrice()} .kr</b></td>
                   </tr>

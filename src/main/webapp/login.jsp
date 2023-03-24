@@ -20,7 +20,7 @@
     <jsp:body>
 
         <div>
-            <h3>Indtast dit brugernavn og password</h3>
+            <h3>Indtast din email og password</h3>
             <div class="row">
                 <div class="col-sm-4">
                     <p>${requestScope.msg}</p>

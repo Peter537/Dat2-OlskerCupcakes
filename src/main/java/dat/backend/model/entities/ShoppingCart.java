@@ -42,6 +42,10 @@ public class ShoppingCart {
         return totalPrice;
     }
 
+    public int getTotalAmount() {
+        return this.cupcakeList.size();
+    }
+
     @Override
     public String toString() {
         return "ShoppingCart{" +

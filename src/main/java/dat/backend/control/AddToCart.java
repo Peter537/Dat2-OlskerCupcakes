@@ -16,6 +16,11 @@ public class AddToCart extends HttpServlet {
         try {
             Cupcake cupcake = (Cupcake) request.getSession().getAttribute("cupcake");
             User user = (User) request.getSession().getAttribute("user");
+            if (cupcake == null || user == null) {
+                request.setAttribute("msg", "Der skete en fejl");
+                request.getRequestDispatcher("WEB-INF/order.jsp").forward(request, response);
+                return;
+            }
             user.getCurrentOrder().getShoppingCart().addCupcake(cupcake);
             request.getSession().setAttribute("cupcake", null);
             request.setAttribute("bottom", null);

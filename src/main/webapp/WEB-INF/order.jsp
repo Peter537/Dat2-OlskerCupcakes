@@ -22,12 +22,7 @@
             <c:redirect url="/login.jsp"/>
         </c:if>
         <br>
-        <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-2 text-center">
-                <h3 class="bg-warning" style="border-radius: 8px 8px 8px 8px;">${requestScope.msg}</h3>
-            </div>
-        </div>
+
         <div class="row">
             <form action="BuildCupcake" method="post">
                 <div class="row">
@@ -80,6 +75,12 @@
                     <div class="col-sm-5">
                         <div class="row">
                             <div class="col-sm-5"></div>
+                            <div class="col-sm-6 text-center">
+                                <a id="msgA" class="bg-warning h3" href="ToCart">${requestScope.msg}</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5"></div>
                             <div class="col-sm-7 border rounded">
                                 <div class="row">
                                     <c:if test="${sessionScope.cupcake != null}">
@@ -99,6 +100,13 @@
                 </div>
             </form>
         </div>
+        <style>
+            #msgA {
+                border-radius: 8px 8px 8px 8px;
+                color: black;
+                text-decoration: none !important;
+            }
+        </style>
     </jsp:body>
 
 </t:pagetemplate>

@@ -2,6 +2,7 @@ package dat.backend.control;
 
 import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.Order;
+import dat.backend.model.entities.OrderStatus;
 import dat.backend.model.entities.ShoppingCart;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
@@ -50,6 +51,7 @@ public class CreateOrder extends HttpServlet {
         //LocalDateTime readyTime = LocalDateTime.parse(readyTimeStr, formatter);
         LocalDateTime readyTime = LocalDateTime.now();
         user.getCurrentOrder().setReadyTime(readyTime);
+        user.getCurrentOrder().setStatus(OrderStatus.PENDING);
         try {
             OrderFacade.createOrder(user.getCurrentOrder(), connection);
         } catch (DatabaseException e) {

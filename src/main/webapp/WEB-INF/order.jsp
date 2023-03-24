@@ -11,7 +11,6 @@
 
     <jsp:attribute name="header">
         <h1 style="margin-left: 25%;">Tilføj til kurv</h1>
-        <h3 style="margin-left: 22%;">${requestScope.msg}</h3>
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -23,6 +22,12 @@
             <c:redirect url="/login.jsp"/>
         </c:if>
         <br>
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-2 text-center">
+                <h3 class="bg-warning" style="border-radius: 8px 8px 8px 8px;">${requestScope.msg}</h3>
+            </div>
+        </div>
         <div class="row">
             <form action="BuildCupcake" method="post">
                 <div class="row">

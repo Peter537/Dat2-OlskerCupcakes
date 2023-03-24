@@ -48,10 +48,10 @@ public class Login extends HttpServlet {
         response.setContentType("text/html");
         HttpSession session = request.getSession();
         session.setAttribute("user", null); // invalidating user object in session scope
-        String username = request.getParameter("username");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
         try {
-            User user = UserFacade.login(username, password, connection);
+            User user = UserFacade.login(email, password, connection);
             session = request.getSession();
             session.setAttribute("user", user); // adding user object to session scope
             if (user.getRole() == Role.ADMIN) {
@@ -65,8 +65,8 @@ public class Login extends HttpServlet {
             request.getRequestDispatcher("WEB-INF/userpage.jsp").forward(request, response);
         } catch (DatabaseException e) {
             request.setAttribute("errormessage", e.getMessage());
-            if (e.getMessage().equals("Wrong username or password")) {
-                request.setAttribute("msg", "Wrong username or password");
+            if (e.getMessage().equals("Wrong email or password")) {
+                request.setAttribute("msg", "Wrong email or password");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
                 return;
             }

@@ -26,8 +26,8 @@
                     <p>${requestScope.msg}</p>
                     <form action="login" method="post">
                         <div class="form-group">
-                            <label for="username">Username: </label>
-                            <input class="form-control" type="text" id="username" name="username" placeholder="Brugernavn"/>
+                            <label for="email">Email: </label>
+                            <input class="form-control" type="text" id="email" name="email" placeholder="Email"/>
                         </div>
                         <br/>
                         <div class="form-group">

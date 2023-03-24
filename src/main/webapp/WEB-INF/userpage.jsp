@@ -36,7 +36,7 @@
                     </label>
                 </form>
                 <br>
-                <h2>Balance:</h2>
+                <h2>Saldo:</h2>
                 <h4>${sessionScope.user.balance} DKK</h4>
                 <br>
                 <div style="text-align: center; margin: 5px">

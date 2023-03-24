@@ -13,22 +13,22 @@ public class User {
     private String email;
     private String password;
     private Role role;
-    private ShoppingCart shoppingCart;
+    private Order currentOrder;
     private float balance;
 
     public User(String email, String password, Role role) {
         this.email = email;
         this.password = password;
         this.role = role;
-        this.shoppingCart = new ShoppingCart();
         this.balance = 0;
+        this.currentOrder = new Order(this);
     }
 
     public User(String email, String password, Role role, float balance) {
         this.email = email;
         this.password = password;
         this.role = role;
-        this.shoppingCart = new ShoppingCart();
+        this.currentOrder = new Order(this);
         this.balance = balance;
     }
 
@@ -56,12 +56,12 @@ public class User {
         this.role = role;
     }
 
-    public ShoppingCart getShoppingCart() {
-        return this.shoppingCart;
+    public Order getCurrentOrder() {
+        return this.currentOrder;
     }
 
-    public void setShoppingCart(ShoppingCart shoppingCart) {
-        this.shoppingCart = shoppingCart;
+    public void setCurrentOrder(Order currentOrder) {
+        this.currentOrder = currentOrder;
     }
 
     public float getBalance() {
@@ -100,7 +100,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getEmail(), this.getPassword(), this.getRole(), this.getShoppingCart());
+        return Objects.hash(this.getEmail(), this.getPassword(), this.getRole(), this.getCurrentOrder());
     }
 
     @Override
@@ -109,7 +109,7 @@ public class User {
                 "email='" + this.getEmail() + '\'' +
                 ", password='" + this.getPassword() + '\'' +
                 ", role=" + this.getRole() +
-                ", shoppingCart=" + this.getShoppingCart() +
+                ", currentOrder=" + this.getCurrentOrder() +
                 ", balance=" + this.getBalance() +
                 '}';
     }

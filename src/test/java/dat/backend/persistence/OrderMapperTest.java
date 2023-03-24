@@ -108,7 +108,7 @@ class OrderMapperTest {
         User user = UserFacade.getUserByEmail("user", connection);
         Bottom bottom = CupcakeFacade.getBottomById(1, connection);
         Top topping = CupcakeFacade.getTopById(1, connection);
-        user.getShoppingCart().addCupcake(new Cupcake(bottom, topping));
+        user.getCurrentOrder().getShoppingCart().addCupcake(new Cupcake(bottom, topping));
         Order order = new Order(user, LocalDateTime.now());
         OrderFacade.createOrder(order, connection, true);
         List<Order> orders = OrderFacade.getAllOrders(connection, true);

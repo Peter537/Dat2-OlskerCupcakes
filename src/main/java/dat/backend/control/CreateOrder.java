@@ -33,7 +33,7 @@ public class CreateOrder extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("user");
-        ShoppingCart cart = user.getShoppingCart();
+        ShoppingCart cart = user.getCurrentOrder().getShoppingCart();
 
         if (user.getBalance() < cart.getTotalPrice()) {
             request.setAttribute("msgmoney", "Du har ikke nok penge på din konto til at købe denne vare");
@@ -49,15 +49,15 @@ public class CreateOrder extends HttpServlet {
         System.out.println(readyTimeStr);
         //LocalDateTime readyTime = LocalDateTime.parse(readyTimeStr, formatter);
         LocalDateTime readyTime = LocalDateTime.now();
-        Order order = new Order(user, readyTime);
+        user.getCurrentOrder().setReadyTime(readyTime);
         try {
-            OrderFacade.createOrder(order, connection);
+            OrderFacade.createOrder(user.getCurrentOrder(), connection);
         } catch (DatabaseException e) {
             throw new RuntimeException(e);
         }
-        request.setAttribute("order", order);
+        request.setAttribute("order", user.getCurrentOrder());
         request.setAttribute("currentcart", cart);
-        user.setShoppingCart(new ShoppingCart());
+        user.setCurrentOrder(new Order(user));
         request.getRequestDispatcher("WEB-INF/confirmation.jsp").forward(request, response);
     }
 }

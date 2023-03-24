@@ -21,16 +21,15 @@ class OrderMapper {
                 int order_id = rs.getInt("order_id");
                 String email = rs.getString("fk_user_email");
                 LocalDateTime time = rs.getDate("readytime").toLocalDate().atStartOfDay(); // TODO: Fjerne atStartOfDay() når vi har tid
-                OrderStatus status = null;
+                OrderStatus status;
                 if (rs.getString("status") == null) {
                     status = OrderStatus.CANCELLED;
-                }
-                else
+                } else {
                     status = OrderStatus.valueOf(rs.getString("status").toUpperCase());
+                }
                 ShoppingCart shoppingCart = getShoppingCartByOrderId(order_id, connection);
                 User user = UserMapper.getUserByEmail(email, connection);
-                user.setShoppingCart(shoppingCart);
-                Order order = new Order(order_id, user, time, status);
+                Order order = new Order(order_id, user, time, shoppingCart, status);
                 orders.add(order);
             }
         } catch (SQLException e) {
@@ -49,15 +48,14 @@ class OrderMapper {
             while (rs.next()) {
                 int order_id = rs.getInt("order_id");
                 LocalDateTime time = rs.getDate("readytime").toLocalDate().atStartOfDay();
-                OrderStatus status = null;
+                OrderStatus status;
                 if (rs.getString("status") == null) {
                     status = OrderStatus.CANCELLED;
-                }
-                else
+                } else {
                     status = OrderStatus.valueOf(rs.getString("status").toUpperCase());
+                }
                 ShoppingCart shoppingCart = getShoppingCartByOrderId(order_id, connection);
-                user.setShoppingCart(shoppingCart);
-                Order order = new Order(order_id, user, time, status);
+                Order order = new Order(order_id, user, time, shoppingCart, status);
                 orders.add(order);
             }
         } catch (SQLException e) {
@@ -74,8 +72,8 @@ class OrderMapper {
             preparedStatementInsertOrder.setString(1, order.getUser().getEmail());
             String time = order.getReadyTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             preparedStatementInsertOrder.setString(2, time);
-            preparedStatementInsertOrder.setFloat(3, order.getUser().getShoppingCart().getTotalPrice());
-            preparedStatementInsertOrder.setInt(4, order.getUser().getShoppingCart().getCupcakeList().size());
+            preparedStatementInsertOrder.setFloat(3, order.getShoppingCart().getTotalPrice());
+            preparedStatementInsertOrder.setInt(4, order.getShoppingCart().getCupcakeList().size());
             preparedStatementInsertOrder.setString(5, order.getStatus().toString().toUpperCase());
 
             preparedStatementInsertOrder.executeUpdate();
@@ -85,7 +83,7 @@ class OrderMapper {
             }
 
             String sqlStatementCupcake = "INSERT INTO cupcake (fk_cupcaketop_id, fk_cupcakebottom_id, fk_order_id) VALUES (?, ?, ?)";
-            for (Cupcake cupcake : order.getUser().getShoppingCart().getCupcakeList()) {
+            for (Cupcake cupcake : order.getShoppingCart().getCupcakeList()) {
                 try {
                     PreparedStatement preparedStatementInsertCupcake = connection.prepareStatement(sqlStatementCupcake);
                     preparedStatementInsertCupcake.setInt(1, cupcake.getTop().getId());

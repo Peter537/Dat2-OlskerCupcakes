@@ -8,11 +8,19 @@ public class Order {
     private User user;
     private LocalDateTime readyTime;
     private OrderStatus status;
+    private ShoppingCart shoppingCart;
+
+    public Order(User user) {
+        this.user = user;
+        this.status = OrderStatus.IN_SHOPPING_CART;
+        this.shoppingCart = new ShoppingCart();
+    }
 
     public Order(User user, LocalDateTime readyTime) {
         this.user = user;
         this.readyTime = readyTime;
         this.status = OrderStatus.IN_SHOPPING_CART;
+        this.shoppingCart = new ShoppingCart();
     }
 
     public Order(int id, User user, LocalDateTime readyTime) {
@@ -20,6 +28,7 @@ public class Order {
         this.user = user;
         this.readyTime = readyTime;
         this.status = OrderStatus.IN_SHOPPING_CART;
+        this.shoppingCart = new ShoppingCart();
     }
 
     public Order(int id, User user, LocalDateTime readyTime, OrderStatus status) {
@@ -27,6 +36,15 @@ public class Order {
         this.user = user;
         this.readyTime = readyTime;
         this.status = status;
+        this.shoppingCart = new ShoppingCart();
+    }
+
+    public Order(int id, User user, LocalDateTime readyTime, ShoppingCart shoppingCart, OrderStatus status) {
+        this.id = id;
+        this.user = user;
+        this.readyTime = readyTime;
+        this.status = status;
+        this.shoppingCart = shoppingCart;
     }
 
     public int getId() {
@@ -61,16 +79,24 @@ public class Order {
         this.status = status;
     }
 
+    public ShoppingCart getShoppingCart() {
+        return this.shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+
     public float getPrice() {
         float totalPrice = 0;
-        for (Cupcake cupcake : this.user.getShoppingCart().getCupcakeList()) {
+        for (Cupcake cupcake : this.shoppingCart.getCupcakeList()) {
             totalPrice += cupcake.getPrice();
         }
         return totalPrice;
     }
 
     public int getCupcakeCount() {
-        return this.user.getShoppingCart().getCupcakeList().size();
+        return this.shoppingCart.getCupcakeList().size();
     }
 
     @Override
@@ -80,6 +106,7 @@ public class Order {
                 ", user=" + this.getUser() +
                 ", readyTime=" + this.getReadyTime() +
                 ", status=" + this.getStatus() +
+                ", shoppingCart=" + this.getShoppingCart() +
                 '}';
     }
 }

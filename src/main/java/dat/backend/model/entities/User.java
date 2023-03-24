@@ -5,7 +5,9 @@ import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.OrderFacade;
 
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class User {
@@ -86,6 +88,10 @@ public class User {
 
     public OrderStatus getLastOrderStatus() {
         return OrderStatus.READY; // TODO: Implement this
+    }
+
+    public String getFormattedBalance() {
+        return NumberFormat.getNumberInstance(Locale.GERMAN).format(this.balance);
     }
 
     @Override

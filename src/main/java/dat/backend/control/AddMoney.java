@@ -18,7 +18,7 @@ public class AddMoney extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("user");
         try {
-            float amount = Float.parseFloat(request.getParameter("addedAmount"));
+            float amount = Float.parseFloat(request.getParameter("addedAmount").replace(",", "."));
             user.addBalance(amount);
             UserFacade.updateBalance(user, ApplicationStart.getConnectionPool().getConnection());
         } catch (NumberFormatException e) {

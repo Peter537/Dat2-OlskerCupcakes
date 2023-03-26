@@ -5,8 +5,6 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Objects;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

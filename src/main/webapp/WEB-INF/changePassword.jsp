@@ -10,11 +10,11 @@
         Skift adgangskode
     </jsp:attribute>
     <jsp:attribute name="header">
-        <h1>Skift adgangskode</h1>
+        <h1>Skift password</h1>
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-        Skift adgangskode
+        Skift password
     </jsp:attribute>
 
     <jsp:body>
@@ -24,10 +24,10 @@
 
         ${requestScope.changePasswordError}
         <form action="ChangePassword" method="post">
-            <label for="newPassword">Skift adgangskode
+            <label for="newPassword">Skift password
                 <input type="text" id="newPassword" name="newPassword" placeholder="New password"><br>
             </label>
-            <input class="btn btn-primary" type="submit" value="Skift adgangskode"><br>
+            <input class="btn btn-primary" type="submit" value="Skift password"><br>
         </form>
     </jsp:body>
 </t:pagetemplate>

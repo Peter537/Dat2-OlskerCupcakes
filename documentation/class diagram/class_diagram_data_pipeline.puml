@@ -80,8 +80,8 @@ class UserMapper {
 
 ApplicationStart  "1" *-[#595959,plain]-> "connectionPool\n1" ConnectionPool
 
-UserFacade        "1" -[#595959,plain]-> "userMapper\n1" UserMapper
-CupcakeFacade     "1" -[#595959,plain]-> "cupcakeMapper\n1" CupcakeMapper
-OrderFacade       "1" -[#595959,plain]-> "orderMapper\n1" OrderMapper
+UserFacade            -[#595959,plain]-> UserMapper
+CupcakeFacade         -[#595959,plain]-> CupcakeMapper
+OrderFacade           -[#595959,plain]-> OrderMapper
 
 @enduml

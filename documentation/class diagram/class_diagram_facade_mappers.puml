@@ -1,26 +1,5 @@
 @startuml
 
-top to bottom direction
-skinparam linetype ortho
-
-class ApplicationStart {
-  - connectionPool: ConnectionPool
-  + contextInitialized(ServletContextEvent): void
-  + contextDestroyed(ServletContextEvent): void
-  - unregisterJDBCdrivers(): void
-  - getPassword(ServletContextEvent): String
-}
-
-class ConnectionPool {
-  + ConnectionPool(String, String, String):
-  + ConnectionPool(String):
-  - ds: HikariDataSource
-  - USER: String
-  - URL: String
-  + getConnection(): Connection
-  + close(): void
-}
-
 class CupcakeFacade {
   + getBottomById(int, Connection): Bottom
   + getAllToppings(Connection): List<Top>
@@ -33,11 +12,6 @@ class CupcakeMapper {
   ~ getBottomById(int, Connection): Bottom
   ~ getAllBottoms(Connection): List<Bottom>
   ~ getTopById(int, Connection): Top
-}
-
-class DatabaseException {
-  + DatabaseException(Exception, String):
-  + DatabaseException(String):
 }
 
 class OrderFacade {
@@ -77,8 +51,6 @@ class UserMapper {
   ~ createUser(String, String, Role, Connection): User
   ~ getUserByEmail(String, Connection): User
 }
-
-ApplicationStart  "1" *-[#595959,plain]-> "connectionPool\n1" ConnectionPool
 
 UserFacade            -[#595959,plain]-> UserMapper
 CupcakeFacade         -[#595959,plain]-> CupcakeMapper

@@ -1,0 +1,31 @@
+@startuml
+
+top to bottom direction
+skinparam linetype ortho
+
+class ApplicationStart {
+  - connectionPool: ConnectionPool
+  + contextInitialized(ServletContextEvent): void
+  + contextDestroyed(ServletContextEvent): void
+  - unregisterJDBCdrivers(): void
+  - getPassword(ServletContextEvent): String
+}
+
+class ConnectionPool {
+  + ConnectionPool(String, String, String):
+  + ConnectionPool(String):
+  - ds: HikariDataSource
+  - USER: String
+  - URL: String
+  + getConnection(): Connection
+  + close(): void
+}
+
+class DatabaseException {
+  + DatabaseException(Exception, String):
+  + DatabaseException(String):
+}
+
+ApplicationStart  "1" *-[#595959,plain]-> "connectionPool\n1" ConnectionPool
+
+@enduml

@@ -11,6 +11,7 @@ class ApplicationStart {
   + contextInitialized(ServletContextEvent): void
   + contextDestroyed(ServletContextEvent): void
 }
+
 class Bottom {
   - name: String
   - id: int
@@ -31,6 +32,7 @@ class ConnectionPool {
   + getConnection(): Connection
   + close(): void
 }
+
 class Cupcake {
   - top: Top
   - id: int
@@ -44,6 +46,7 @@ class Cupcake {
   + getId(): int
   + toString(): String
 }
+
 class CupcakeFacade {
   + getBottomByName(String, Connection): Bottom
   + getTopById(int, Connection): Top
@@ -52,6 +55,7 @@ class CupcakeFacade {
   + getBottomById(int, Connection): Bottom
   + getAllToppings(Connection): List<Top>
 }
+
 class CupcakeMapper {
   ~ getTopByName(String, Connection): Top
   ~ getTopById(int, Connection): Top
@@ -60,6 +64,7 @@ class CupcakeMapper {
   ~ getBottomById(int, Connection): Bottom
   ~ getAllBottoms(Connection): List<Bottom>
 }
+
 class CupcakeMapperTest {
   - connection: Connection
   - PASSWORD: String
@@ -75,6 +80,7 @@ class CupcakeMapperTest {
   + setUpClass(): void
   ~ setUp(): void
 }
+
 class DatabaseException
 
 class Order {
@@ -94,6 +100,7 @@ class Order {
   + setStatus(OrderStatus): void
   + getUser(): User
 }
+
 class OrderFacade {
   + getAllOrdersByUser(User, Connection): List<Order>
   + getAllOrders(Connection, boolean): List<Order>
@@ -104,6 +111,7 @@ class OrderFacade {
   + createOrder(Order, Connection): void
   + createOrder(Order, Connection, boolean): void
 }
+
 class OrderMapper {
   - getShoppingCartByOrderId(int, Connection): ShoppingCart
   ~ createOrder(Order, Connection, boolean): void
@@ -111,6 +119,7 @@ class OrderMapper {
   ~ getAllOrdersByUser(User, Connection, boolean): List<Order>
   ~ updateOrderStatus(int, OrderStatus, Connection, boolean): void
 }
+
 class OrderMapperTest {
   - connectionPool: ConnectionPool
   - connection: Connection
@@ -125,6 +134,7 @@ class OrderMapperTest {
   + testUpdateOrder(): void
   + setUpClass(): void
 }
+
 enum OrderStatus << enumeration >> {
   + READY:
   - value: int
@@ -143,6 +153,7 @@ enum Role << enumeration >> {
   + values(): Role[]
   + valueOf(String): Role
 }
+
 class ShoppingCart {
   - cupcakeList: List<Cupcake>
   + getCupcakeList(): List<Cupcake>
@@ -189,6 +200,7 @@ class User {
   + getPassword(): String
   + hashCode(): int
 }
+
 class UserFacade {
   + getUserByEmail(String, Connection): User
   + getAllUsers(Connection): List<User>
@@ -205,6 +217,7 @@ class UserMapper {
   ~ createUser(String, String, Role, Connection): User
   + setNewPassword(User, Connection): void
 }
+
 class UserMapperTest {
   - PASSWORD: String
   - URL: String
@@ -231,4 +244,5 @@ ShoppingCart       "1" *-[#bbbbbb,plain]-> "cupcakeList\n*" Cupcake
 User               "1" *-[#bbbbbb,plain]-> "role\n1" Role
 User               "1" *-[#bbbbbb,plain]-> "shoppingCart\n1" ShoppingCart
 UserMapperTest     "1" *-[#bbbbbb,plain]-> "connectionPool\n1" ConnectionPool
+
 @enduml

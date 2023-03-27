@@ -51,8 +51,17 @@ public class CreateOrder extends HttpServlet {
         }
 
         String readyTimeDate = request.getParameter("readyTimeDate");
+
+
         String readyTimeHour = request.getParameter("readyTimeHour");
+        if (readyTimeHour.length() == 1) {
+            readyTimeHour = "0" + readyTimeHour;
+        }
+
         String readyTimeMinute = request.getParameter("readyTimeMinute");
+        if (readyTimeMinute.length() == 1) {
+            readyTimeMinute = "0" + readyTimeMinute;
+        }
         System.out.println("ReadyTimeDate: " + readyTimeDate);
         System.out.println("ReadyTimeHour: " + readyTimeHour);
         System.out.println("ReadyTimeMinute: " + readyTimeMinute);

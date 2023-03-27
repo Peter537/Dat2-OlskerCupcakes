@@ -29,7 +29,7 @@
                     <form action="CreateUser" method="post"> <%-- TODO: login-action needs to be register when servlet has been made --%>
 
                         <div class="form-group">
-                            <label for="email">Email:: </label>
+                            <label for="email">Email: </label>
                             <input class="form-control" type="text" id="email" name="email" placeholder="Email"/>
                         </div>
                         <br/>

@@ -31,7 +31,7 @@
         </c:if>
 
         <c:if test="${sessionScope.user == null}">
-            <p>For at fortsætte din bestiling, skal du logge ind.
+            <p>For at fortsætte din bestilling, skal du logge ind.
                 <div class="row">
                     <div class="col-sm-3">
                     <a

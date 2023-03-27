@@ -4,7 +4,6 @@ top to bottom direction
 skinparam linetype ortho
 
 class ApplicationStart {
-  + ApplicationStart():
   - connectionPool: ConnectionPool
   + contextInitialized(ServletContextEvent): void
   + contextDestroyed(ServletContextEvent): void

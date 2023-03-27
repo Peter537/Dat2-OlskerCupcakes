@@ -9,7 +9,6 @@ class ApplicationStart {
   + contextInitialized(ServletContextEvent): void
   + contextDestroyed(ServletContextEvent): void
   - unregisterJDBCdrivers(): void
-  + getConnectionPool(): ConnectionPool
   - getPassword(ServletContextEvent): String
 }
 

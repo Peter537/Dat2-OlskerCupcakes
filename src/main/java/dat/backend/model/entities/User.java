@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class User {
 
@@ -102,11 +101,6 @@ public class User {
         return this.getEmail().equals(user.getEmail()) &&
                 this.getPassword().equals(user.getPassword()) &&
                 this.getRole() == user.getRole();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.getEmail(), this.getPassword(), this.getRole(), this.getCurrentOrder());
     }
 
     @Override

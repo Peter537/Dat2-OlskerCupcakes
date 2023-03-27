@@ -97,11 +97,11 @@ class OrderMapper {
 
 enum OrderStatus << enumeration >> {
   - OrderStatus(String, int):
-  + CANCELLED:
-  + READY:
-  + IN_SHOPPING_CART:
-  + PENDING:
-  + DELIVERED:
+  + CANCELLED
+  + READY
+  + IN_SHOPPING_CART
+  + PENDING
+  + DELIVERED
   - value: int
   - name: String
   + valueOf(String): OrderStatus
@@ -110,8 +110,8 @@ enum OrderStatus << enumeration >> {
 
 enum Role << enumeration >> {
   - Role(String):
-  + CUSTOMER:
-  + ADMIN:
+  + CUSTOMER
+  + ADMIN
   - name: String
   + values(): Role[]
   + valueOf(String): Role

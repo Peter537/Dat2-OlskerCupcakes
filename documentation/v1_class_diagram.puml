@@ -65,22 +65,6 @@ class CupcakeMapper {
   ~ getAllBottoms(Connection): List<Bottom>
 }
 
-class CupcakeMapperTest {
-  - connection: Connection
-  - PASSWORD: String
-  - connectionPool: ConnectionPool
-  - URL: String
-  - USER: String
-  + testGetAllToppings(): void
-  + testGetBottomById_2(): void
-  + testGetAllBottoms(): void
-  + testGetTopById_1(): void
-  + testGetBottomById_1(): void
-  + testGetTopById_2(): void
-  + setUpClass(): void
-  ~ setUp(): void
-}
-
 class DatabaseException
 
 class Order {
@@ -118,21 +102,6 @@ class OrderMapper {
   ~ getAllOrders(Connection, boolean): List<Order>
   ~ getAllOrdersByUser(User, Connection, boolean): List<Order>
   ~ updateOrderStatus(int, OrderStatus, Connection, boolean): void
-}
-
-class OrderMapperTest {
-  - connectionPool: ConnectionPool
-  - connection: Connection
-  - USER: String
-  - PASSWORD: String
-  - URL: String
-  + testGetAllOrdersByUser_ben(): void
-  ~ setUp(): void
-  + testGetAllOrdersByUser_user(): void
-  + testCreateOrder(): void
-  + testGetAllOrders(): void
-  + testUpdateOrder(): void
-  + setUpClass(): void
 }
 
 enum OrderStatus << enumeration >> {
@@ -209,6 +178,7 @@ class UserFacade {
   + updateBalance(User, Connection): void
   + setNewPassword(User, Connection): void
 }
+
 class UserMapper {
   ~ login(String, String, Connection): User
   ~ getAllUsers(Connection): List<User>
@@ -218,31 +188,13 @@ class UserMapper {
   + setNewPassword(User, Connection): void
 }
 
-class UserMapperTest {
-  - PASSWORD: String
-  - URL: String
-  - connection: Connection
-  - USER: String
-  - connectionPool: ConnectionPool
-  ~ testConnection(): void
-  ~ login(): void
-  ~ invalidPasswordLogin(): void
-  + setUpClass(): void
-  ~ createUser(): void
-  ~ invalidUserNameLogin(): void
-  ~ setUp(): void
-}
-
 ApplicationStart   "1" *-[#bbbbbb,plain]-> "connectionPool\n1" ConnectionPool
 Cupcake            "1" *-[#bbbbbb,plain]-> "bottom\n1" Bottom
 Cupcake            "1" *-[#bbbbbb,plain]-> "top\n1" Top
-CupcakeMapperTest  "1" *-[#bbbbbb,plain]-> "connectionPool\n1" ConnectionPool
 Order              "1" *-[#bbbbbb,plain]-> "status\n1" OrderStatus
 Order              "1" *-[#bbbbbb,plain]-> "user\n1" User
-OrderMapperTest    "1" *-[#bbbbbb,plain]-> "connectionPool\n1" ConnectionPool
 ShoppingCart       "1" *-[#bbbbbb,plain]-> "cupcakeList\n*" Cupcake
 User               "1" *-[#bbbbbb,plain]-> "role\n1" Role
 User               "1" *-[#bbbbbb,plain]-> "shoppingCart\n1" ShoppingCart
-UserMapperTest     "1" *-[#bbbbbb,plain]-> "connectionPool\n1" ConnectionPool
 
 @enduml

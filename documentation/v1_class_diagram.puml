@@ -103,8 +103,6 @@ enum OrderStatus << enumeration >> {
   + DELIVERED
   - value: int
   - name: String
-  + valueOf(String): OrderStatus
-  + values(): OrderStatus[]
 }
 
 enum Role << enumeration >> {
@@ -112,8 +110,6 @@ enum Role << enumeration >> {
   + CUSTOMER
   + ADMIN
   - name: String
-  + values(): Role[]
-  + valueOf(String): Role
 }
 
 class ShoppingCart {

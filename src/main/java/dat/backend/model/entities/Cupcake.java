@@ -48,8 +48,10 @@ public class Cupcake {
     @Override
     public String toString() {
         return "Cupcake{" +
-                "bottom=" + this.getBottom() +
+                "id=" + this.getId() +
+                ", bottom=" + this.getBottom() +
                 ", top=" + this.getTop() +
+                ", price=" + this.getPrice() +
                 '}';
     }
 }

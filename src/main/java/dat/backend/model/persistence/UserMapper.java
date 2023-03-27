@@ -1,6 +1,5 @@
 package dat.backend.model.persistence;
 
-import dat.backend.model.entities.OrderStatus;
 import dat.backend.model.entities.Role;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;

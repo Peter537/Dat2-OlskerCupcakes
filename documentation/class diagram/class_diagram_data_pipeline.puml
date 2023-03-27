@@ -11,14 +11,6 @@ class ApplicationStart {
   - getPassword(ServletContextEvent): String
 }
 
-class Bottom {
-  + Bottom(String, float):
-  + Bottom(int, String, float):
-  - id: int
-  - price: float
-  - name: String
-}
-
 class ConnectionPool {
   + ConnectionPool(String, String, String):
   + ConnectionPool(String):
@@ -27,15 +19,6 @@ class ConnectionPool {
   - URL: String
   + getConnection(): Connection
   + close(): void
-}
-
-class Cupcake {
-  + Cupcake(int, Bottom, Top):
-  + Cupcake(Bottom, Top):
-  - id: int
-  - bottom: Bottom
-  - top: Top
-  + getPrice(): float
 }
 
 class CupcakeFacade {
@@ -55,22 +38,6 @@ class CupcakeMapper {
 class DatabaseException {
   + DatabaseException(Exception, String):
   + DatabaseException(String):
-}
-
-class Order {
-  + Order(User):
-  + Order(int, User, LocalDateTime):
-  + Order(User, LocalDateTime):
-  + Order(int, User, LocalDateTime, OrderStatus):
-  + Order(int, User, LocalDateTime, ShoppingCart, OrderStatus):
-  - id: int
-  - user: User
-  - readyTime: LocalDateTime
-  - shoppingCart: ShoppingCart
-  - status: OrderStatus
-  + getFormattedReadyTime(): String
-  + getCupcakeCount(): int
-  + getPrice(): float
 }
 
 class OrderFacade {
@@ -93,57 +60,6 @@ class OrderMapper {
   - getShoppingCartByOrderId(int, Connection): ShoppingCart
 }
 
-enum OrderStatus << enumeration >> {
-  - OrderStatus(String, int):
-  + CANCELLED
-  + READY
-  + IN_SHOPPING_CART
-  + PENDING
-  + DELIVERED
-  - value: int
-  - name: String
-}
-
-enum Role << enumeration >> {
-  - Role(String):
-  + CUSTOMER
-  + ADMIN
-  - name: String
-}
-
-class ShoppingCart {
-  + ShoppingCart():
-  - cupcakeList: List<Cupcake>
-  + getTotalAmount(): int
-  + addCupcake(Cupcake): void
-  + removeCupcake(Cupcake): void
-  + clearCart(): void
-  + getTotalPrice(): float
-  + removeCupcakeById(int): void
-}
-
-class Top {
-  + Top(int, String, float):
-  + Top(String, float):
-  - name: String
-  - price: float
-  - id: int
-}
-
-class User {
-  + User(String, String, Role):
-  + User(String, String, Role, float):
-  - role: Role
-  - currentOrder: Order
-  - email: String
-  - password: String
-  - balance: float
-  + getFormattedBalance(): String
-  + addBalance(float): void
-  + getOrders(): List<Order>
-  + getLastOrderStatus(): OrderStatus
-}
-
 class UserFacade {
   + getAllUsers(Connection): List<User>
   + setNewPassword(User, Connection): void
@@ -163,18 +79,6 @@ class UserMapper {
 }
 
 ApplicationStart  "1" *-[#595959,plain]-> "connectionPool\n1" ConnectionPool
-
-User              "1" *-[#595959,plain]-> "currentOrder\n1" Order
-User              "1" *-[#595959,plain]-> "role\n1" Role
-
-Order             "1" *-[#595959,plain]-> "status\n1" OrderStatus
-Order             "1" *-[#595959,plain]-> "shoppingCart\n1" ShoppingCart
-Order             "1" *-[#595959,plain]-> "user\n1" User
-
-ShoppingCart      "1" *-[#595959,plain]-> "cupcakeList\n*" Cupcake
-
-Cupcake           "1" *-[#595959,plain]-> "bottom\n1" Bottom
-Cupcake           "1" *-[#595959,plain]-> "top\n1" Top
 
 UserFacade        "1" -[#595959,plain]-> "userMapper\n1" UserMapper
 CupcakeFacade     "1" -[#595959,plain]-> "cupcakeMapper\n1" CupcakeMapper

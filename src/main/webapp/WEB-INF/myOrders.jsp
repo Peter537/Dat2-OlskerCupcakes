@@ -18,6 +18,10 @@
     </jsp:attribute>
 
     <jsp:body>
+        <c:if test="${empty sessionScope.user}">
+            <c:redirect url="/login.jsp"/>
+        </c:if>
+
         <table class="table table-striped">
             <thead>
             <tr>

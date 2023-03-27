@@ -26,7 +26,7 @@
           <p>Dine cupcakes er bestilt!</p>
       </div>
       <div class="row">
-          <p>Data om din ordre: </p>
+          <h4>Ordreinformation: </h4>
           <div class="col-sm-6">
               <table class="table">
                   <tr>

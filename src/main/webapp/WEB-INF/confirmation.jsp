@@ -13,27 +13,27 @@
         <h1>Ordre bekræftelse</h1>
     </jsp:attribute>
 
-  <jsp:attribute name="footer">
+    <jsp:attribute name="footer">
         Bekræftelse
     </jsp:attribute>
 
-  <jsp:body>
-      <c:if test="${empty sessionScope.user}">
-          <c:redirect url="/login.jsp"/>
-      </c:if>
-      <br>
-      <div class="row">
-          <p>Dine cupcakes er bestilt!</p>
-      </div>
-      <div class="row">
-          <h4>Ordreinformation: </h4>
-          <div class="col-sm-6">
-              <table class="table">
-                  <tr>
-                      <td>Top: </td>
-                      <td>Bund: </td>
-                      <td>Pris: </td>
-                  </tr>
+    <jsp:body>
+        <c:if test="${empty sessionScope.user}">
+            <c:redirect url="/login.jsp"/>
+        </c:if>
+        <br>
+        <div class="row">
+            <p>Dine cupcakes er bestilt!</p>
+        </div>
+        <div class="row">
+            <h4>Ordreinformation: </h4>
+            <div class="col-sm-6">
+                <table class="table">
+                    <tr>
+                        <td>Top:</td>
+                        <td>Bund:</td>
+                        <td>Pris:</td>
+                    </tr>
                     <c:forEach items="${requestScope.currentcart.getCupcakeList()}" var="cupcake">
                         <tr>
                             <td>${cupcake.top.getName()}</td>
@@ -41,30 +41,24 @@
                             <td>${cupcake.price} .kr</td>
                         </tr>
                     </c:forEach>
-                  <tr>
+                    <tr>
                         <td>Kan afhentes: ${requestScope.readyTime}</td>
                         <td></td>
                         <td><b>Total: ${requestScope.currentcart.getTotalPrice()} .kr</b></td>
-                  </tr>
-              </table>
-          </div>
-          <div class="col-sm-6">
-              <br><br><br><br><br><br><br>
-              <div class="row">
-                  <div class="col-sm-12">
-                      <a class="btn btn-primary" href="ToOrder">
-                          Lav en ny ordre
-                      </a>
-                  </div>
-              </div>
-          </div>
-      </div>
-<%--      <div class="row">--%>
-<%--          <div class="col-sm-7"></div>--%>
-<%--          <div class="col-sm-5">--%>
-
-<%--          </div>--%>
-<%--      </div>--%>
-  </jsp:body>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-6">
+                <br><br><br><br><br><br><br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <a class="btn btn-primary" href="ToOrder">
+                            Lav en ny ordre
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </jsp:body>
 
 </t:pagetemplate>

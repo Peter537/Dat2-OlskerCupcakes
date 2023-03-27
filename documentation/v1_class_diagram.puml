@@ -19,13 +19,6 @@ class Bottom {
   - id: int
   - price: float
   - name: String
-  + getName(): String
-  + toString(): String
-  + setName(String): void
-  + getPrice(): float
-  + getId(): int
-  + setId(int): void
-  + setPrice(float): void
 }
 
 class ConnectionPool {
@@ -44,13 +37,6 @@ class Cupcake {
   - id: int
   - bottom: Bottom
   - top: Top
-  + getId(): int
-  + getTop(): Top
-  + setTop(Top): void
-  + getBottom(): Bottom
-  + toString(): String
-  + setId(int): void
-  + setBottom(Bottom): void
   + getPrice(): float
 }
 
@@ -84,19 +70,8 @@ class Order {
   - readyTime: LocalDateTime
   - shoppingCart: ShoppingCart
   - status: OrderStatus
-  + setReadyTime(LocalDateTime): void
-  + getShoppingCart(): ShoppingCart
-  + toString(): String
-  + getUser(): User
-  + getStatus(): OrderStatus
-  + setUser(User): void
-  + setShoppingCart(ShoppingCart): void
-  + getReadyTime(): LocalDateTime
   + getFormattedReadyTime(): String
-  + setId(int): void
-  + setStatus(OrderStatus): void
   + getCupcakeCount(): int
-  + getId(): int
   + getPrice(): float
 }
 
@@ -126,13 +101,11 @@ enum OrderStatus << enumeration >> {
   + READY:
   + IN_SHOPPING_CART:
   + PENDING:
-  - value: int
   + DELIVERED:
+  - value: int
   - name: String
   + valueOf(String): OrderStatus
-  + getName(): String
   + values(): OrderStatus[]
-  + getValue(): int
 }
 
 enum Role << enumeration >> {
@@ -140,7 +113,6 @@ enum Role << enumeration >> {
   + CUSTOMER:
   + ADMIN:
   - name: String
-  + getName(): String
   + values(): Role[]
   + valueOf(String): Role
 }
@@ -152,10 +124,8 @@ class ShoppingCart {
   + addCupcake(Cupcake): void
   + removeCupcake(Cupcake): void
   + clearCart(): void
-  + toString(): String
   + getTotalPrice(): float
   + removeCupcakeById(int): void
-  + getCupcakeList(): List<Cupcake>
 }
 
 class Top {
@@ -164,13 +134,6 @@ class Top {
   - name: String
   - price: float
   - id: int
-  + setPrice(float): void
-  + getId(): int
-  + getPrice(): float
-  + toString(): String
-  + setName(String): void
-  + setId(int): void
-  + getName(): String
 }
 
 class User {
@@ -181,23 +144,10 @@ class User {
   - email: String
   - password: String
   - balance: float
-  + setPassword(String): void
   + getFormattedBalance(): String
-  + getPassword(): String
   + addBalance(float): void
-  + setBalance(float): void
-  + toString(): String
-  + getEmail(): String
   + getOrders(): List<Order>
-  + equals(Object): boolean
   + getLastOrderStatus(): OrderStatus
-  + setCurrentOrder(Order): void
-  + getRole(): Role
-  + setRole(Role): void
-  + getCurrentOrder(): Order
-  + getBalance(): float
-  + hashCode(): int
-  + setEmail(String): void
 }
 
 class UserFacade {

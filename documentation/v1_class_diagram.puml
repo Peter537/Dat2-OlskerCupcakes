@@ -155,12 +155,12 @@ class UserFacade {
 }
 
 class UserMapper {
-  + setNewPassword(User, Connection): void
+  ~ setNewPassword(User, Connection): void
   ~ updateBalance(User, Connection, boolean): void
   ~ getAllUsers(Connection): List<User>
   ~ login(String, String, Connection): User
   ~ createUser(String, String, Role, Connection): User
-  + getUserByEmail(String, Connection): User
+  ~ getUserByEmail(String, Connection): User
 }
 
 ApplicationStart  "1" *-[#595959,plain]-> "connectionPool\n1" ConnectionPool

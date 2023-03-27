@@ -47,7 +47,7 @@ class UserMapper {
         }
     }
 
-    public static User getUserByEmail(String email, Connection connection) throws DatabaseException {
+    static User getUserByEmail(String email, Connection connection) throws DatabaseException {
         String sqlStatement = "SELECT * FROM user WHERE email = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
@@ -86,7 +86,7 @@ class UserMapper {
         return users;
     }
 
-    public static void setNewPassword(User user, Connection connection) throws DatabaseException {
+    static void setNewPassword(User user, Connection connection) throws DatabaseException {
         String sqlStatement = "UPDATE user SET password = ? WHERE email = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);

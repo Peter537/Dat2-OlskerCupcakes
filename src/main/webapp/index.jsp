@@ -9,7 +9,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="header">
-         Velkommen til Olsker Cupcakes
+        <h1>Velkommen til Olsker Cupcakes</h1>
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -31,21 +31,42 @@
         </c:if>
 
         <c:if test="${sessionScope.user == null}">
-            <p>For at fortsætte din bestilling, skal du logge ind.
-                <div class="row">
-                    <div class="col-sm-3">
-                    <a
-                        href="login.jsp">
-                    <button class="btn btn-primary">Login</button>
-                    </a>
-                    </div>
-                    <div class="col-sm-3">
-                    <a href="createuser.jsp">
-                    <button class="btn btn-primary">Register</button>
-                    </a>
-                    </div>
+
+            <p>
+            <h5 style="text-align: center;">Hos Olsker Cupcakes kan du købe cupcakes alle dage på ugen til Danmarks bedste pris.
+                Vi har altid friske cupcakes på lager, og vi har altid en masse forskellige smage.
+                Har du en specifik smag i tankerne, kan du bygge din helt egen cupcake med dine favorit smage.</h5>
+            <div class="row">
+
+                <div class="col-sm-5">
+
                 </div>
+
+                <div class="col-sm-2">
+                    <a href="login.jsp">
+                        <br>
+                        <br>
+                        <button class="btn btn-primary" style="width: 200px;height: 100px;font-size: 35px;font-weight: bold;text-align: center;">Log-in</button>
+                        <br>
+                        <br>
+                    </a>
+                </div>
+            </div>
+
             </p>
+
+            <div class="row">
+
+                <div class="col-sm-5">
+
+                </div>
+
+                <div class="col-sm-4">
+                Ikke allerede medlem?
+                <a href="createuser.jsp">Opret dig her!</a>
+            </div>
+
+            </div>
         </c:if>
 
     </jsp:body>

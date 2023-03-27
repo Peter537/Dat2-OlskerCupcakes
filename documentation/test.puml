@@ -1,0 +1,234 @@
+@startuml
+
+top to bottom direction
+skinparam linetype ortho
+
+class ApplicationStart {
+  - connectionPool: ConnectionPool
+  + getConnectionPool(): ConnectionPool
+  - unregisterJDBCdrivers(): void
+  - getPassword(ServletContextEvent): String
+  + contextInitialized(ServletContextEvent): void
+  + contextDestroyed(ServletContextEvent): void
+}
+class Bottom {
+  - name: String
+  - id: int
+  - price: float
+  + getName(): String
+  + setPrice(float): void
+  + setId(int): void
+  + getPrice(): float
+  + getId(): int
+  + setName(String): void
+  + toString(): String
+}
+
+class ConnectionPool {
+  - USER: String
+  - URL: String
+  - ds: HikariDataSource
+  + getConnection(): Connection
+  + close(): void
+}
+class Cupcake {
+  - top: Top
+  - id: int
+  - bottom: Bottom
+  + getTop(): Top
+  + getPrice(): float
+  + setId(int): void
+  + setTop(Top): void
+  + setBottom(Bottom): void
+  + getBottom(): Bottom
+  + getId(): int
+  + toString(): String
+}
+class CupcakeFacade {
+  + getBottomByName(String, Connection): Bottom
+  + getTopById(int, Connection): Top
+  + getAllBottoms(Connection): List<Bottom>
+  + getTopByName(String, Connection): Top
+  + getBottomById(int, Connection): Bottom
+  + getAllToppings(Connection): List<Top>
+}
+class CupcakeMapper {
+  ~ getTopByName(String, Connection): Top
+  ~ getTopById(int, Connection): Top
+  ~ getAllToppings(Connection): List<Top>
+  ~ getBottomByName(String, Connection): Bottom
+  ~ getBottomById(int, Connection): Bottom
+  ~ getAllBottoms(Connection): List<Bottom>
+}
+class CupcakeMapperTest {
+  - connection: Connection
+  - PASSWORD: String
+  - connectionPool: ConnectionPool
+  - URL: String
+  - USER: String
+  + testGetAllToppings(): void
+  + testGetBottomById_2(): void
+  + testGetAllBottoms(): void
+  + testGetTopById_1(): void
+  + testGetBottomById_1(): void
+  + testGetTopById_2(): void
+  + setUpClass(): void
+  ~ setUp(): void
+}
+class DatabaseException
+
+class Order {
+  - readyTime: LocalDateTime
+  - id: int
+  - status: OrderStatus
+  - user: User
+  + getReadyTime(): LocalDateTime
+  + setReadyTime(LocalDateTime): void
+  + getStatus(): OrderStatus
+  + getCupcakeCount(): int
+  + toString(): String
+  + getId(): int
+  + setUser(User): void
+  + getPrice(): float
+  + setId(int): void
+  + setStatus(OrderStatus): void
+  + getUser(): User
+}
+class OrderFacade {
+  + getAllOrdersByUser(User, Connection): List<Order>
+  + getAllOrders(Connection, boolean): List<Order>
+  + updateOrderStatus(int, OrderStatus, Connection, boolean): void
+  + getAllOrdersByUser(User, Connection, boolean): List<Order>
+  + updateOrderStatus(int, OrderStatus, Connection): void
+  + getAllOrders(Connection): List<Order>
+  + createOrder(Order, Connection): void
+  + createOrder(Order, Connection, boolean): void
+}
+class OrderMapper {
+  - getShoppingCartByOrderId(int, Connection): ShoppingCart
+  ~ createOrder(Order, Connection, boolean): void
+  ~ getAllOrders(Connection, boolean): List<Order>
+  ~ getAllOrdersByUser(User, Connection, boolean): List<Order>
+  ~ updateOrderStatus(int, OrderStatus, Connection, boolean): void
+}
+class OrderMapperTest {
+  - connectionPool: ConnectionPool
+  - connection: Connection
+  - USER: String
+  - PASSWORD: String
+  - URL: String
+  + testGetAllOrdersByUser_ben(): void
+  ~ setUp(): void
+  + testGetAllOrdersByUser_user(): void
+  + testCreateOrder(): void
+  + testGetAllOrders(): void
+  + testUpdateOrder(): void
+  + setUpClass(): void
+}
+enum OrderStatus << enumeration >> {
+  + READY:
+  - value: int
+  + CANCELLED:
+  + IN_SHOPPING_CART:
+  + PENDING:
+  + DELIVERED:
+  + valueOf(String): OrderStatus
+  + getValue(): int
+  + values(): OrderStatus[]
+}
+
+enum Role << enumeration >> {
+  + ADMIN:
+  + CUSTOMER:
+  + values(): Role[]
+  + valueOf(String): Role
+}
+class ShoppingCart {
+  - cupcakeList: List<Cupcake>
+  + getCupcakeList(): List<Cupcake>
+  + getTotalPrice(): float
+  + addCupcake(Cupcake): void
+  + toString(): String
+  + removeCupcake(Cupcake): void
+  + clearCart(): void
+}
+
+class Top {
+  - id: int
+  - name: String
+  - price: float
+  + getName(): String
+  + setPrice(float): void
+  + setName(String): void
+  + getId(): int
+  + getPrice(): float
+  + toString(): String
+  + setId(int): void
+}
+
+class User {
+  - password: String
+  - balance: float
+  - role: Role
+  - email: String
+  - shoppingCart: ShoppingCart
+  + setBalance(float): void
+  + addBalance(float): void
+  + setEmail(String): void
+  + getRole(): Role
+  + getShoppingCart(): ShoppingCart
+  + getLastOrderStatus(): OrderStatus
+  + setPassword(String): void
+  + setRole(Role): void
+  + setShoppingCart(ShoppingCart): void
+  + toString(): String
+  + getBalance(): float
+  + getOrders(): List<Order>
+  + equals(Object): boolean
+  + getEmail(): String
+  + getPassword(): String
+  + hashCode(): int
+}
+class UserFacade {
+  + getUserByEmail(String, Connection): User
+  + getAllUsers(Connection): List<User>
+  + login(String, String, Connection): User
+  + createUser(String, String, Role, Connection): User
+  + updateBalance(User, Connection): void
+  + setNewPassword(User, Connection): void
+}
+class UserMapper {
+  ~ login(String, String, Connection): User
+  ~ getAllUsers(Connection): List<User>
+  + getUserByEmail(String, Connection): User
+  ~ updateBalance(User, Connection, boolean): void
+  ~ createUser(String, String, Role, Connection): User
+  + setNewPassword(User, Connection): void
+}
+class UserMapperTest {
+  - PASSWORD: String
+  - URL: String
+  - connection: Connection
+  - USER: String
+  - connectionPool: ConnectionPool
+  ~ testConnection(): void
+  ~ login(): void
+  ~ invalidPasswordLogin(): void
+  + setUpClass(): void
+  ~ createUser(): void
+  ~ invalidUserNameLogin(): void
+  ~ setUp(): void
+}
+
+ApplicationStart   "1" *-[#bbbbbb,plain]-> "connectionPool\n1" ConnectionPool
+Cupcake            "1" *-[#bbbbbb,plain]-> "bottom\n1" Bottom
+Cupcake            "1" *-[#bbbbbb,plain]-> "top\n1" Top
+CupcakeMapperTest  "1" *-[#bbbbbb,plain]-> "connectionPool\n1" ConnectionPool
+Order              "1" *-[#bbbbbb,plain]-> "status\n1" OrderStatus
+Order              "1" *-[#bbbbbb,plain]-> "user\n1" User
+OrderMapperTest    "1" *-[#bbbbbb,plain]-> "connectionPool\n1" ConnectionPool
+ShoppingCart       "1" *-[#bbbbbb,plain]-> "cupcakeList\n*" Cupcake
+User               "1" *-[#bbbbbb,plain]-> "role\n1" Role
+User               "1" *-[#bbbbbb,plain]-> "shoppingCart\n1" ShoppingCart
+UserMapperTest     "1" *-[#bbbbbb,plain]-> "connectionPool\n1" ConnectionPool
+@enduml

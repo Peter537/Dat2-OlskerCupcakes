@@ -177,8 +177,8 @@ ShoppingCart      "1" *-[#595959,plain]-> "cupcakeList\n*" Cupcake
 Cupcake           "1" *-[#595959,plain]-> "bottom\n1" Bottom
 Cupcake           "1" *-[#595959,plain]-> "top\n1" Top
 
-UserFacade        "1" *-[#595959,plain]-> "userMapper\n1" UserMapper
-CupcakeFacade     "1" *-[#595959,plain]-> "cupcakeMapper\n1" CupcakeMapper
-OrderFacade       "1" *-[#595959,plain]-> "orderMapper\n1" OrderMapper
+UserFacade        "1" -[#595959,plain]-> "userMapper\n1" UserMapper
+CupcakeFacade     "1" -[#595959,plain]-> "cupcakeMapper\n1" CupcakeMapper
+OrderFacade       "1" -[#595959,plain]-> "orderMapper\n1" OrderMapper
 
 @enduml

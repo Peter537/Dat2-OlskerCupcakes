@@ -37,7 +37,7 @@
             <div class="collapse navbar-collapse justify-content-start" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-item nav-link navtext" href="ToUserpage">Min side</a>
-                    <a class="nav-item nav-link navtext" href="ToMyOrders">Mine ordre</a>
+                    <a class="nav-item nav-link navtext" href="ToMyOrders">Mine ordrer</a>
                     <a class="nav-item nav-link navtext" href="ToOrder">Bestil</a>
                     <c:if test="${sessionScope.user == null }">
                         <a class="nav-item nav-link navtext" href="${pageContext.request.contextPath}/login.jsp">Login</a>

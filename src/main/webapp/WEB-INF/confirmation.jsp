@@ -10,7 +10,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="header">
-        <h1>Order bekræftelse</h1>
+        <h1>Ordre bekræftelse</h1>
     </jsp:attribute>
 
   <jsp:attribute name="footer">
@@ -26,7 +26,7 @@
           <p>Dine cupcakes er bestilt!</p>
       </div>
       <div class="row">
-          <p>Data om din order: </p>
+          <p>Data om din ordre: </p>
           <div class="col-sm-6">
               <table class="table">
                   <tr>
@@ -53,7 +53,7 @@
               <div class="row">
                   <div class="col-sm-12">
                       <a class="btn btn-primary" href="ToOrder">
-                          Lav en ny order
+                          Lav en ny ordre
                       </a>
                   </div>
               </div>

@@ -30,7 +30,7 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Order nr.</th>
+                        <th>Ordre nr.</th>
                         <th>Pris</th>
                         <th>Antal cupcakes</th>
                         <th>Status</th>

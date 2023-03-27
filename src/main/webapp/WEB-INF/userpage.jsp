@@ -56,7 +56,7 @@
                 </div>
                 <br>
                 <div>
-                    <a class="btn btn-primary" style="box-sizing: border-box; width: 100%; font-size: 30px;" href="ToMyOrders">Mine ordre</a>
+                    <a class="btn btn-primary" style="box-sizing: border-box; width: 100%; font-size: 30px;" href="ToMyOrders">Mine ordrer</a>
                 </div>
             </div>
             <div style="text-align: center; margin: 5px">

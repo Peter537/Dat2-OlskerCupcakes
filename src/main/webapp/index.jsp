@@ -30,6 +30,8 @@
             </p>
         </c:if>
 
+
+
         <c:if test="${sessionScope.user == null}">
 
             <p>
@@ -46,9 +48,7 @@
                     <a href="login.jsp">
                         <br>
                         <br>
-                        <button class="btn btn-primary" style="width: 200px;height: 100px;font-size: 35px;font-weight: bold;text-align: center;">Log-in</button>
-                        <br>
-                        <br>
+                        <button class="btn btn-primary" style="width: 200px;height: 100px;font-size: 35px; font-weight: bold;text-align: center;">Log-in</button>                        <br>
                     </a>
                 </div>
             </div>
@@ -63,11 +63,22 @@
 
                 <div class="col-sm-4">
                 Ikke allerede medlem?
-                <a href="createuser.jsp">Opret dig her!</a>
+                    <a style="color: red; " href="createuser.jsp">Opret dig her!</a>
             </div>
 
             </div>
         </c:if>
+
+        <style>
+            .btn-primary {
+                background-color: green !important;
+                border-color: green !important;
+            }
+            .btn-primary:hover {
+                background-color: darkgreen !important;
+                border-color: darkgreen !important;
+            }
+        </style>
 
     </jsp:body>
 

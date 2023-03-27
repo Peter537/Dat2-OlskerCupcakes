@@ -62,10 +62,10 @@ public class Login extends HttpServlet {
                 request.getRequestDispatcher("WEB-INF/adminpage.jsp").forward(request, response);
                 return;
             }
-            request.getRequestDispatcher("WEB-INF/userpage.jsp").forward(request, response);
+          request.getRequestDispatcher("WEB-INF/userpage.jsp").forward(request, response);
         } catch (DatabaseException e) {
             request.setAttribute("errormessage", e.getMessage());
-            if (e.getMessage().equals("Wrong email or password")) {
+            if (e.getMessage().equals("Wrong username or password")) {
                 request.setAttribute("msg", "Wrong email or password");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
                 return;

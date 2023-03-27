@@ -88,10 +88,10 @@ class OrderFacade {
 
 class OrderMapper {
   ~ updateOrderStatus(int, OrderStatus, Connection, boolean): void
-  - getShoppingCartByOrderId(int, Connection): ShoppingCart
   ~ getAllOrders(Connection, boolean): List<Order>
   ~ createOrder(Order, Connection, boolean): void
   ~ getAllOrdersByUser(User, Connection, boolean): List<Order>
+  - getShoppingCartByOrderId(int, Connection): ShoppingCart
 }
 
 enum OrderStatus << enumeration >> {

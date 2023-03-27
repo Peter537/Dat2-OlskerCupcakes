@@ -55,7 +55,6 @@ class Cupcake {
 }
 
 class CupcakeFacade {
-  + CupcakeFacade():
   + getBottomById(int, Connection): Bottom
   + getAllToppings(Connection): List<Top>
   + getTopById(int, Connection): Top
@@ -63,7 +62,6 @@ class CupcakeFacade {
 }
 
 class CupcakeMapper {
-  ~ CupcakeMapper():
   ~ getAllToppings(Connection): List<Top>
   ~ getBottomById(int, Connection): Bottom
   ~ getAllBottoms(Connection): List<Bottom>
@@ -103,7 +101,6 @@ class Order {
 }
 
 class OrderFacade {
-  + OrderFacade():
   + getAllOrdersByUser(User, Connection, boolean): List<Order>
   + createOrder(Order, Connection): void
   + getAllOrdersSortedByStatus(Connection): List<Order>
@@ -116,7 +113,6 @@ class OrderFacade {
 }
 
 class OrderMapper {
-  ~ OrderMapper():
   ~ updateOrderStatus(int, OrderStatus, Connection, boolean): void
   - getShoppingCartByOrderId(int, Connection): ShoppingCart
   ~ getAllOrders(Connection, boolean): List<Order>
@@ -205,7 +201,6 @@ class User {
 }
 
 class UserFacade {
-  + UserFacade():
   + getAllUsers(Connection): List<User>
   + setNewPassword(User, Connection): void
   + login(String, String, Connection): User
@@ -215,7 +210,6 @@ class UserFacade {
 }
 
 class UserMapper {
-  ~ UserMapper():
   + setNewPassword(User, Connection): void
   ~ updateBalance(User, Connection, boolean): void
   ~ getAllUsers(Connection): List<User>
@@ -225,13 +219,21 @@ class UserMapper {
 }
 
 ApplicationStart  "1" *-[#595959,plain]-> "connectionPool\n1" ConnectionPool
-Cupcake           "1" *-[#595959,plain]-> "bottom\n1" Bottom
-Cupcake           "1" *-[#595959,plain]-> "top\n1" Top
+
+User              "1" *-[#595959,plain]-> "currentOrder\n1" Order
+User              "1" *-[#595959,plain]-> "role\n1" Role
+
 Order             "1" *-[#595959,plain]-> "status\n1" OrderStatus
 Order             "1" *-[#595959,plain]-> "shoppingCart\n1" ShoppingCart
 Order             "1" *-[#595959,plain]-> "user\n1" User
+
 ShoppingCart      "1" *-[#595959,plain]-> "cupcakeList\n*" Cupcake
-User              "1" *-[#595959,plain]-> "currentOrder\n1" Order
-User              "1" *-[#595959,plain]-> "role\n1" Role
+
+Cupcake           "1" *-[#595959,plain]-> "bottom\n1" Bottom
+Cupcake           "1" *-[#595959,plain]-> "top\n1" Top
+
+UserFacade        "1" *-[#595959,plain]-> "userMapper\n1" UserMapper
+CupcakeFacade     "1" *-[#595959,plain]-> "cupcakeMapper\n1" CupcakeMapper
+OrderFacade       "1" *-[#595959,plain]-> "orderMapper\n1" OrderMapper
 
 @enduml

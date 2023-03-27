@@ -4,197 +4,234 @@ top to bottom direction
 skinparam linetype ortho
 
 class ApplicationStart {
+  + ApplicationStart():
   - connectionPool: ConnectionPool
-  + getConnectionPool(): ConnectionPool
-  - unregisterJDBCdrivers(): void
-  - getPassword(ServletContextEvent): String
   + contextInitialized(ServletContextEvent): void
   + contextDestroyed(ServletContextEvent): void
+  - unregisterJDBCdrivers(): void
+  + getConnectionPool(): ConnectionPool
+  - getPassword(ServletContextEvent): String
 }
 
 class Bottom {
-  - name: String
+  + Bottom(String, float):
+  + Bottom(int, String, float):
   - id: int
   - price: float
+  - name: String
   + getName(): String
-  + setPrice(float): void
-  + setId(int): void
+  + toString(): String
+  + setName(String): void
   + getPrice(): float
   + getId(): int
-  + setName(String): void
-  + toString(): String
+  + setId(int): void
+  + setPrice(float): void
 }
 
 class ConnectionPool {
+  + ConnectionPool(String, String, String):
+  + ConnectionPool(String):
+  - ds: HikariDataSource
   - USER: String
   - URL: String
-  - ds: HikariDataSource
   + getConnection(): Connection
   + close(): void
 }
 
 class Cupcake {
-  - top: Top
+  + Cupcake(int, Bottom, Top):
+  + Cupcake(Bottom, Top):
   - id: int
   - bottom: Bottom
-  + getTop(): Top
-  + getPrice(): float
-  + setId(int): void
-  + setTop(Top): void
-  + setBottom(Bottom): void
-  + getBottom(): Bottom
+  - top: Top
   + getId(): int
+  + getTop(): Top
+  + setTop(Top): void
+  + getBottom(): Bottom
   + toString(): String
+  + setId(int): void
+  + setBottom(Bottom): void
+  + getPrice(): float
 }
 
 class CupcakeFacade {
-  + getBottomByName(String, Connection): Bottom
-  + getTopById(int, Connection): Top
-  + getAllBottoms(Connection): List<Bottom>
-  + getTopByName(String, Connection): Top
+  + CupcakeFacade():
   + getBottomById(int, Connection): Bottom
   + getAllToppings(Connection): List<Top>
+  + getTopById(int, Connection): Top
+  + getAllBottoms(Connection): List<Bottom>
 }
 
 class CupcakeMapper {
-  ~ getTopByName(String, Connection): Top
-  ~ getTopById(int, Connection): Top
+  ~ CupcakeMapper():
   ~ getAllToppings(Connection): List<Top>
-  ~ getBottomByName(String, Connection): Bottom
   ~ getBottomById(int, Connection): Bottom
   ~ getAllBottoms(Connection): List<Bottom>
+  ~ getTopById(int, Connection): Top
 }
 
-class DatabaseException
+class DatabaseException {
+  + DatabaseException(Exception, String):
+  + DatabaseException(String):
+}
 
 class Order {
-  - readyTime: LocalDateTime
+  + Order(User):
+  + Order(int, User, LocalDateTime):
+  + Order(User, LocalDateTime):
+  + Order(int, User, LocalDateTime, OrderStatus):
+  + Order(int, User, LocalDateTime, ShoppingCart, OrderStatus):
   - id: int
-  - status: OrderStatus
   - user: User
-  + getReadyTime(): LocalDateTime
+  - readyTime: LocalDateTime
+  - shoppingCart: ShoppingCart
+  - status: OrderStatus
   + setReadyTime(LocalDateTime): void
-  + getStatus(): OrderStatus
-  + getCupcakeCount(): int
+  + getShoppingCart(): ShoppingCart
   + toString(): String
-  + getId(): int
+  + getUser(): User
+  + getStatus(): OrderStatus
   + setUser(User): void
-  + getPrice(): float
+  + setShoppingCart(ShoppingCart): void
+  + getReadyTime(): LocalDateTime
+  + getFormattedReadyTime(): String
   + setId(int): void
   + setStatus(OrderStatus): void
-  + getUser(): User
+  + getCupcakeCount(): int
+  + getId(): int
+  + getPrice(): float
 }
 
 class OrderFacade {
-  + getAllOrdersByUser(User, Connection): List<Order>
-  + getAllOrders(Connection, boolean): List<Order>
-  + updateOrderStatus(int, OrderStatus, Connection, boolean): void
+  + OrderFacade():
   + getAllOrdersByUser(User, Connection, boolean): List<Order>
-  + updateOrderStatus(int, OrderStatus, Connection): void
-  + getAllOrders(Connection): List<Order>
   + createOrder(Order, Connection): void
+  + getAllOrdersSortedByStatus(Connection): List<Order>
   + createOrder(Order, Connection, boolean): void
+  + getAllOrders(Connection): List<Order>
+  + getAllOrders(Connection, boolean): List<Order>
+  + updateOrderStatus(int, OrderStatus, Connection): void
+  + updateOrderStatus(int, OrderStatus, Connection, boolean): void
+  + getAllOrdersByUser(User, Connection): List<Order>
 }
 
 class OrderMapper {
-  - getShoppingCartByOrderId(int, Connection): ShoppingCart
-  ~ createOrder(Order, Connection, boolean): void
-  ~ getAllOrders(Connection, boolean): List<Order>
-  ~ getAllOrdersByUser(User, Connection, boolean): List<Order>
+  ~ OrderMapper():
   ~ updateOrderStatus(int, OrderStatus, Connection, boolean): void
+  - getShoppingCartByOrderId(int, Connection): ShoppingCart
+  ~ getAllOrders(Connection, boolean): List<Order>
+  ~ createOrder(Order, Connection, boolean): void
+  ~ getAllOrdersByUser(User, Connection, boolean): List<Order>
 }
 
 enum OrderStatus << enumeration >> {
-  + READY:
-  - value: int
+  - OrderStatus(String, int):
   + CANCELLED:
+  + READY:
   + IN_SHOPPING_CART:
   + PENDING:
+  - value: int
   + DELIVERED:
+  - name: String
   + valueOf(String): OrderStatus
-  + getValue(): int
+  + getName(): String
   + values(): OrderStatus[]
+  + getValue(): int
 }
 
 enum Role << enumeration >> {
-  + ADMIN:
+  - Role(String):
   + CUSTOMER:
+  + ADMIN:
+  - name: String
+  + getName(): String
   + values(): Role[]
   + valueOf(String): Role
 }
 
 class ShoppingCart {
+  + ShoppingCart():
   - cupcakeList: List<Cupcake>
-  + getCupcakeList(): List<Cupcake>
-  + getTotalPrice(): float
+  + getTotalAmount(): int
   + addCupcake(Cupcake): void
-  + toString(): String
   + removeCupcake(Cupcake): void
   + clearCart(): void
+  + toString(): String
+  + getTotalPrice(): float
+  + removeCupcakeById(int): void
+  + getCupcakeList(): List<Cupcake>
 }
 
 class Top {
-  - id: int
+  + Top(int, String, float):
+  + Top(String, float):
   - name: String
   - price: float
-  + getName(): String
+  - id: int
   + setPrice(float): void
-  + setName(String): void
   + getId(): int
   + getPrice(): float
   + toString(): String
+  + setName(String): void
   + setId(int): void
+  + getName(): String
 }
 
 class User {
+  + User(String, String, Role):
+  + User(String, String, Role, float):
+  - role: Role
+  - currentOrder: Order
+  - email: String
   - password: String
   - balance: float
-  - role: Role
-  - email: String
-  - shoppingCart: ShoppingCart
-  + setBalance(float): void
-  + addBalance(float): void
-  + setEmail(String): void
-  + getRole(): Role
-  + getShoppingCart(): ShoppingCart
-  + getLastOrderStatus(): OrderStatus
   + setPassword(String): void
-  + setRole(Role): void
-  + setShoppingCart(ShoppingCart): void
+  + getFormattedBalance(): String
+  + getPassword(): String
+  + addBalance(float): void
+  + setBalance(float): void
   + toString(): String
-  + getBalance(): float
+  + getEmail(): String
   + getOrders(): List<Order>
   + equals(Object): boolean
-  + getEmail(): String
-  + getPassword(): String
+  + getLastOrderStatus(): OrderStatus
+  + setCurrentOrder(Order): void
+  + getRole(): Role
+  + setRole(Role): void
+  + getCurrentOrder(): Order
+  + getBalance(): float
   + hashCode(): int
+  + setEmail(String): void
 }
 
 class UserFacade {
-  + getUserByEmail(String, Connection): User
+  + UserFacade():
   + getAllUsers(Connection): List<User>
-  + login(String, String, Connection): User
-  + createUser(String, String, Role, Connection): User
-  + updateBalance(User, Connection): void
   + setNewPassword(User, Connection): void
+  + login(String, String, Connection): User
+  + getUserByEmail(String, Connection): User
+  + updateBalance(User, Connection): void
+  + createUser(String, String, Role, Connection): User
 }
 
 class UserMapper {
-  ~ login(String, String, Connection): User
-  ~ getAllUsers(Connection): List<User>
-  + getUserByEmail(String, Connection): User
-  ~ updateBalance(User, Connection, boolean): void
-  ~ createUser(String, String, Role, Connection): User
+  ~ UserMapper():
   + setNewPassword(User, Connection): void
+  ~ updateBalance(User, Connection, boolean): void
+  ~ getAllUsers(Connection): List<User>
+  ~ login(String, String, Connection): User
+  ~ createUser(String, String, Role, Connection): User
+  + getUserByEmail(String, Connection): User
 }
 
-ApplicationStart   "1" *-[#bbbbbb,plain]-> "connectionPool\n1" ConnectionPool
-Cupcake            "1" *-[#bbbbbb,plain]-> "bottom\n1" Bottom
-Cupcake            "1" *-[#bbbbbb,plain]-> "top\n1" Top
-Order              "1" *-[#bbbbbb,plain]-> "status\n1" OrderStatus
-Order              "1" *-[#bbbbbb,plain]-> "user\n1" User
-ShoppingCart       "1" *-[#bbbbbb,plain]-> "cupcakeList\n*" Cupcake
-User               "1" *-[#bbbbbb,plain]-> "role\n1" Role
-User               "1" *-[#bbbbbb,plain]-> "shoppingCart\n1" ShoppingCart
+ApplicationStart  "1" *-[#595959,plain]-> "connectionPool\n1" ConnectionPool
+Cupcake           "1" *-[#595959,plain]-> "bottom\n1" Bottom
+Cupcake           "1" *-[#595959,plain]-> "top\n1" Top
+Order             "1" *-[#595959,plain]-> "status\n1" OrderStatus
+Order             "1" *-[#595959,plain]-> "shoppingCart\n1" ShoppingCart
+Order             "1" *-[#595959,plain]-> "user\n1" User
+ShoppingCart      "1" *-[#595959,plain]-> "cupcakeList\n*" Cupcake
+User              "1" *-[#595959,plain]-> "currentOrder\n1" Order
+User              "1" *-[#595959,plain]-> "role\n1" Role
 
 @enduml

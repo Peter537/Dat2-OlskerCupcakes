@@ -26,10 +26,10 @@ public class AddToCart extends HttpServlet {
             request.setAttribute("bottom", null);
             request.setAttribute("topping", null);
             request.setAttribute("msg", "Tilføjet til kurv");
-            request.getRequestDispatcher("WEB-INF/order.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/SelectCupcake.jsp").forward(request, response);
         } catch (Exception e) {
             request.setAttribute("msg", "Der skete en fejl");
-            request.getRequestDispatcher("WEB-INF/order.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/SelectCupcake.jsp").forward(request, response);
         }
     }
 }

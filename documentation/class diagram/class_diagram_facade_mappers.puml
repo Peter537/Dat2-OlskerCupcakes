@@ -1,0 +1,59 @@
+@startuml
+
+class CupcakeFacade {
+  + getBottomById(int, Connection): Bottom
+  + getAllToppings(Connection): List<Top>
+  + getTopById(int, Connection): Top
+  + getAllBottoms(Connection): List<Bottom>
+}
+
+class CupcakeMapper {
+  ~ getAllToppings(Connection): List<Top>
+  ~ getBottomById(int, Connection): Bottom
+  ~ getAllBottoms(Connection): List<Bottom>
+  ~ getTopById(int, Connection): Top
+}
+
+class OrderFacade {
+  + getAllOrdersByUser(User, Connection, boolean): List<Order>
+  + createOrder(Order, Connection): void
+  + getAllOrdersSortedByStatus(Connection): List<Order>
+  + createOrder(Order, Connection, boolean): void
+  + getAllOrders(Connection): List<Order>
+  + getAllOrders(Connection, boolean): List<Order>
+  + updateOrderStatus(int, OrderStatus, Connection): void
+  + updateOrderStatus(int, OrderStatus, Connection, boolean): void
+  + getAllOrdersByUser(User, Connection): List<Order>
+}
+
+class OrderMapper {
+  ~ updateOrderStatus(int, OrderStatus, Connection, boolean): void
+  ~ getAllOrders(Connection, boolean): List<Order>
+  ~ createOrder(Order, Connection, boolean): void
+  ~ getAllOrdersByUser(User, Connection, boolean): List<Order>
+  - getShoppingCartByOrderId(int, Connection): ShoppingCart
+}
+
+class UserFacade {
+  + getAllUsers(Connection): List<User>
+  + setNewPassword(User, Connection): void
+  + login(String, String, Connection): User
+  + getUserByEmail(String, Connection): User
+  + updateBalance(User, Connection): void
+  + createUser(String, String, Role, Connection): User
+}
+
+class UserMapper {
+  ~ setNewPassword(User, Connection): void
+  ~ updateBalance(User, Connection, boolean): void
+  ~ getAllUsers(Connection): List<User>
+  ~ login(String, String, Connection): User
+  ~ createUser(String, String, Role, Connection): User
+  ~ getUserByEmail(String, Connection): User
+}
+
+UserFacade            -[#595959,plain]-> UserMapper
+CupcakeFacade         -[#595959,plain]-> CupcakeMapper
+OrderFacade           -[#595959,plain]-> OrderMapper
+
+@enduml

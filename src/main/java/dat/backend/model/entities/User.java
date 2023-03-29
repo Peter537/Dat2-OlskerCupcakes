@@ -1,73 +1,116 @@
 package dat.backend.model.entities;
 
-import java.util.Objects;
+import dat.backend.model.config.ApplicationStart;
+import dat.backend.model.exceptions.DatabaseException;
+import dat.backend.model.persistence.OrderFacade;
 
-public class User
-{
-    private String username;
+import java.sql.SQLException;
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
+
+public class User {
+
+    private String email;
     private String password;
-    private String role;
+    private Role role;
+    private Order currentOrder;
+    private float balance;
 
-    public User(String username, String password, String role)
-    {
-        this.username = username;
+    public User(String email, String password, Role role) {
+        this.email = email;
         this.password = password;
+        this.role = role;
+        this.balance = 0;
+        this.currentOrder = new Order(this);
+    }
+
+    public User(String email, String password, Role role, float balance) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.currentOrder = new Order(this);
+        this.balance = balance;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return this.role;
+    }
+
+    public void setRole(Role role) {
         this.role = role;
     }
 
-    public String getUsername()
-    {
-        return username;
+    public Order getCurrentOrder() {
+        return this.currentOrder;
     }
 
-    public void setUsername(String username)
-    {
-        this.username = username;
+    public void setCurrentOrder(Order currentOrder) {
+        this.currentOrder = currentOrder;
     }
 
-    public String getPassword()
-    {
-        return password;
+    public float getBalance() {
+        return this.balance;
     }
 
-    public void setPassword(String password)
-    {
-        this.password = password;
+    public void addBalance(float amount) {
+        this.balance += amount;
     }
 
-    public String getRole()
-    {
-        return role;
+    public void setBalance(float balance) {
+        this.balance = balance;
     }
 
-    public void setRole(String role)
-    {
-        this.role = role;
+    public List<Order> getOrders() {
+        try {
+            return OrderFacade.getAllOrdersByUser(this, ApplicationStart.getConnectionPool().getConnection());
+        } catch (DatabaseException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public OrderStatus getLastOrderStatus() {
+        return this.getOrders().get(this.getOrders().size() - 1).getStatus();
+    }
+
+    public String getFormattedBalance() {
+        return NumberFormat.getNumberInstance(Locale.GERMAN).format(this.balance);
     }
 
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return getUsername().equals(user.getUsername()) && getPassword().equals(user.getPassword()) &&
-                getRole().equals(user.getRole());
+        return this.getEmail().equals(user.getEmail()) &&
+                this.getPassword().equals(user.getPassword()) &&
+                this.getRole() == user.getRole();
     }
 
     @Override
-    public int hashCode()
-    {
-        return Objects.hash(getUsername(), getPassword(), getRole());
-    }
-
-    @Override
-    public String toString()
-    {
+    public String toString() {
         return "User{" +
-                "brugerNavn='" + username + '\'' +
-                ", kodeord='" + password + '\'' +
-                ", rolle='" + role + '\'' +
+                "email='" + this.getEmail() + '\'' +
+                ", password='" + this.getPassword() + '\'' +
+                ", role=" + this.getRole() +
+                ", currentOrder=" + this.getCurrentOrder() +
+                ", balance=" + this.getBalance() +
                 '}';
     }
 }

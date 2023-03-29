@@ -1,3 +1,3 @@
 # Rapport
 
-I dette directory kommer vores rapport.
+I dette directory er vores rapport.

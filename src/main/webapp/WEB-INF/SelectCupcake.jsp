@@ -15,37 +15,35 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="icon" href="<%=request.getContextPath()%>/images/logocupcake.png" type="image/png" sizes="16x16">
 <body>
+    <div class="col-sm-5" style="margin-left: 2%;margin-top: 2%;">
+        <form action="AddToCart" method="post" target="_self">
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-6 text-center">
+                    <a id="msgA" class="bg-warning h3" href="ToCart">${requestScope.msg}</a>
+                </div>
+            </div>
+            <div class="row">
 
+                <div class="col-sm-12 border rounded">
 
-<div class="col-sm-5" style="margin-left: 2%;margin-top: 2%;">
-<form action="AddToCart" method="post" target="_self">
-                                <div class="row">
-                                    <div class="col-sm-2"></div>
-                                    <div class="col-sm-6 text-center">
-                                        <a id="msgA" class="bg-warning h3" href="ToCart">${requestScope.msg}</a>
-                                    </div>
-                                </div>
-                                <div class="row">
+                    <div class="row">
+                        <c:if test="${sessionScope.cupcake != null}">
+                            <p>Topping pris: ${sessionScope.cupcake.getTop().getPrice()} kr.</p>
+                            <p>Bund pris: ${sessionScope.cupcake.getBottom().getPrice()} kr.</p>
+                            <p>Pris: ${sessionScope.cupcake.getPrice()} kr.</p>
+                        </c:if>
+                    </div>
 
-                                    <div class="col-sm-12 border rounded">
+                    <div class="row">
+                        <c:if test="${sessionScope.cupcake != null}">
+                            <input type="submit" class="btn btn-primary" formaction="AddToCart" formmethod="post" value="Tilføj til kurv">
+                        </c:if>
+                    </div>
+                </div>
 
-                                        <div class="row">
-                                            <c:if test="${sessionScope.cupcake != null}">
-                                                <p>Topping pris: ${sessionScope.cupcake.getTop().getPrice()} kr.</p>
-                                                <p>Bund pris: ${sessionScope.cupcake.getBottom().getPrice()} kr.</p>
-                                                <p>Pris: ${sessionScope.cupcake.getPrice()} kr.</p>
-                                            </c:if>
-                                        </div>
-
-                                        <div class="row">
-                                            <c:if test="${sessionScope.cupcake != null}">
-                                                <input type="submit" class="btn btn-primary" formaction="AddToCart" formmethod="post" value="Tilføj til kurv">
-                                            </c:if>
-                                        </div>
-                                    </div>
-
-                                </div>
-</form>
-</div>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

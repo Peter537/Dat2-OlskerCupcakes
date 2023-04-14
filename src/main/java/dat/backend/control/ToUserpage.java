@@ -14,11 +14,12 @@ public class ToUserpage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("user");
-        if (user == null)
+        if (user == null) {
             request.getRequestDispatcher("login.jsp").forward(request, response);
-        else if (user.getRole().equals(Role.ADMIN))
+        } else if (user.getRole().equals(Role.ADMIN)) {
             request.getRequestDispatcher("WEB-INF/adminpage.jsp").forward(request, response);
-        else
+        } else {
             request.getRequestDispatcher("WEB-INF/userpage.jsp").forward(request, response);
+        }
     }
 }

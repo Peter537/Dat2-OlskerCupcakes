@@ -22,10 +22,10 @@ public class CreateUser extends HttpServlet {
         try {
             Connection connection = ApplicationStart.getConnectionPool().getConnection();
             List<User> userList = UserFacade.getAllUsers(connection);
-            String newUsername = request.getParameter("username");
+            String newEmail = request.getParameter("email");
             String newUserPassword = request.getParameter("password");
             String confirmPassword = request.getParameter("confirmPassword");
-            if (userList.stream().anyMatch(user -> user.getEmail().equals(newUsername))) {
+            if (userList.stream().anyMatch(user -> user.getEmail().equals(newEmail))) {
                 request.setAttribute("errormessage", "Username already exists");
                 request.getRequestDispatcher("createuser.jsp").forward(request, response);
             }
@@ -34,8 +34,8 @@ public class CreateUser extends HttpServlet {
                 request.setAttribute("errormessage", "Passwords do not match");
                 request.getRequestDispatcher("createuser.jsp").forward(request, response);
             } else {
-                UserFacade.createUser(newUsername, newUserPassword, Role.CUSTOMER, connection);
-                User user = new User(newUsername, newUserPassword, Role.CUSTOMER);
+                UserFacade.createUser(newEmail, newUserPassword, Role.CUSTOMER, connection);
+                User user = new User(newEmail, newUserPassword, Role.CUSTOMER);
                 request.getSession().setAttribute("user", user);
                 request.getRequestDispatcher("WEB-INF/userpage.jsp").forward(request, response);
             }

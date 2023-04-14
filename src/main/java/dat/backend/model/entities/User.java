@@ -86,7 +86,11 @@ public class User {
     }
 
     public OrderStatus getLastOrderStatus() {
-        return this.getOrders().get(this.getOrders().size() - 1).getStatus();
+        try {
+            return this.getOrders().get(this.getOrders().size() - 1).getStatus();
+        } catch (IndexOutOfBoundsException e) {
+            return OrderStatus.NO_ORDERS;
+        }
     }
 
     public String getFormattedBalance() {

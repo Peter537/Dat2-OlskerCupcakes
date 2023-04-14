@@ -74,35 +74,6 @@
 
 
                                 <iframe name="iframe" src="CalculatePrice" sandbox="allow-forms" onload="this.style.height=(this.contentWindow.document.body.scrollHeight+20)+'px';" style="height: 300px;width: 600px;margin-left: 2%;">
-<%--                                    <div class="col-sm-5">--%>
-<%--                                <div class="row">--%>
-<%--                                    <div class="col-sm-5"></div>--%>
-<%--                                    <div class="col-sm-6 text-center">--%>
-<%--                                        <a id="msgA" class="bg-warning h3" href="ToCart">${requestScope.msg}</a>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                                <div class="row">--%>
-<%--                                    <div class="col-sm-5"></div>--%>
-
-<%--                                    <div class="col-sm-7 border rounded">--%>
-
-<%--&lt;%&ndash;                                        <div class="row">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                            <c:if test="${sessionScope.cupcake != null}">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                                <p>Topping pris: ${sessionScope.cupcake.getTop().getPrice()} kr.</p>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                                <p>Bund pris: ${sessionScope.cupcake.getBottom().getPrice()} kr.</p>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                                <p>Pris: ${sessionScope.cupcake.getPrice()} kr.</p>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                            </c:if>&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                        </div>&ndash;%&gt;--%>
-
-<%--                                        <div class="row">--%>
-<%--                                            <c:if test="${sessionScope.cupcake != null}">--%>
-<%--                                                <input type="submit" class="btn btn-primary" formaction="AddToCart" formmethod="post" value="Tilføj til kurv">--%>
-<%--                                            </c:if>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-
-<%--                                </div>--%>
-<%--                                </div>--%>
                                 </iframe>
                 </div>
             </div>

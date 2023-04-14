@@ -86,6 +86,10 @@ public class User {
     }
 
     public OrderStatus getLastOrderStatus() {
+        if (this.getOrders().size() == 0) {
+            return OrderStatus.NO_ORDERS;
+        }
+
         return this.getOrders().get(this.getOrders().size() - 1).getStatus();
     }
 

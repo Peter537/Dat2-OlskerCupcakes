@@ -1,6 +1,7 @@
 package dat.backend.model.entities;
 
 public enum OrderStatus {
+    NO_ORDERS("Ingen Ordre", 0),
     CANCELLED("Annulleret", 1),
     IN_SHOPPING_CART("I Indkøbskurv", 2),
     PENDING("Afventer", 4),

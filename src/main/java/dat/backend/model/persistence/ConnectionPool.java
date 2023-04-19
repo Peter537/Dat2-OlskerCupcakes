@@ -49,6 +49,9 @@ public class ConnectionPool {
 
     public void close() {
         Logger.getLogger("web").log(Level.INFO, "Shutting down connection pool");
+        if (ds == null || ds.isClosed()) {
+            return;
+        }
         ds.close();
     }
 }

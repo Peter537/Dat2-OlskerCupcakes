@@ -5,6 +5,7 @@ import dat.backend.model.entities.Order;
 import dat.backend.model.entities.Role;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
+import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.CupcakeFacade;
 import dat.backend.model.persistence.OrderFacade;
 import dat.backend.model.persistence.UserFacade;
@@ -26,15 +27,11 @@ import java.util.List;
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class Login extends HttpServlet {
 
-    private Connection connection;
+    private ConnectionPool connection;
 
     @Override
     public void init() {
-        try {
-            this.connection = ApplicationStart.getConnectionPool().getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        this.connection = ApplicationStart.getConnectionPool();
     }
 
     @Override
@@ -51,14 +48,14 @@ public class Login extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         try {
-            User user = UserFacade.login(email, password, connection);
+            User user = UserFacade.login(email, password, connection.getConnection());
             session = request.getSession();
             session.setAttribute("user", user); // adding user object to session scope
             if (user.getRole() == Role.ADMIN) {
-                Collection<User> users = UserFacade.getAllUsers(connection);
+                Collection<User> users = UserFacade.getAllUsers(connection.getConnection());
                 users.removeIf(user1 -> user1.getRole() == Role.ADMIN);
                 request.getSession().setAttribute("users", users);
-                request.getSession().setAttribute("orders", OrderFacade.getAllOrdersSortedByStatus(connection));
+                request.getSession().setAttribute("orders", OrderFacade.getAllOrdersSortedByStatus(connection.getConnection()));
                 request.getRequestDispatcher("WEB-INF/adminpage.jsp").forward(request, response);
                 return;
             }
@@ -71,6 +68,8 @@ public class Login extends HttpServlet {
                 return;
             }
             request.getRequestDispatcher("error.jsp").forward(request, response);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

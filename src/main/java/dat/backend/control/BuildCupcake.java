@@ -4,6 +4,7 @@ import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.Bottom;
 import dat.backend.model.entities.Cupcake;
 import dat.backend.model.entities.Top;
+import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.CupcakeFacade;
 
 import javax.servlet.*;
@@ -16,15 +17,11 @@ import java.sql.SQLException;
 @WebServlet(name = "BuildCupcake", value = "/BuildCupcake")
 public class BuildCupcake extends HttpServlet {
 
-    private Connection connection;
+    private ConnectionPool connection;
 
     @Override
     public void init() {
-        try {
-            connection = ApplicationStart.getConnectionPool().getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        connection = ApplicationStart.getConnectionPool();
     }
 
     @Override
@@ -33,8 +30,8 @@ public class BuildCupcake extends HttpServlet {
             int toppingID = Integer.parseInt(request.getParameter("toppingID"));
             int bottomID = Integer.parseInt(request.getParameter("bottomID"));
 
-            Top top = CupcakeFacade.getTopById(toppingID, connection);
-            Bottom bottom = CupcakeFacade.getBottomById(bottomID, connection);
+            Top top = CupcakeFacade.getTopById(toppingID, connection.getConnection());
+            Bottom bottom = CupcakeFacade.getBottomById(bottomID, connection.getConnection());
             Cupcake cupcake = new Cupcake(bottom, top);
 
             request.setAttribute("topping", top);

@@ -3,6 +3,7 @@ package dat.backend.control;
 import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
+import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.UserFacade;
 
 import javax.servlet.*;
@@ -15,15 +16,11 @@ import java.sql.SQLException;
 @WebServlet(name = "AddMoneyById", value = "/AddMoneyById")
 public class AddMoneyById extends HttpServlet {
 
-    private Connection connection;
+    private ConnectionPool connection;
 
     @Override
     public void init() {
-        try {
-            this.connection = ApplicationStart.getConnectionPool().getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        this.connection = ApplicationStart.getConnectionPool();
     }
 
     @Override
@@ -31,19 +28,19 @@ public class AddMoneyById extends HttpServlet {
         String userEmail = request.getParameter("userEmail");
         User user;
         try {
-            user = UserFacade.getUserByEmail(userEmail, connection);
-        } catch (DatabaseException e) {
+            user = UserFacade.getUserByEmail(userEmail, connection.getConnection());
+        } catch (DatabaseException | SQLException e) {
             throw new RuntimeException(e);
         }
 
         float amount = Float.parseFloat(request.getParameter("amount").replace(",", "."));
         try {
             user.addBalance(amount);
-            UserFacade.updateBalance(user, connection);
-            request.getSession().setAttribute("users", UserFacade.getAllUsers(connection));
+            UserFacade.updateBalance(user, connection.getConnection());
+            request.getSession().setAttribute("users", UserFacade.getAllUsers(connection.getConnection()));
         } catch (NumberFormatException e) {
             request.setAttribute("addMoneyError", "Inkorrekt beløb");
-        } catch (DatabaseException e) {
+        } catch (DatabaseException | SQLException e) {
             throw new RuntimeException(e);
         }
 

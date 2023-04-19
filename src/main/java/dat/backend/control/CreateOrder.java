@@ -6,6 +6,7 @@ import dat.backend.model.entities.OrderStatus;
 import dat.backend.model.entities.ShoppingCart;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
+import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.OrderFacade;
 import dat.backend.model.persistence.UserFacade;
 
@@ -21,15 +22,11 @@ import java.time.format.DateTimeFormatter;
 @WebServlet(name = "CreateOrder", value = "/CreateOrder")
 public class CreateOrder extends HttpServlet {
 
-    private Connection connection;
+    private ConnectionPool connection;
 
     @Override
     public void init() {
-        try {
-            this.connection = ApplicationStart.getConnectionPool().getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        this.connection = ApplicationStart.getConnectionPool();
     }
 
     @Override
@@ -44,8 +41,8 @@ public class CreateOrder extends HttpServlet {
         } else {
             user.setBalance(user.getBalance() - cart.getTotalPrice());
             try {
-                UserFacade.updateBalance(user, connection);
-            } catch (DatabaseException e) {
+                UserFacade.updateBalance(user, connection.getConnection());
+            } catch (DatabaseException | SQLException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -78,10 +75,11 @@ public class CreateOrder extends HttpServlet {
         user.getCurrentOrder().setReadyTime(readyTime);
         user.getCurrentOrder().setStatus(OrderStatus.PENDING);
         try {
-            OrderFacade.createOrder(user.getCurrentOrder(), connection);
-        } catch (DatabaseException e) {
+            OrderFacade.createOrder(user.getCurrentOrder(), connection.getConnection());
+        } catch (DatabaseException | SQLException e) {
             throw new RuntimeException(e);
         }
+
         request.setAttribute("order", user.getCurrentOrder());
         request.setAttribute("currentcart", cart);
         request.setAttribute("readyTime", readyTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));

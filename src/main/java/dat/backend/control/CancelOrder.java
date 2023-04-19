@@ -6,6 +6,7 @@ import dat.backend.model.entities.OrderStatus;
 import dat.backend.model.entities.Role;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
+import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.OrderFacade;
 
 import javax.servlet.*;
@@ -21,29 +22,25 @@ import java.util.List;
 @WebServlet(name = "CancelOrder", value = "/CancelOrder")
 public class CancelOrder extends HttpServlet {
 
-    private Connection connection;
+    private ConnectionPool connection;
 
     @Override
     public void init() {
-        try {
-            this.connection = ApplicationStart.getConnectionPool().getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        this.connection = ApplicationStart.getConnectionPool();
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int orderId = Integer.parseInt(request.getParameter("orderId"));
         try {
-            OrderFacade.updateOrderStatus(orderId, OrderStatus.CANCELLED, connection);
+            OrderFacade.updateOrderStatus(orderId, OrderStatus.CANCELLED, connection.getConnection());
             if (request.getSession().getAttribute("user") == null) {
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
 
             User user = (User) request.getSession().getAttribute("user");
             if (user.getRole() == Role.ADMIN) {
-                List<Order> orders = OrderFacade.getAllOrders(connection);
+                List<Order> orders = OrderFacade.getAllOrders(connection.getConnection());
                 orders.sort(Comparator.comparingInt(o -> o.getStatus().getValue()));
                 Collections.reverse(orders);
                 request.getSession().setAttribute("orders", orders);
@@ -51,7 +48,7 @@ public class CancelOrder extends HttpServlet {
             } else {
                 request.getRequestDispatcher("WEB-INF/userpage.jsp").forward(request, response);
             }
-        } catch (DatabaseException e) {
+        } catch (DatabaseException | SQLException e) {
             throw new RuntimeException(e);
         }
     }

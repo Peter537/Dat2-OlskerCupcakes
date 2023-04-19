@@ -4,6 +4,7 @@ import dat.backend.model.config.ApplicationStart;
 import dat.backend.model.entities.Order;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
+import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.OrderFacade;
 import dat.backend.model.persistence.UserFacade;
 
@@ -20,31 +21,27 @@ import java.util.List;
 @WebServlet(name = "AdminUserOverview", value = "/AdminUserOverview")
 public class AdminUserOverview extends HttpServlet {
 
-    private Connection connection;
+    private ConnectionPool connection;
 
     @Override
     public void init() {
-        try {
-            this.connection = ApplicationStart.getConnectionPool().getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        this.connection = ApplicationStart.getConnectionPool();
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user;
         try {
-            user = UserFacade.getUserByEmail(request.getParameter("chosenuser"), connection);
-        } catch (DatabaseException e) {
+            user = UserFacade.getUserByEmail(request.getParameter("chosenuser"), connection.getConnection());
+        } catch (DatabaseException | SQLException e) {
             throw new RuntimeException(e);
         }
 
         request.setAttribute("chosenuser", user);
         List<Order> orders = null;
         try {
-            orders = OrderFacade.getAllOrdersByUser(user, connection);
-        } catch (DatabaseException e) {
+            orders = OrderFacade.getAllOrdersByUser(user, connection.getConnection());
+        } catch (DatabaseException | SQLException e) {
             throw new RuntimeException(e);
         }
 

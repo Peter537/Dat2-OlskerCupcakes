@@ -48,10 +48,11 @@ public class ConnectionPool {
     }
 
     public void close() {
-        Logger.getLogger("web").log(Level.INFO, "Shutting down connection pool");
+        Logger.getLogger("web").log(Level.INFO, "Trying to shut down connection pool");
         if (ds == null || ds.isClosed()) {
             return;
         }
+
         ds.close();
     }
 }
